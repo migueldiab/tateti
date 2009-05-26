@@ -32,7 +32,7 @@ function checkResult(){
  var valorV3=trV[j+2].lastChild.previousSibling.innerHTML
  over=false
  if(valorV1==valorV2&&valorV2==valorV3&&valorV1!="&nbsp;&nbsp;&nbsp;")over=true;
-    if(over==true)alert(valor1 + " es el ganador");
+    if(over==true)alert(valorV1 + " es el ganador");
 
 //checkeo diagonal inf izq der sup
   valorV1=trV[j].lastChild.previousSibling.innerHTML
@@ -40,7 +40,7 @@ function checkResult(){
   valorV3=trV[j+2].firstChild.nextSibling.innerHTML
   over=false
   if(valorV1==valorV2&&valorV2==valorV3&&valorV1!="&nbsp;&nbsp;&nbsp;")over=true;
-    if(over==true)alert(valor1 + " es el ganador");
+    if(over==true)alert(valorV1 + " es el ganador");
 
 //checkeo vertical col 1
   valorV1=trV[j].firstChild.nextSibling.innerHTML
@@ -48,7 +48,7 @@ function checkResult(){
   valorV3=trV[j+2].firstChild.nextSibling.innerHTML
   over=false
    if(valorV1==valorV2&&valorV2==valorV3&&valorV1!="&nbsp;&nbsp;&nbsp;")over=true;
-    if(over==true)alert(valor1 + " es el ganador");
+    if(over==true)alert(valorV1 + " es el ganador");
 
 //checkeo vertical col 2
   valorV1=trV[j].firstChild.nextSibling.nextSibling.nextSibling.innerHTML
@@ -56,7 +56,7 @@ function checkResult(){
   valorV3=trV[j+2].firstChild.nextSibling.nextSibling.nextSibling.innerHTML
   over=false
   if(valorV1==valorV2&&valorV2==valorV3&&valorV1!="&nbsp;&nbsp;&nbsp;")over=true;
-    if(over==true)alert(valor1 + " es el ganador");
+    if(over==true)alert(valorV1 + " es el ganador");
     
 //checkeo vertical col 3
   valorV1=trV[j].lastChild.previousSibling.innerHTML
@@ -64,5 +64,5 @@ function checkResult(){
   valorV3=trV[j+2].lastChild.previousSibling.innerHTML
   over=false
   if(valorV1==valorV2&&valorV2==valorV3&&valorV1!="&nbsp;&nbsp;&nbsp;")over=true;
-    if(over==true)alert(valor1 + " es el ganador");
+    if(over==true)alert(valorV1 + " es el ganador");
 }
