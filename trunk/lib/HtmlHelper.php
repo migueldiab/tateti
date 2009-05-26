@@ -155,7 +155,7 @@ class HtmlHelper {
     echo '
       <div class="toolfree_area">
         <div class="call_free">
-          <span class="callus">Llamá</span>
+          <span class="callus">Llam&aacute;</span>
           <span class="callno">(02) 4010816</span>
         </div>
         <div class="bookmark">Agregar a Favoritos</div>
@@ -225,7 +225,7 @@ class HtmlHelper {
   static function login() {
     echo '
       <div class="login_area">
-        <div class="login_head">Ya sos miembro?</div>
+        <div class="login_head">Y&aacute; sos miembro?</div>
         <div class="login_textarea">
           <div class="login_name">Usuario </div>
           <div class="login_box">
@@ -235,7 +235,7 @@ class HtmlHelper {
           </div>
         </div>
         <div class="login_textarea">
-          <div class="login_name">Contraseña </div>
+          <div class="login_name">Contrase&ntilde;a </div>
           <div class="login_box">
             <label>
               <input name="textfield22" type="text" class="logintextbox" />
