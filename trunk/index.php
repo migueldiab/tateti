@@ -32,9 +32,7 @@
   $menuBajo = array("Acerca de" => "acerca",
           "Algo mas" => "algo");
   $tab = 'acerca';
-  HtmlHelper::bodyStart();
-  HtmlHelper::bodyContent();
-  HtmlHelper::bodyEnd();
+  HtmlHelper::bodyContent($menuTop, $menuMedio, $cabezal, $menuBajo, $tab);
 
   /*
    * Pie
