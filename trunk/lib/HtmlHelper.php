@@ -29,23 +29,9 @@ class HtmlHelper {
       <form id="form1" name="form1" method="post" action="">
       ';
   }
-  static function bodyContent() {
-    $menuTop = array("login" => "Login.html",
-            "ayuda" => "Ayuda",
-            "ayuda2" => "Ayuda2",
-            "ayuda3" => "Ayuda3",
-            "registrar" => "Registrar.html");
-    $menuMedio = array("Jugar" => "jugar",
-            "Stats" => "stats",
-            "Crear Mesa" => "mesa");
-
-    $cabezal = "Bienvenidos al apasionante mundo del TaTeT&iacute; <p>En este sitio, uds. podr&aacute;n jugar al juego mas viejo del mundo";
+  static function bodyContent($menuTop, $menuMedio, $cabezal, $menuBajo, $tab ) {
     HtmlHelper::header($menuTop, $menuMedio, $cabezal);
     HtmlHelper::bodyArea();
-    $menuBajo = array("Acerca de" => "acerca",
-            "Algo mas" => "algo");
-    $tab = 'acerca';
-
     HtmlHelper::bodyBackground($menuBajo, $tab);
   }
   static function header($menuTop, $menuMedio, $cabezal) {
@@ -194,7 +180,7 @@ class HtmlHelper {
             <a href="http://jigsaw.w3.org/css-validator/check/referer" class="validation">CSS</a>
           </div>
           <div class="fotter_copyrights">
-            '.$cright.'
+            '.$cright.' 
           </div>
         </div>
       </div>
