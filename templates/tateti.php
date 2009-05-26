@@ -1,17 +1,5 @@
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-  <head>
-    <title></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <script src="./js/jquery.js" type="text/javascript"></script>
-    <script src="./js/script.js" type="text/javascript"></script>
-  </head>
-  <body>
-  <table frame="void" border="2" style="font-size:100px" id="board">
+<center>
+  <table frame="0" width="60%" border="1" style="font-size:40px; text-align:center;" id="board">
       <tbody>
       <tr id="tr1">
           <td id="1">&nbsp;&nbsp;&nbsp;</td>
@@ -32,8 +20,5 @@ and open the template in the editor.
   </table>
   <input type="Radio" id="X" name="XO" value="X">X</input>
   <input type="Radio" id="O" name="XO" value="O">O</input>
-<br>
-   <input type="button" value="Nuevo Juego" id="nuevoJuego">
-
-  </body>
-</html>
+  <input type="button" value="Nuevo Juego" id="nuevoJuego"/>
+</center>
