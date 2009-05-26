@@ -9,14 +9,10 @@
 
   /*
    * Cabezal
-   *
-   * Definicion del cabezal de página HTML con sus Scripts y Hojas de Estilo
    */
   $scripts = array('jquery', 'script');
   $css = array('style');
-
-  HtmlHelper::head('TaTeT&iacute;', $scripts, $css);
-
+  echo HtmlHelper::head('TaTeT&iacute;', $scripts, $css);
 
  /*
   * Cuerpo
@@ -27,12 +23,11 @@
   $menuMedio = array("Jugar" => "jugar",
           "Stats" => "stats",
           "Crear Mesa" => "mesa");
-
   $cabezal = "Bienvenidos al apasionante mundo del TaTeT&iacute; <p>En este sitio, uds. podr&aacute;n jugar al juego mas viejo del mundo";
   $menuBajo = array("Acerca de" => "acerca",
           "Algo mas" => "algo");
   $tab = 'acerca';
-  HtmlHelper::bodyContent($menuTop, $menuMedio, $cabezal, $menuBajo, $tab);
+  echo HtmlHelper::bodyContent($menuTop, $menuMedio, $cabezal, $menuBajo, $tab);
 
   /*
    * Pie
@@ -43,7 +38,7 @@
             "foro" => "Foro",
             "contacto" => "Contacto");
   $cright = "Marcos Tusso & Miguel Diab <br> Universidad ORT <br> Todos los derechos reservados (C) 2009";
-  HtmlHelper::footer($links, $cright);
+  echo HtmlHelper::footer($links, $cright);
   
 ?>
 
