@@ -3,10 +3,10 @@
   include "./lib/HtmlHelper.php";
   include "./lib/juego.php";
 
-  $scripts = array();
+  $scripts = array('jquery', 'script');
   $css = array('style');
   
-  HtmlHelper::head('TaTeTi', $scripts, $css);
+  HtmlHelper::head('TaTeT&iacute;', $scripts, $css);
 
  
   HtmlHelper::bodyStart();
@@ -14,11 +14,12 @@
   HtmlHelper::bodyEnd();
 
   $links = array("acerca" => "Acerca de",
-            "produccion" => "Producción",
+            "produccion" => "Producci&oacute; n",
             "objetivos" => "Objetivos",
             "foro" => "Foro",
             "contacto" => "Contacto");
-  HtmlHelper::footer($links, $cpright);
+  $cright = "M&aacute; rcos Tusso & Miguel Diab <br> Universidad ORT <br> Todos los derechos reservados (C) 2009";
+  HtmlHelper::footer($links, $cright);
 
 
 

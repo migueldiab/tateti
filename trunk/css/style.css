@@ -616,11 +616,11 @@ ul{
 	margin: 0px;
 	float: left;
 	height: 200px;
-	width: 250px;
-	padding-top: 28px;
-	padding-right: 250px;
-	padding-bottom: 0px;
-	padding-left: 26px;
+	width: 90%;
+	padding-top: 30px;
+	padding-right: 30px;
+	padding-bottom: 30px;
+	padding-left: 30px;
 }
 .worksheet {
 	font-family: "Arial Narrow";
