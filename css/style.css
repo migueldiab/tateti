@@ -94,11 +94,11 @@ ul{
 	margin: 0px;
 	float: left;
 	height: 27px;
-	width: 40px;
+	width: 60px;
 	padding-top: 15px;
 	padding-right: 0px;
 	padding-bottom: 0px;
-	padding-left: 27px;
+	padding-left: 10px;
 }
 .topmenu_area .topMenuItem:hover {
 	color: #ed5400;
