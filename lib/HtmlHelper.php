@@ -39,10 +39,14 @@ class HtmlHelper {
             "Stats" => "stats",
             "Crear Mesa" => "mesa");
 
-    $cabezal = "Bienvenidos al apasionante mundo del TaTeTí<p>En este sitio, uds. podrán jugar al juego mas viejo del mundo";
+    $cabezal = "Bienvenidos al apasionante mundo del TaTeT&iacute; <p>En este sitio, uds. podr&aacute;n jugar al juego mas viejo del mundo";
     HtmlHelper::header($menuTop, $menuMedio, $cabezal);
     HtmlHelper::bodyArea();
-    HtmlHelper::bodyBackground();
+    $menuBajo = array("Acerca de" => "acerca",
+            "Algo mas" => "algo");
+    $tab = 'acerca';
+
+    HtmlHelper::bodyBackground($menuBajo, $tab);
   }
   static function header($menuTop, $menuMedio, $cabezal) {
     echo '
@@ -108,7 +112,9 @@ class HtmlHelper {
           Bienvenido <span class="tick_head1">Juan</span> a TaTeTi Online
         </div>
         <div class="inner_banner">
-          El Juego
+          ';
+    juego::mostrarJuego();
+    echo '
         </div>
       </div>
       <div class="right_area">
@@ -129,74 +135,31 @@ class HtmlHelper {
   </div>
 ';
   }
-  static function bodyBackground() {
+  static function bodyBackground($menuBajo, $tab) {
     echo '  <div class="body_areabackground">
     <div id="body_area1">
       <div class="inner_tabarea">
         <div class="inner_menu">
           <div align="center">
-            <a href="#" class="innermenu_hover">Features</a>
-            <a href="#" class="innermenu">Solutions</a>
-            <a href="#" class="innermenu">Meeting</a>
-            <a href="#" class="innermenu">Subscribe</a>
+';
+    foreach ($menuBajo as $text => $link) {
+      echo '          <a href="'.$link.'" class="innermenu'.($link==$tab?'_hover':'').'">'.$text.'</a>';
+    }
+    echo '
           </div>
         </div>
-        <div class="tab_text">
-          <p class="tab_head">ON 1ST OCTOBER 2007</p>
-          <p>
-            <span class="tab_head1">Cras pharetra nunc ac nisi. Nulla facilisi</span>
-            <br />
-            Nam ac elit non felis pharetra congue. Ut sodales, nisi a venenatis fermentum, tellus nisi auctor est, sed <a href="#" class="tablink">condimentum</a>
-          eros justo ac nunc.</p>
-        </div>
-        <div class="tab_readmore">
-          <p align="right" class="tab_head">
-            <a href="#" class="readmore">Read More </a>
-          </p>
-        </div>
-        <div class="tab_text">
-          <p>
-            <span class="tab_head1">Cras pharetra nunc ac nisi. Nulla facilisi</span>
-            <br />
-            Nam ac elit non felis pharetra congue. Ut sodales, nisi a <a href="#" class="tablink">venenatis fermentum,</a>
-          tellus</p>
-        </div>
-        <div class="tab_readmore">
-          <p align="right" class="tab_head">
-            <a href="#" class="readmore">Read More </a>
-          </p>
-        </div>
-      </div>
-      <div class="login_area">
-        <div class="login_head">Already a Member ?</div>
-        <div class="login_textarea">
-          <div class="login_name">Your Name </div>
-          <div class="login_box">
-            <label>
-              <input name="textfield2" type="text" class="logintextbox" />
-            </label>
-          </div>
-        </div>
-        <div class="login_textarea">
-          <div class="login_name">Password </div>
-          <div class="login_box">
-            <label>
-              <input name="textfield22" type="text" class="logintextbox" />
-            </label>
-          </div>
-        </div>
-        <div class="login_textarea">
-          <a href="#" class="register">Get Registration Now</a>
-          <a href="#" class="login">Login</a>
-        </div>
-      </div>
+        ';
+    HtmlHelper::tab($tab);
+    HtmlHelper::login();
+
+    echo '
       <div class="toolfree_area">
         <div class="call_free">
-          <span class="callus">Call Us</span>
-          <span class="callno">+01-6678-0098</span>
+          <span class="callus">Llamá</span>
+          <span class="callno">(02) 4010816</span>
         </div>
-        <div class="bookmark">Bookmark This Page</div>
-        <div class="facing"></div>
+        <div class="bookmark">Agregar a Favoritos</div>
+        <!--<div class="facing"></div>-->
       </div>
     </div>
   </div>';
@@ -209,7 +172,7 @@ class HtmlHelper {
     ';
   }
 
-  static function footer($links) {
+  static function footer($links, $cright) {
 
     echo '
     <div id="fotter">
@@ -231,8 +194,7 @@ class HtmlHelper {
             <a href="http://jigsaw.w3.org/css-validator/check/referer" class="validation">CSS</a>
           </div>
           <div class="fotter_copyrights">
-            Copyright Information Goes Here.<br />
-            All Rights Reserved.
+            '.$cright.'
           </div>
         </div>
       </div>
@@ -241,6 +203,50 @@ class HtmlHelper {
 </html>
 ';
   }
+  static function tab($tab) {
 
+    if ($tab=='acerca') {
+      echo '<div class="tab_text">
+          <p class="tab_head">5 de Mayo</p>
+          <p>
+            <span class="tab_head1">Juego Alpha</span>
+            <br />
+            se aceptan los primeros jugadores en etapa Alpha Simplejugador
+        </div>
+        <div class="tab_readmore">
+          <p align="right" class="tab_head">
+            <a href="#" class="readmore">Leer mas</a>
+          </p>
+        </div>
+      </div>';
+    }
+  }
+
+  static function login() {
+    echo '
+      <div class="login_area">
+        <div class="login_head">Ya sos miembro?</div>
+        <div class="login_textarea">
+          <div class="login_name">Usuario </div>
+          <div class="login_box">
+            <label>
+              <input name="textfield2" type="text" class="logintextbox" />
+            </label>
+          </div>
+        </div>
+        <div class="login_textarea">
+          <div class="login_name">Contraseña </div>
+          <div class="login_box">
+            <label>
+              <input name="textfield22" type="text" class="logintextbox" />
+            </label>
+          </div>
+        </div>
+        <div class="login_textarea">
+          <a href="#" class="register">Registrate Ya!</a>
+          <a href="#" class="login">Login</a>
+        </div>
+      </div>';
+  }
 }
 ?>
