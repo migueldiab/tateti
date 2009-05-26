@@ -18,7 +18,7 @@
             "objetivos" => "Objetivos",
             "foro" => "Foro",
             "contacto" => "Contacto");
-  $cright = "M&aacute; rcos Tusso & Miguel Diab <br> Universidad ORT <br> Todos los derechos reservados (C) 2009";
+  $cright = "Marcos Tusso & Miguel Diab <br> Universidad ORT <br> Todos los derechos reservados (C) 2009";
   HtmlHelper::footer($links, $cright);
 
 
