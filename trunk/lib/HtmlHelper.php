@@ -30,11 +30,11 @@ class HtmlHelper {
       ';
   }
   static function bodyContent() {
-    $menuTop = array("login" => "Login",
+    $menuTop = array("login" => "Login.html",
             "ayuda" => "Ayuda",
             "ayuda2" => "Ayuda2",
             "ayuda3" => "Ayuda3",
-            "registrar" => "Registrar");
+            "registrar" => "Registrar.html");
     $menuMedio = array("Jugar" => "jugar",
             "Stats" => "stats",
             "Crear Mesa" => "mesa");
