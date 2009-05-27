@@ -1,25 +1,37 @@
 <?php 
 
-  /*
-   * Librerias Usadas
-   */
+  /* Librerias Usadas */
   include "./lib/HtmlHelper.php";
+  include "./lib/Sistema.php";
   include "./lib/juego.php";
   include "./lib/mySql.php";
 
-  /*
-   * Cabezal
-   */
+  if (!empty($_POST) || !empty($_GET)) {
+    if (isset($_POST['pagina'])) {
+      Sistema::procesar($_POST['pagina'], $_POST);
+    }
+    elseif (isset($_GET['pagina'])) {
+      Sistema::procesar($_GET['pagina'], null);
+    }
+    else {
+      die("Error!");
+    }
+  }
+  
+  /* Cabezal */
   $scripts = array('jquery', 'script');
   $css = array('style');
   echo HtmlHelper::head('TaTeT&iacute;', $scripts, $css);
-
- /*
-  * Cuerpo
-  */
-  $menuTop = array("Login" => "login.html",
-          "Ayuda" => "help.html",
-          "Registrar" => "registrar.html");
+  /* Cuerpo  */
+  if (isset($_SESSION["usuario"])) {
+    $menuTop['Logout'] = 'index.php?pagina=logout';
+  }
+  else {
+    $menuTop['Login'] = 'index.php?pagina=login';
+  }
+  $menuTop["Ayuda"] = "help.html";
+  $menuTop["Registrar"] = "registrar.html";
+  
   $menuMedio = array("Jugar" => "jugar",
           "Stats" => "stats",
           "Crear Mesa" => "mesa");
@@ -28,10 +40,7 @@
           "Algo mas" => "algo");
   $tab = 'acerca';
   echo HtmlHelper::bodyContent($menuTop, $menuMedio, $cabezal, $menuBajo, $tab);
-
-  /*
-   * Pie
-   */
+  /* Pie */
   $links = array("acerca" => "Acerca de",
             "produccion" => "Producci&oacute; n",
             "objetivos" => "Objetivos",

@@ -1,7 +1,7 @@
 $(document).ready(eventos);
-    var over=false
-    var vacio="&nbsp;&nbsp;&nbsp;"
-    
+var over=false
+var vacio="&nbsp;&nbsp;&nbsp;"
+
 
 function eventos(){
     $("#nuevoJuego").click(borrar)
@@ -16,6 +16,7 @@ function validar(){
     checkEmpate()
 }
 function borrar(){
+    over=false;
     var rows=document.getElementById('board').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
     for(f=0;f<rows.length;f++){
        for(h=0;h<rows[f].getElementsByTagName('td').length;h++){
@@ -88,3 +89,4 @@ function checkEmpate(){
     }
     if(esEmpate==true)alert("Empate")
 }
+

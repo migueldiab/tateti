@@ -16,7 +16,7 @@ class HtmlHelper {
     $variables['scripts'] = "";
     $variables['css'] = "";
     foreach ($scripts as $script) {
-      $variables['scripts'] .= '      <script src="./js/'.$script.'.js" type="text/javascript"></script>';
+      $variables['scripts'] .= '      <script src="./js/'.$script.'.js" type="application/javascript"></script>';
     }
     foreach ($css as $un_css) {
       $variables['css'] .= '      <link href="./css/'.$un_css.'.css" rel="stylesheet" type="text/css"/>';
@@ -72,6 +72,7 @@ class HtmlHelper {
   }
   static function bodyArea() {
     $variables['mostrarTop'] = juego::mostrarTop();
+    $variables['usuario'] = isset($_SESSION["usuario"])?$_SESSION["usuario"]:'An&oacute;nimo';
     $variables['mostrarJuego'] = juego::mostrarJuego();
     $variables['mostrarMesas'] = juego::mostrarMesas();
     return HtmlHelper::template("body.php", $variables);

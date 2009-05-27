@@ -1,5 +1,5 @@
 <body>
-  <form id="form1" name="form1" method="post" action="">  <div id="body_area">
+  <div id="body_area">
     <div class="left">
       <div class="morelinks_top"></div>
       <div class="morelinks_area">
@@ -19,7 +19,7 @@
       <div class="banner_bottom"></div>
       <div class="mid">
         <div class="tick_head">
-          Bienvenido <span class="tick_head1">Juan</span> a TaTeTi Online
+          Bienvenido <span class="tick_head1">{usuario}</span> a TaTeTi Online
         </div>
         <div class="inner_banner">
     {mostrarJuego}
@@ -39,4 +39,4 @@
       </div>
     </div>
   </div>
-</form>
+
