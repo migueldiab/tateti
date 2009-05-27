@@ -83,7 +83,12 @@ class HtmlHelper {
       $variables['menuBajo'] .= '          <a href="'.$link.'" class="innermenu'.($link==$tab?'_hover':'').'">'.$text.'</a>';
     }
     $variables['tab'] = HtmlHelper::tab($tab);
-    $variables['login'] = HtmlHelper::login();
+    if (!isset($_SESSION["usuario"])) {
+      $variables['login'] = HtmlHelper::login();
+    }
+    else {
+      $variables['login'] = '';
+    }
     return HtmlHelper::template("bodyBackground.php", $variables);
   }
 
