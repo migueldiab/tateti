@@ -14,6 +14,9 @@ class Sistema {
   static function logout() {
     $_SESSION["usuario"]=null;
   }
+  static function login() {
+    die("Todavia no esta implementado... paciencia");
+  }
   static function entrar($valores) {
     $usuario = $valores['usuario'];
     $clave = $valores['contrasena'];
