@@ -659,6 +659,24 @@ ul{
 	padding-bottom: 0px;
 	padding-left: 13px;
 }
+.errorMsg {
+	font-family: Arial;
+	font-size: 10px;
+	font-weight: bold;
+	color: #FF0505;
+	background-image: url(../images/errorMsg.png);
+	background-repeat: no-repeat;
+	float: left;
+	width: 137px;
+	margin-top: 5px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 60px;
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 23px;
+}
 .innerlink:hover {
 	font-family: Arial;
 	font-size: 9px;
@@ -1134,7 +1152,22 @@ ul{
 	margin-right: 0px;
 	margin-bottom: 0px;
 	margin-left: 10px;
-}.login_name {
+}
+.input_label {
+	font-family: Arial;
+	font-size: 11px;
+	font-weight: normal;
+	color: #161606;
+	text-decoration: none;
+	margin: 0px;
+	float: left;
+	padding-top: 3px;
+	padding-right: 10px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	width: 55px;
+}
+.login_name {
 	font-family: Arial;
 	font-size: 11px;
 	font-weight: normal;

@@ -1,4 +1,5 @@
-  <div id="topheader">
+<body>
+    <div id="topheader">
     <div class="topmenu_area">
       <a class="leftTopMenu"/>
       {menuTop}

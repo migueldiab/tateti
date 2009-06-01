@@ -2,6 +2,7 @@
   <form id="loginForm" method="post" action="./index.php">
     <input name="pagina" type="hidden" value="entrar" />
     <div class="login_head">{miembro}</div>
+      <div class="errorMsg">{errorMsg}</div>
     <div class="login_textarea">
       <div class="login_name">{usuario}</div>
       <div class="login_box">
@@ -20,7 +21,7 @@
       </div>
     </div>
     <div class="login_textarea">
-      <a href="#" class="register">{registrate}</a>
+      <a href='index.php?pagina=registrate' class="register">{registrate}</a>
       <a href="" onclick="$('#loginForm').submit();return false;" class="login">{login}</a>
       <input id="enviar" name="enviar" type="submit" class="logintextbox" style="visibility: hidden;"/>
     </div>
