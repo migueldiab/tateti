@@ -1,7 +1,7 @@
 $(document).ready(eventos);
 var over=false
 var vacio="&nbsp;&nbsp;&nbsp;"
-
+var started=null
 
 function eventos(){
     $("#nuevoJuego").click(borrar)
@@ -11,9 +11,52 @@ function eventos(){
 function validar(){
     //validar si ya tiene algo en el campo
     var XO=$('input[name=XO]:checked').val()
-    if(over==false){$(this).text(XO)}
+    if(over==false&&checkPreviousClick()==true){$(this).text(XO)}
     if(over==false)checkResult()
     checkEmpate()
+}
+
+function checkPreviousClick(){
+    if(started==null){
+        started=$('input[name=XO]:checked').val()
+    }else{
+        O=0
+        X=0
+        for(i=1;i<10;i++){
+            currentCell=document.getElementById(i)
+           if(currentCell.firstChild.data=="O"){
+           O++
+           }else if(currentCell.firstChild.data=="X"){
+           X++
+           }
+        }
+        if(started=="O"&&$('input[name=XO]:checked').val()=="X"){
+            if(O==X+1){
+                return true;
+            }else{
+                return false;
+            }
+        }else if(started=="O"&&$('input[name=XO]:checked').val()=="O"){
+            if(X==O){
+                return true;
+            }else{
+                return false;
+            }
+        }else if(started=="X"&&$('input[name=XO]:checked').val()=="O"){
+            if(X==O+1){
+                return true;
+            }else{
+                return false;
+            }
+        }else if(started=="X"&&$('input[name=XO]:checked').val()=="X"){
+            if(X==O){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+    return true;
 }
 function borrar(){
     over=false;
