@@ -83,6 +83,8 @@ class HtmlHelper {
       $variables['menuBajo'] .= '          <a href="'.$link.'" class="innermenu'.($link==$tab?'_hover':'').'">'.$text.'</a>';
     }
     $variables['tab'] = HtmlHelper::tab($tab);
+    
+    
     if (!isset($_SESSION["usuario"])) {
       $variables['login'] = HtmlHelper::login();
     }
@@ -109,6 +111,14 @@ class HtmlHelper {
     return HtmlHelper::template("footer.php", $variables);
   }
 
+  static function registrate($menuTop, $menuBajo, $tab) {
+    $menuMedio = array();
+    $variables['cabezal'] .= 'Registrate en TaTeT&iacute; Online.<br>Cre&aacute; tu cuenta y disfrut&aacute; del apasionante mundo del tatet&iacute;';
+    $bodyContent = HtmlHelper::header($menuTop, $menuMedio, $cabezal);
+    $bodyContent .= HtmlHelper::template("registrate.php", $variables);
+    $bodyContent .= HtmlHelper::bodyBackground($menuBajo, $tab);
+    return $bodyContent;
+  }
   static function tab($tab) {
     if ($tab=='acerca') {
       $tab =  '<div class="tab_text">
@@ -140,6 +150,7 @@ class HtmlHelper {
     $variables['password'] = 'Contrase&ntilde;a';
     $variables['registrate'] = 'Registrate Ya!';
     $variables['login'] = 'Entrar';
+    $variables['errorMsg']=$_SESSION['error'];
     return HtmlHelper::template("login.php", $variables);
   }
 
