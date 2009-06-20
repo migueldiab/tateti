@@ -9,7 +9,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 DROP TABLE IF EXISTS `usuario` ;
 
 CREATE  TABLE IF NOT EXISTS `usuario` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(45) NULL ,
   `apellido` VARCHAR(45) NULL ,
   `email` VARCHAR(45) NULL ,
@@ -25,7 +25,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `mesa` ;
 
 CREATE  TABLE IF NOT EXISTS `mesa` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `creada` TIMESTAMP NULL ,
   `estado` VARCHAR(1) NULL ,
   `id_ganador` INT NULL ,
@@ -46,7 +46,7 @@ CREATE INDEX `fk_mesa_usuario` ON `mesa` (`id_ganador` ASC) ;
 DROP TABLE IF EXISTS `jugada` ;
 
 CREATE  TABLE IF NOT EXISTS `jugada` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `hora` TIMESTAMP NULL ,
   `fila` INT NULL ,
   `columna` INT NULL ,

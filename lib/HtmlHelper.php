@@ -113,9 +113,9 @@ class HtmlHelper {
 
   static function registrate($menuTop, $menuBajo, $tab) {
     $menuMedio = array();
-    $variables['cabezal'] .= 'Registrate en TaTeT&iacute; Online.<br>Cre&aacute; tu cuenta y disfrut&aacute; del apasionante mundo del tatet&iacute;';
+    $cabezal = 'Registrate en TaTeT&iacute; Online.<br>Cre&aacute; tu cuenta y disfrut&aacute; del apasionante mundo del tatet&iacute;';
     $bodyContent = HtmlHelper::header($menuTop, $menuMedio, $cabezal);
-    $bodyContent .= HtmlHelper::template("registrate.php", $variables);
+    $bodyContent .= HtmlHelper::template("registrate.php", null);
     $bodyContent .= HtmlHelper::bodyBackground($menuBajo, $tab);
     return $bodyContent;
   }
