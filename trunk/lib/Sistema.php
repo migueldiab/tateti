@@ -3,14 +3,7 @@ include_once './lib/Usuario.php';
 
 class Sistema {
 
-  static function procesar($pagina, $valores) {
-    if ($valores==null) {
-     call_user_func("Sistema::".$pagina);
-    }
-    else {
-     call_user_func("Sistema::".$pagina, $valores);
-    }
-  }
+
   static function logout() {
     $_SESSION["usuario"]=null;
     Sistema::principal();
@@ -18,25 +11,6 @@ class Sistema {
   static function login() {
     die("Todavia no esta implementado... paciencia");
     
-  }
-  static function entrar($valores) {
-    $usuario = $valores['usuario'];
-    $clave = $valores['contrasena'];
-    if ((strlen($usuario)>3) &&
-        (strlen($clave)>3))
-    {
-        $unUsuario = Usuario::autenticarUsuario($usuario, $clave);
-        if ($unUsuario!=null) {
-          $_SESSION["usuario"] = $unUsuario;
-        }
-        else {
-          $_SESSION['error'] = "Usuario y clave incorrecto";
-        }
-    }
-    else {
-      $_SESSION['error'] = "El usuario y la clave deben tener al menos 3 caracteres";
-    }
-    Sistema::principal();
   }
   static function principal() {
       /* Cabezal */
@@ -98,11 +72,49 @@ class Sistema {
   }
   static function registrar($valores) {
     $usuario = $valores['usuario'];
+    $email = $valores['email'];
     $clave = $valores['contrasena'];
-    echo $usuario;
-    exit;
+
+    $unUsuario = Usuario::obtenerPorNombre($usuario);
+    if ($unUsuario==null) {
+      die("Existe usuario");
+    }
+    else {
+      $unUsuario = new Usuario();
+      $unUsuario->setEmail($email);
+      $unUsuario->setUsuario($usuario);
+      $unUsuario->setClaveEncryptar($clave);
+      $unUsuario->save();
+      
+    }  
+    $unUsuario = Usuario::autenticarUsuario($usuario, $clave);
+    if ($unUsuario!=null) {
+      $_SESSION["usuario"] = $unUsuario;
+    }
+    else {
+      $_SESSION['error'] = "No se pudo auto ingresar al sistema. Intente manualmente.";
+    }
   }
-  
+
+  static function entrar($valores) {
+    $usuario = $valores['usuario'];
+    $clave = $valores['contrasena'];
+    if ((strlen($usuario)>3) &&
+        (strlen($clave)>3))
+    {
+        $unUsuario = Usuario::autenticarUsuario($usuario, $clave);
+        if ($unUsuario!=null) {
+          $_SESSION["usuario"] = $unUsuario;
+        }
+        else {
+          $_SESSION['error'] = "Usuario y clave incorrecto";
+        }
+    }
+    else {
+      $_SESSION['error'] = "El usuario y la clave deben tener al menos 3 caracteres";
+    }
+    Sistema::principal();
+  }    
 }
 
 ?>

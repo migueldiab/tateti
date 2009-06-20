@@ -32,7 +32,7 @@
                 <div class="input_label">Contrase&ntilde;a</div>
                 <div class="login_box">
                   <label>
-                    <input id="contrasena" name="contrasena" type="text" class="logintextbox" />
+                    <input id="contrasena" name="contrasena" type="password" class="logintextbox" />
                   </label>
                 </div>
               </div>
@@ -40,7 +40,7 @@
                 <div class="input_label">Confirmar</div>
                 <div class="login_box">
                   <label>
-                    <input id="confirmar" name="confirmar" type="text" class="logintextbox" />
+                    <input id="confirmar" name="confirmar" type="password" class="logintextbox" />
                   </label>
                 </div>
               </div>
