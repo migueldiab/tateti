@@ -29,9 +29,31 @@ class pUsuario {
         return $unUsuario;
       }
       else {
+        mysql_close();
         return null;
       }
+    }
+    static function obtenerPorId($id) {
+      mySql::connect_db();
+      $query="SELECT * FROM usuario WHERE id = '$id'";
+      $result=mysql_query($query);
 
+      if (mysql_affected_rows()==1) {
+        $data = mysql_fetch_array($result);
+        $unUsuario = new Usuario();
+        $unUsuario->setId($data["id"]);
+        $unUsuario->setEmail($data["email"]);
+        $unUsuario->setUsuario($data["usuario"]);
+        $unUsuario->setClave($data["clave"]);
+        $unUsuario->setApellido($data["apellido"]);
+        $unUsuario->setNombre($data["nombre"]);
+        mysql_close();
+        return $unUsuario;
+      }
+      else {
+        mysql_close();
+        return null;
+      }
     }
     static function save($unUsuario) {
       if ($unUsuario!=null) {
