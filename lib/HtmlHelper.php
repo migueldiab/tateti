@@ -1,5 +1,4 @@
 <?php
-session_start();
 class HtmlHelper {
 
   /**
@@ -75,6 +74,8 @@ class HtmlHelper {
     $variables['usuario'] = isset($_SESSION["usuario"])?$_SESSION["usuario"]:'An&oacute;nimo';
     $variables['mostrarJuego'] = juego::mostrarJuego();
     $variables['mostrarMesas'] = juego::mostrarMesas();
+    $variables['mostrarMesas'] = juego::mostrarMesas();
+    $variables['jugar'] = "link a jugar?";
     return HtmlHelper::template("body.php", $variables);
   }
   static function bodyBackground($menuBajo, $tab) {
@@ -113,18 +114,24 @@ class HtmlHelper {
 
   static function help($menuTop, $menuBajo, $tab) {
     $menuMedio = array();
-    $cabezal = 'Aprender a jugar al tateti lleva un minuto<br>Dominarlo lleva una vida!';
+    $cabezal = 'Aprender a jugar al tateti lleva un minuto...<br><i>...dominarlo lleva una vida!</i>';
     $bodyContent = HtmlHelper::header($menuTop, $menuMedio, $cabezal);
     $bodyContent .= HtmlHelper::template("help.php", null);
     $bodyContent .= HtmlHelper::bodyBackground($menuBajo, $tab);
     return $bodyContent;
   }
 
-  static function registrate($menuTop, $menuBajo, $tab) {
+  static function registrate($menuTop, $menuBajo, $tab, $error = null) {
     $menuMedio = array();
     $cabezal = 'Registrate en TaTeT&iacute; Online.<br>Cre&aacute; tu cuenta y disfrut&aacute; del apasionante mundo del tatet&iacute;';
+    if ($error!=null) {
+      $variables['errorMsg'] = $error;
+    }
+    else {
+      $variables['errorMsg'] = "";
+    }
     $bodyContent = HtmlHelper::header($menuTop, $menuMedio, $cabezal);
-    $bodyContent .= HtmlHelper::template("registrate.php", null);
+    $bodyContent .= HtmlHelper::template("registrate.php", $variables);
     $bodyContent .= HtmlHelper::bodyBackground($menuBajo, $tab);
     return $bodyContent;
   }

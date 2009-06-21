@@ -22,27 +22,35 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mesa`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mesa`;
-CREATE TABLE IF NOT EXISTS `mesa` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `creada` timestamp NULL DEFAULT NULL,
-  `estado` varchar(1) DEFAULT NULL,
-  `id_ganador` int(11) DEFAULT NULL,
-  `id_jugador_1` int(11) DEFAULT NULL,
-  `id_jugador_2` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_mesa_usuario` (`id_ganador`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `mesa` ;
 
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `mesa`
---
-ALTER TABLE `mesa`
-  ADD CONSTRAINT `fk_mesa_usuario` FOREIGN KEY (`id_ganador`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+CREATE  TABLE IF NOT EXISTS `mesa` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `creada` TIMESTAMP NULL ,
+  `estado` VARCHAR(1) NULL ,
+  `id_ganador` INT NULL ,
+  `id_jugador_1` INT NULL ,
+  `id_jugador_2` INT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_mesa_usuario` (`id_ganador` ASC) ,
+  INDEX `fk_mesa_usuario1` (`id_jugador_1` ASC) ,
+  INDEX `fk_mesa_usuario2` (`id_jugador_2` ASC) ,
+  CONSTRAINT `fk_mesa_usuario`
+    FOREIGN KEY (`id_ganador` )
+    REFERENCES `tateti`.`usuario` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_mesa_usuario1`
+    FOREIGN KEY (`id_jugador_1` )
+    REFERENCES `tateti`.`usuario` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_mesa_usuario2`
+    FOREIGN KEY (`id_jugador_2` )
+    REFERENCES `tateti`.`usuario` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -60,6 +68,8 @@ CREATE  TABLE IF NOT EXISTS `jugada` (
   `id_jugador` INT NULL ,
   `id_mesa` INT NULL ,
   PRIMARY KEY (`id`) ,
+  INDEX `fk_jugada_usuario` (`id_jugador` ASC) ,
+  INDEX `fk_jugada_mesa` (`id_mesa` ASC) ,
   CONSTRAINT `fk_jugada_usuario`
     FOREIGN KEY (`id_jugador` )
     REFERENCES `tateti`.`usuario` (`id` )
@@ -71,10 +81,6 @@ CREATE  TABLE IF NOT EXISTS `jugada` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
-CREATE INDEX `fk_jugada_usuario` ON `jugada` (`id_jugador` ASC) ;
-
-CREATE INDEX `fk_jugada_mesa` ON `jugada` (`id_mesa` ASC) ;
 
 
 
