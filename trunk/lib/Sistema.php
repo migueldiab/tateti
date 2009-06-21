@@ -2,7 +2,6 @@
 
 class Sistema {
 
-
   static function logout() {
     $_SESSION["usuario"]=null;  
     Sistema::principal();
@@ -66,7 +65,7 @@ class Sistema {
       $cright = "Marcos Tusso & Miguel Diab <br> Universidad ORT <br> Todos los derechos reservados (C) 2009";
       echo HtmlHelper::footer($links, $cright);
   }
-  static function registrate() {
+  static function registrate($error = null) {
       if (isset($_SESSION["usuario"])) {
           Sistema::principal();
       }
@@ -82,7 +81,7 @@ class Sistema {
       $menuBajo = array("Acerca de" => "acerca",
               "Algo mas" => "algo");
       $tab = 'acerca';
-      echo HtmlHelper::registrate($menuTop, $menuBajo, $tab);
+      echo HtmlHelper::registrate($menuTop, $menuBajo, $tab, $error);
       /* Pie */
       $links = array("acerca" => "Acerca de",
                 "produccion" => "Producci&oacute; n",
@@ -98,8 +97,8 @@ class Sistema {
     $clave = $valores['contrasena'];
 
     $unUsuario = Usuario::obtenerPorNombre($usuario);
-    if ($unUsuario==null) {
-      die("Existe usuario");
+    if ($unUsuario!=null) {
+      Sistema::registrate("El nombre de usuario ya existe");
     }
     else {
       $unUsuario = new Usuario();

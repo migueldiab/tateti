@@ -13,7 +13,7 @@
   include_once  "./lib/Generico.php";
   include_once  "./lib/mySql.php";
   include_once  "./lib/juego.php";
-  include_once './lib/Usuario.php';
+  include_once  "./lib/Usuario.php";
   
   include_once  "./modelo/pUsuario.php";
 
