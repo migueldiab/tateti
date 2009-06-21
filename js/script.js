@@ -1,10 +1,10 @@
 $(document).ready(eventos);
-var over=false
+var over=false //cambiar por check en db si hay un ganador
 var vacio="&nbsp;&nbsp;&nbsp;"
 var started=null
 
 function eventos(){
-    $("#nuevoJuego").click(borrar)
+ //   $("#nuevoJuego").click(borrar)
     td=$('td');
     td.click(validar);
 }
@@ -16,7 +16,8 @@ function validar(){
     checkEmpate()
 }
 
-function checkPreviousClick(){
+function checkPreviousClick(){ //indica quien hizo el ultimo movimiento
+                              //bloquear el radiobutton luego de empezado el juego
     if(started==null){
         started=$('input[name=XO]:checked').val()
     }else{
