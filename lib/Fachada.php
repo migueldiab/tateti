@@ -9,11 +9,13 @@
  *
  * @author Administrator
  */
-  include "./lib/Sistema.php";
-  include "./lib/mySql.php";
-  include "./lib/juego.php";
-
-  include "./modelo/pUsuario.php";
+  include_once  "./lib/Sistema.php";
+  include_once  "./lib/Generico.php";
+  include_once  "./lib/mySql.php";
+  include_once  "./lib/juego.php";
+  include_once './lib/Usuario.php';
+  
+  include_once  "./modelo/pUsuario.php";
 
 class Fachada {
 
@@ -51,6 +53,9 @@ class Fachada {
   }
   static function registrar($valores) {
     Sistema::registrar($valores);
+  }
+  static function help() {
+    Generico::help();
   }
 
 }
