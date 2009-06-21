@@ -90,6 +90,7 @@ class Sistema {
     $unUsuario = Usuario::autenticarUsuario($usuario, $clave);
     if ($unUsuario!=null) {
       $_SESSION["usuario"] = $unUsuario;
+      Sistema::principal();
     }
     else {
       $_SESSION['error'] = "No se pudo auto ingresar al sistema. Intente manualmente.";
