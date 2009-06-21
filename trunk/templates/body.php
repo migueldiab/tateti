@@ -7,7 +7,10 @@
   {mostrarMesas}
         <div class="freeregistration">
           <div align="center">
-            Juega <span class="free">Gratis</span></div>
+          <a href={jugar}>Juega Gratis </a><br>
+       <!--   Juega <span class="free">Gratis</span></div> -->
+       	<input type="button" onclick="window.open('index.php', '_self')" value="Reload" name="btnReload"/>
+        </div>
         </div>
 
       </div>

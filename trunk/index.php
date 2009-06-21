@@ -1,5 +1,5 @@
-<?php 
-
+<?php
+session_start();
   /* Librerias Usadas */
   include "./lib/HtmlHelper.php";
   include "./lib/Fachada.php";
@@ -19,6 +19,8 @@
   else {
       Sistema::principal();
   }
-  
-?>
 
+?>
+<head>
+<META HTTP-EQUIV=Refresh CONTENT='30'>
+</head>
