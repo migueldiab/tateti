@@ -68,6 +68,10 @@ class Usuario {
     $unUsuario = pUsuario::obtenerPorNombre($nombre);
     return $unUsuario;
   }
+  static function obtenerPorId($id) {
+    $unUsuario = pUsuario::obtenerPorId($id);
+    return $unUsuario;
+  }
   static function autenticarUsuario($usuario, $clave) {
     $unUsuario = Usuario::obtenerPorNombre($usuario);
     
