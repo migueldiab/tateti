@@ -111,6 +111,15 @@ class HtmlHelper {
     return HtmlHelper::template("footer.php", $variables);
   }
 
+  static function help($menuTop, $menuBajo, $tab) {
+    $menuMedio = array();
+    $cabezal = 'Aprender a jugar al tateti lleva un minuto<br>Dominarlo lleva una vida!';
+    $bodyContent = HtmlHelper::header($menuTop, $menuMedio, $cabezal);
+    $bodyContent .= HtmlHelper::template("help.php", null);
+    $bodyContent .= HtmlHelper::bodyBackground($menuBajo, $tab);
+    return $bodyContent;
+  }
+
   static function registrate($menuTop, $menuBajo, $tab) {
     $menuMedio = array();
     $cabezal = 'Registrate en TaTeT&iacute; Online.<br>Cre&aacute; tu cuenta y disfrut&aacute; del apasionante mundo del tatet&iacute;';

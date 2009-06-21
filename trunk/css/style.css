@@ -613,6 +613,9 @@ ul{
 .inner_banner {
 	background-image: url(../images/inner_banner.jpg);
 	background-repeat: no-repeat;
+  color: black;
+  font-weight: 400;
+	font-family: "Verdana";
 	margin: 0px;
 	float: left;
 	height: 200px;
