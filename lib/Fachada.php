@@ -9,13 +9,20 @@
  *
  * @author Administrator
  */
+  /*
+   * Librerias Usadas 
+   */
   include_once  "./lib/Sistema.php";
+  include_once  "./lib/HtmlHelper.php";
   include_once  "./lib/Generico.php";
   include_once  "./lib/mySql.php";
   include_once  "./lib/juego.php";
   include_once  "./lib/Usuario.php";
+  include_once  "./lib/Mesa.php";
+  include_once  "./vendor/ArrayList.php";
   
   include_once  "./modelo/pUsuario.php";
+  include_once  "./modelo/pMesa.php";
 
 class Fachada {
 

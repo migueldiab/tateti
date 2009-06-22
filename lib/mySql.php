@@ -6,8 +6,14 @@ class mySql {
 			$db_uid="tateti";					// Connect to database
 			$db_pass="punk123";
 			$db_host="localhost";
-			@mysql_connect($db_host,$db_uid,$db_pass) or die("Error #1002 : User not authorized into system");
-			@mysql_select_db(tateti) or die("Error #1001 : Unable to connect to TaTeTi database");
+
+			$mySqlResource = mysql_connect($db_host,$db_uid,$db_pass);
+      
+      if (!$mySqlResource) die("Error #1002 : User not authorized into system");
+      if (!mysql_select_db("tateti", $mySqlResource)) {
+        echo "<br>Error #1001 : Unable to connect to TaTeTi database - ".mysql_error();
+      }
+      return $mySqlResource;
 	}
 
   function SQLDate($DateEntry) {

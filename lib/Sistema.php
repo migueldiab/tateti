@@ -8,30 +8,30 @@ class Sistema {
   }
   static function login() {
     if (isset($_SESSION["usuario"])) {
-          Sistema::principal();
-      }
-      /* Cabezal */
-      $scripts = array('jquery', 'script', 'validaciones');
-      $css = array('style');
-      echo HtmlHelper::head('TaTeT&iacute;', $scripts, $css);
-      /* Cuerpo  */
-      $menuTop['Jugar'] = 'index.php?pagina=principal';
-      $menuTop["Ayuda"] = "index.php?pagina=help";
-      $menuTop["Registrar"] = "index.php?pagina=registrate";
+        Sistema::principal();
+    }
+    /* Cabezal */
+    $scripts = array('jquery', 'script', 'validaciones');
+    $css = array('style');
+    echo HtmlHelper::head('TaTeT&iacute;', $scripts, $css);
+    /* Cuerpo  */
+    $menuTop['Jugar'] = 'index.php?pagina=principal';
+    $menuTop["Ayuda"] = "index.php?pagina=help";
+    $menuTop["Registrar"] = "index.php?pagina=registrate";
 
-      $menuBajo = array("Acerca de" => "acerca",
-              "Algo mas" => "algo");
-      $tab = 'acerca';
-      echo HtmlHelper::registrate($menuTop, $menuBajo, $tab);
-      /* Pie */
-      $links = array("acerca" => "Acerca de",
-                "produccion" => "Producci&oacute; n",
-                "objetivos" => "Objetivos",
-                "foro" => "Foro",
-                "contacto" => "Contacto");
-      $cright = "Marcos Tusso & Miguel Diab <br> Universidad ORT <br> Todos los derechos reservados (C) 2009";
-      echo HtmlHelper::footer($links, $cright);
-    
+    $menuBajo = array("Acerca de" => "acerca",
+            "Algo mas" => "algo");
+    $tab = 'acerca';
+    echo HtmlHelper::loginSimple($menuTop, $menuBajo, $tab);
+    /* Pie */
+    $links = array("acerca" => "Acerca de",
+              "produccion" => "Producci&oacute; n",
+              "objetivos" => "Objetivos",
+              "foro" => "Foro",
+              "contacto" => "Contacto");
+    $cright = "Marcos Tusso & Miguel Diab <br> Universidad ORT <br> Todos los derechos reservados (C) 2009";
+    echo HtmlHelper::footer($links, $cright);
+
   }
   static function principal() {
       /* Cabezal */

@@ -1,5 +1,5 @@
 <div class="login_area">
-  <form id="loginForm" method="post" action="./index.php">
+  <form id="loginForm" method="POST" action="./index.php">
     <input name="pagina" type="hidden" value="entrar" />
     <div class="login_head">{miembro}</div>
       <div class="errorMsg">{errorMsg}</div>

@@ -1,8 +1,6 @@
 <?php
-session_start();
-  /* Librerias Usadas */
-  include "./lib/HtmlHelper.php";
-  include "./lib/Fachada.php";
+  include_once  "./lib/Fachada.php";
+  session_start();
 
   $_SESSION['error'] = "";
   if (!empty($_POST) || !empty($_GET)) {
@@ -21,6 +19,4 @@ session_start();
   }
 
 ?>
-<head>
-<META HTTP-EQUIV=Refresh CONTENT='30'>
-</head>
+
