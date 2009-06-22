@@ -170,6 +170,21 @@ class HtmlHelper {
     return HtmlHelper::template("login.php", $variables);
   }
 
+  static function loginSimple($menuTop, $menuBajo, $tab, $error = null) {
+    $menuMedio = array();
+    $cabezal = 'Entra ya y juga...';
+    if ($error!=null) {
+      $variables['errorMsg'] = $error;
+    }
+    else {
+      $variables['errorMsg'] = "";
+    }
+    $bodyContent = HtmlHelper::header($menuTop, $menuMedio, $cabezal);
+    $bodyContent .= HtmlHelper::template("loginSimple.php", $variables);
+    $bodyContent .= HtmlHelper::bodyBackground($menuBajo, $tab);
+    return $bodyContent;
+  }
+
   /**
    * Lee una plantila PHP/HTML con marcadores delimitados por {} y sustituye
    * las variables de igual nombre por el contenido de las mismas.

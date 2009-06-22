@@ -66,9 +66,13 @@ class Mesa {
     $unaMesa = pMesa::obtenerPorId($id);
     return $unaMesa;
   }
-    static function obtenerPorEstado($estado) {
+  static function obtenerPorEstado($estado) {
     $unaMesa = pMesa::obtenerPorId($estado);
     return $unaMesa;
+  }
+  static function listarMesasActivas($cantidad) {
+    $listaMesas = pMesa::obtenerPorEstado("A");
+    return $listaMesas;
   }
   public function __toString() {
     return $this->mesa;
