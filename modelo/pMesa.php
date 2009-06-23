@@ -27,7 +27,6 @@ class pMesa {
       $unaMesa->setJugador2(Usuario::obtenerPorId($data["id_jugador_2"]));
       return $unaMesa;
     }
-
     static function obtenerPorEstado($estado) {
       $mySqlResource = mySql::connect_db();
       $query="SELECT * FROM mesa WHERE estado = '$estado'";
@@ -48,11 +47,7 @@ class pMesa {
         $lista->add($unaMesa);
       }      
       return $lista;
-
     }
-
-
-
     static function save($unaMesa) {
       if ($unaMesa!=null) {
         mySql::connect_db();
@@ -73,7 +68,17 @@ class pMesa {
         die("Null User on Save");
       }
       return true;
-
+    }
+    public function obtenerVictoriasPorJugador($idJugador) {
+      if ($idJugador!=null) {
+        mySql::connect_db();
+        $query="SELECT COUNT(*) FROM mesa WHERE id_ganador = $idJugador";
+        $result=mysql_query($query);
+        mysql_close();
+        $row = mysql_fetch_row($result);
+        return $row[0];
+      }
+      return 0;
     }
 }
 ?>

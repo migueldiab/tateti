@@ -21,33 +21,30 @@ class juego {
       $stringHtml .= '</a><br />';
     }
     return $stringHtml;
-   }
+  }
    
-     static function mostrarTop() {
-
-      $top = '
-                <a href="#" class="morelink">
-                  Juan <span class="links_text"> 15 Victorias</span>
-                </a>
-                <br />
-              ';
-      $top .= '
-            <a href="#" class="morelink">
-              Lucia <span class="links_text"> 10 Victorias</span>
-            </a>
-            <br />
-          ';
-          return $top;
-   }
-
-    static function jugar(){
-        $statusMesa=checkMesaCreada();
-        if($statusMesa!=null){    //si la mesa ya esta creada y esperando segundo jugador...
-            joinMesaCreada($statusMesa,$idJugador);
-        }else{
-            crearMesa();    
-        }
+  static function mostrarTop() {
+    $topJugadores = new ArrayList();
+    $topJugadores = Jugador::listarTopJugadores("5");
+    $unJugador = new Jugador();
+    $stringHtml = "";
+    foreach ($topJugadores->getList() as $unJugador) {
+      $stringHtml .= '<a href="index.php?pagina=verJugador&id='.$unJugador->getId().'" class="morelink">';
+      $stringHtml .= $unJugador->getUsuario().' <span class="links_text">'.$unJugador->getVictorias().' victorias</span>';
+      $stringHtml .= '</a><br/>';
     }
+    return $stringHtml;
+  }
+
+  static function jugar(){
+    $statusMesa=checkMesaCreada();
+    if($statusMesa!=null){    //si la mesa ya esta creada y esperando segundo jugador...
+      joinMesaCreada($statusMesa,$idJugador);
+    }
+    else{
+      crearMesa();
+    }
+  }
 
  static function checkMesaActiva($idMesa){
      $unaMesa=Mesa::obtenerPorId($idMesa);

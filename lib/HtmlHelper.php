@@ -74,7 +74,6 @@ class HtmlHelper {
     $variables['usuario'] = isset($_SESSION["usuario"])?$_SESSION["usuario"]:'An&oacute;nimo';
     $variables['mostrarJuego'] = juego::mostrarJuego();
     $variables['mostrarMesas'] = juego::mostrarMesas();
-    $variables['mostrarMesas'] = juego::mostrarMesas();
     $variables['jugar'] = "link a jugar?";
     return HtmlHelper::template("body.php", $variables);
   }
