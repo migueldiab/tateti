@@ -18,6 +18,7 @@
   include_once  "./lib/mySql.php";
   include_once  "./lib/juego.php";
   include_once  "./lib/Usuario.php";
+  include_once  "./lib/Jugador.php";
   include_once  "./lib/Mesa.php";
   include_once  "./vendor/ArrayList.php";
   

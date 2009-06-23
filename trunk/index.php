@@ -9,9 +9,9 @@
     }
     elseif (isset($_GET['pagina'])) {
       Fachada::procesar($_GET['pagina'], null);
-    }
+    }    
     else {
-      die("Error!");
+      Sistema::principal();
     }
   }
   else {

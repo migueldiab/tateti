@@ -55,6 +55,29 @@ class pUsuario {
         return null;
       }
     }
+    static function listarJugadores() {
+      $mySqlResource = mySql::connect_db();
+      $query="SELECT * FROM usuario";
+      $result=mysql_query($query, $mySqlResource);
+      mysql_close($mySqlResource);
+
+      $lista = new ArrayList();
+
+      while ($row = mysql_fetch_array($result)) {
+
+        $unJugador = new Jugador();
+        $unJugador->setId($row["id"]);
+        $unJugador->setNombre($row["nombre"]);
+        $unJugador->setApellido($row["apellido"]);
+        $unJugador->setClave($row["clave"]);
+        $unJugador->setEmail($row["email"]);
+        $unJugador->setUsuario($row["usuario"]);
+        $victorias = Mesa::obtenerVictoriasPorJugador($unJugador);
+        $unJugador->setVictorias($victorias);
+        $lista->add($unJugador);
+      }
+      return $lista;
+    }
     static function save($unUsuario) {
       if ($unUsuario!=null) {
         $mySqlResource = mySql::connect_db();
@@ -75,7 +98,6 @@ class pUsuario {
         die("Null User on Save");
       }
       return true;
-
     }
 }
 ?>

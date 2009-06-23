@@ -81,6 +81,10 @@ class Mesa {
   public function save() {
     return pMesa::save($this);
   }
+  public function obtenerVictoriasPorJugador($unJugador) {
+    return pMesa::obtenerVictoriasPorJugador($unJugador->getId());
+
+  }
 
 }
 ?>
