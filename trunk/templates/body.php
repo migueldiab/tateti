@@ -7,9 +7,12 @@
   {mostrarMesas}
         <div class="freeregistration">
           <div align="center">
-          <a href={jugar}>Juega Gratis </a><br>
+          <form method="post" id="jugarForm" action="./index.php">
+           <input name="pagina" type="hidden" value="jugar" />
+          <input type="submit" name="Jugar!" value="Jugar!">
+          </form>
        <!--   Juega <span class="free">Gratis</span></div> -->
-       	<input type="button" onclick="window.open('index.php', '_self')" value="Reload" name="btnReload"/>
+       <!--	<input type="button" onclick="window.open('index.php', '_self')" value="Reload" name="btnReload"/> -->
         </div>
         </div>
 
