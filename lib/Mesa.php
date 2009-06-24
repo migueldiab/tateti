@@ -5,11 +5,13 @@ class Mesa {
   private $id;
   private $creada;
   private $estado;
-  private $id_ganador;
-  private $id_jugador1;
-  private $id_jugador2;
+  private $ganador;
+  private $jugador1;
+  private $jugador2;
 
-
+    function __construct() {
+       $this->creada=date("Y-m-d H:i:s");
+    }
   public function getId() {
     return $this->id;
   }
@@ -35,27 +37,27 @@ class Mesa {
   }
 
   public function getGanador() {
-    return $this->id_ganador;
+    return $this->ganador;
   }
 
-  public function setGanador($id_ganador) {
-    $this->id_ganador = $id_ganador;
+  public function setGanador($ganador) {
+    $this->ganador = $ganador;
   }
 
   public function getJugador1() {
-    return $this->id_jugador1;
+    return $this->jugador1;
   }
 
-  public function setJugador1($id_jugador1) {
-    $this->id_jugador1 = $id_jugador1;
+  public function setJugador1($jugador1) {
+    $this->jugador1 = $jugador1;
   }
 
   public function getJugador2() {
     return $this->id_jugador2;
   }
 
-  public function setJugador2($id_jugador2) {
-    $this->id_jugador2 = $id_jugador2;
+  public function setJugador2($jugador2) {
+    $this->jugador2 = $jugador2;
   }
 
   function Mesa() {
@@ -67,7 +69,12 @@ class Mesa {
     return $unaMesa;
   }
   static function obtenerPorEstado($estado) {
-    $unaMesa = pMesa::obtenerPorId($estado);
+    $listaMesas = pMesa::obtenerPorEstado($estado);
+    return $listaMesas;
+  }
+
+   static function obtenerMesaPorEstado($estado) {
+    $unaMesa = pMesa::obtenerMesaPorEstado($estado);
     return $unaMesa;
   }
   static function listarMesasActivas($cantidad) {
@@ -75,7 +82,7 @@ class Mesa {
     return $listaMesas;
   }
   public function __toString() {
-    return $this->mesa;
+    return $this->id;
   }
 
   public function save() {

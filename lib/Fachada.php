@@ -66,5 +66,8 @@ class Fachada {
     Generico::help();
   }
 
+   static function jugar() {
+    juego::jugar();
+   }
 }
 ?>

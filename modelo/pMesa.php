@@ -32,11 +32,9 @@ class pMesa {
       $query="SELECT * FROM mesa WHERE estado = '$estado'";
       $result=mysql_query($query, $mySqlResource);
       mysql_close($mySqlResource);
-
       $lista = new ArrayList();
-
+    if($result!=null){
       while ($row = mysql_fetch_array($result)) {
-        
         $unaMesa = new Mesa();
         $unaMesa->setId($row["id"]);
         $unaMesa->setCreada($row["creada"]);
@@ -45,20 +43,66 @@ class pMesa {
         $unaMesa->setJugador1(Usuario::obtenerPorId($row["id_jugador_1"]));
         $unaMesa->setJugador2(Usuario::obtenerPorId($row["id_jugador_2"]));
         $lista->add($unaMesa);
-      }      
+      }
       return $lista;
+    }else{
+    return null;
+
     }
+      }
+
+        static function obtenerMesaPorEstado($estado) {
+      $mySqlResource = mySql::connect_db();
+      $query="SELECT * FROM mesa WHERE estado = '$estado'";
+      $result=mysql_query($query, $mySqlResource);
+      mysql_close($mySqlResource);
+    if($result!=null){
+      while ($row = mysql_fetch_array($result)) {
+        $unaMesa = new Mesa();
+        $unaMesa->setId($row["id"]);
+        $unaMesa->setCreada($row["creada"]);
+        $unaMesa->setEstado($row["estado"]);
+        $unaMesa->setGanador(Usuario::obtenerPorId($row["id_ganador"]));
+        $unaMesa->setJugador1(Usuario::obtenerPorId($row["id_jugador_1"]));
+        $unaMesa->setJugador2(Usuario::obtenerPorId($row["id_jugador_2"]));
+      }
+      return $unaMesa;
+    }else{
+     return null;
+    }
+        }
+
+
     static function save($unaMesa) {
       if ($unaMesa!=null) {
         mySql::connect_db();
-        $query="REPLACE INTO mesa (creada, estado, id_ganador, id_jugador_1, id_jugador_2)
+        if($unaMesa->getGanador()!=null){
+        $query="REPLACE INTO mesa (id, creada, estado, id_ganador, id_jugador_1, id_jugador_2)
                 VALUES (
+                '".$unaMesa->getId()."',
                 '".$unaMesa->getCreada()."',
                 '".$unaMesa->getEstado()."',
                 '".$unaMesa->getGanador()->getId()."',
                 '".$unaMesa->getJugador1()->getId()."',
                 '".$unaMesa->getJugador2()->getId()."')";
         $result=mysql_query($query);
+        }else if($unaMesa->getJugador2()!=null){
+            $query="REPLACE INTO mesa (id, creada, estado, id_jugador_1, id_jugador_2)
+                VALUES (
+                '".$unaMesa->getId()."',
+                '".$unaMesa->getCreada()."',
+                '".$unaMesa->getEstado()."',
+                '".$unaMesa->getJugador1()->getId()."',
+                '".$unaMesa->getJugador2()->getId()."')";
+        $result=mysql_query($query);
+        }else{
+                $query="REPLACE INTO mesa (creada, estado, id_jugador_1)
+                VALUES (
+                '".$unaMesa->getCreada()."',
+                '".$unaMesa->getEstado()."',
+                '".$unaMesa->getJugador1()->getId()."')";
+        $result=mysql_query($query);
+        }
         if (!$result) {
           die (mysql_error());
         }
