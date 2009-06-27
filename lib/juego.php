@@ -37,14 +37,19 @@ class juego {
   }
 
   static function jugar(){
-    $mesa=juego::checkMesaCreada();
-    if($mesa!=null){    //si la mesa ya esta creada y esperando segundo jugador...
-      juego::joinMesaCreada($mesa);
-      Sistema::enJuego();
+    if ($_SESSION['usuario']!=null) {
+      $mesa=juego::checkMesaCreada();
+      if($mesa!=null){    //si la mesa ya esta creada y esperando segundo jugador...
+        juego::joinMesaCreada($mesa);
+        Sistema::enJuego();
+      }
+      else{
+        juego::crearMesa();
+        Sistema::enJuego();
+      }
     }
-    else{
-      juego::crearMesa();
-      Sistema::enJuego();
+    else {
+      Sistema::login();
     }
   }
 

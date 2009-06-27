@@ -16,20 +16,43 @@ class Generico {
       $css = array('style');
       echo HtmlHelper::head('TaTeT&iacute;', $scripts, $css);
       /* Cuerpo  */
-      $menuTop['Login'] = 'index.php?pagina=login';
-      $menuTop['Jugar'] = 'index.php?pagina=principal';
-      $menuTop["Registrar"] = "index.php?pagina=registrate";
+      if (isset($_SESSION["usuario"])) {
+        $menuTop['index.php?pagina=logout'] = 'Logout';
+      }
+      else {
+        $menuTop['index.php?pagina=login'] = 'Login';
+      }
+      $menuTop["index.php?pagina=principal"] = "Jugar";
+      $menuTop["index.php?pagina=registrate"] = "Registrar";
 
-      $menuBajo = array("Acerca de" => "acerca",
-              "Algo mas" => "algo");
-      $tab = 'acerca';
+      $menuBajo = Sistema::bottomTabs();
+      $tab = 'Acerca de';
       echo HtmlHelper::help($menuTop, $menuBajo, $tab);
       /* Pie */
-      $links = array("acerca" => "Acerca de",
-                "produccion" => "Producci&oacute; n",
-                "objetivos" => "Objetivos",
-                "foro" => "Foro",
-                "contacto" => "Contacto");
+      $links = Sistema::bottomLinks();
+      $cright = "Marcos Tusso & Miguel Diab <br> Universidad ORT <br> Todos los derechos reservados (C) 2009";
+      echo HtmlHelper::footer($links, $cright);
+    }
+    static function pageNotFound() {
+      /* Cabezal */
+      $scripts = array('jquery', 'script', 'validaciones');
+      $css = array('style');
+      echo HtmlHelper::head('TaTeT&iacute;', $scripts, $css);
+      /* Cuerpo  */
+      if (isset($_SESSION["usuario"])) {
+        $menuTop['index.php?pagina=logout'] = 'Logout';
+      }
+      else {
+        $menuTop['index.php?pagina=login'] = 'Login';
+      }
+      $menuTop["index.php?pagina=principal"] = "Jugar";
+      $menuTop["index.php?pagina=registrate"] = "Registrar";
+
+      $menuBajo = Sistema::bottomTabs();
+      $tab = 'Acerca de';
+      echo HtmlHelper::pageNotFound($menuTop, $menuBajo, $tab);
+      /* Pie */
+      $links = Sistema::bottomLinks();
       $cright = "Marcos Tusso & Miguel Diab <br> Universidad ORT <br> Todos los derechos reservados (C) 2009";
       echo HtmlHelper::footer($links, $cright);
     }

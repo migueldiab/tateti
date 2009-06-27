@@ -76,29 +76,35 @@ class pMesa {
     static function save($unaMesa) {
       if ($unaMesa!=null) {
         mySql::connect_db();
-        if($unaMesa->getGanador()!=null){
-        $query="REPLACE INTO mesa (id, creada, estado, id_ganador, id_jugador_1, id_jugador_2)
-                VALUES (
-                '".$unaMesa->getId()."',
-                '".$unaMesa->getCreada()."',
-                '".$unaMesa->getEstado()."',
-                '".$unaMesa->getGanador()->getId()."',
-                '".$unaMesa->getJugador1()->getId()."',
-                '".$unaMesa->getJugador2()->getId()."')";
-        $result=mysql_query($query);
-        }else if($unaMesa->getJugador2()!=null){
-            $query="UPDATE mesa SET estado='".$unaMesa->getEstado()."',
+        if($unaMesa->getGanador()!=null && $unaMesa->getJugador1()!=null && $unaMesa->getJugador2()!=null)
+        {
+          $query="REPLACE INTO mesa (id, creada, estado, id_ganador, id_jugador_1, id_jugador_2)
+                  VALUES (
+                  '".$unaMesa->getId()."',
+                  '".$unaMesa->getCreada()."',
+                  '".$unaMesa->getEstado()."',
+                  '".$unaMesa->getGanador()->getId()."',
+                  '".$unaMesa->getJugador1()->getId()."',
+                  '".$unaMesa->getJugador2()->getId()."')";
+        }
+        else if($unaMesa->getJugador1()!=null && $unaMesa->getJugador2()!=null)
+        {
+          $query="UPDATE mesa SET estado='".$unaMesa->getEstado()."',
                 id_jugador_1='".$unaMesa->getJugador1()->getId()."',
                 id_jugador_2='".$unaMesa->getJugador2()->getId()."' WHERE id='".$unaMesa->getId()."'";
-        $result=mysql_query($query);
-        }else{
-                $query="INSERT INTO mesa (creada, estado, id_jugador_1)
+        }
+        else if($unaMesa->getJugador1()!=null)
+        {
+          $query="INSERT INTO mesa (creada, estado, id_jugador_1)
                 VALUES (
                 '".$unaMesa->getCreada()."',
                 '".$unaMesa->getEstado()."',
                 '".$unaMesa->getJugador1()->getId()."')";
-        $result=mysql_query($query);
+        }        
+        else {
+          return false;
         }
+        $result=mysql_query($query);
         if (!$result) {
           die (mysql_error());
         }

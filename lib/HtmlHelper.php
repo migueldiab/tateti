@@ -60,10 +60,10 @@ class HtmlHelper {
   static function header($menuTop, $menuMedio, $cabezal) {
     $variables['menuTop'] = "";
     $variables['menuMedio'] = "";
-    foreach ($menuTop as $text => $link) {
+    foreach ($menuTop as  $link => $text) {
       $variables['menuTop'] .= '      <a href="'.$link.'" class="topMenuItem">'.$text.'</a>';
     }
-    foreach ($menuMedio as $text => $link) {
+    foreach ($menuMedio as $link => $text) {
       $variables['menuMedio'] .= '      <a href="'.$link.'" class="comments">'.$text.'</a>';
     }
     $variables['cabezal'] = $cabezal;
@@ -79,8 +79,8 @@ class HtmlHelper {
   }
   static function bodyBackground($menuBajo, $tab) {
     $variables['menuBajo'] = "";
-    foreach ($menuBajo as $text => $link) {
-      $variables['menuBajo'] .= '          <a href="'.$link.'" class="innermenu'.($link==$tab?'_hover':'').'">'.$text.'</a>';
+    foreach ($menuBajo as $link => $text) {
+      $variables['menuBajo'] .= '          <a href="'.$link.'" class="innermenu'.($text==$tab?'_hover':'').'">'.$text.'</a>';
     }
     $variables['tab'] = HtmlHelper::tab($tab);
     
@@ -105,7 +105,7 @@ class HtmlHelper {
   static function footer($links, $cright) {
     $variables['links'] = "";
     $variables['copyright'] = $cright;
-    foreach ($links as $text => $link) {
+    foreach ($links as $link => $text) {
       $variables['links'] .= '            <a href="'.$link.'" class="fotterlink">'.$text.'</a>  |';
     }
     return HtmlHelper::template("footer.php", $variables);
@@ -116,6 +116,15 @@ class HtmlHelper {
     $cabezal = 'Aprender a jugar al tateti lleva un minuto...<br><i>...dominarlo lleva una vida!</i>';
     $bodyContent = HtmlHelper::header($menuTop, $menuMedio, $cabezal);
     $bodyContent .= HtmlHelper::template("help.php", null);
+    $bodyContent .= HtmlHelper::bodyBackground($menuBajo, $tab);
+    return $bodyContent;
+  }
+
+  static function pageNotFound($menuTop, $menuBajo, $tab) {
+    $menuMedio = array();
+    $cabezal = 'Ooops! Tu entrada caus&oacute; un grave error<br>Nuestros ingenieros est&aacute;n intentando solucionar el problema';
+    $bodyContent = HtmlHelper::header($menuTop, $menuMedio, $cabezal);
+    $bodyContent .= HtmlHelper::template("error.php", null);
     $bodyContent .= HtmlHelper::bodyBackground($menuBajo, $tab);
     return $bodyContent;
   }
@@ -135,7 +144,7 @@ class HtmlHelper {
     return $bodyContent;
   }
   static function tab($tab) {
-    if ($tab=='acerca') {
+    if ($tab=='Acerca de') {
       $tab =  '<div class="tab_text">
           <p class="tab_head">5 de Mayo</p>
           <p>
