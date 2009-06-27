@@ -50,9 +50,9 @@ class HtmlHelper {
    * @return string Código HTML a ser pareseado por el servidor Web
    * @author Miguel A. Diab & Marcos Tusso
    */
-  static function bodyContent($menuTop, $menuMedio, $cabezal, $menuBajo, $tab ) {
+  static function bodyContent($menuTop, $menuMedio, $cabezal, $menuBajo, $tab, $datos ) {
     $bodyContent = HtmlHelper::header($menuTop, $menuMedio, $cabezal);
-    $bodyContent .= HtmlHelper::bodyArea();
+    $bodyContent .= HtmlHelper::bodyArea($datos);
     $bodyContent .= HtmlHelper::bodyBackground($menuBajo, $tab);
     return $bodyContent;
   }
@@ -69,10 +69,10 @@ class HtmlHelper {
     $variables['cabezal'] = $cabezal;
     return HtmlHelper::template("header.php", $variables);
   }
-  static function bodyArea() {
+  static function bodyArea($datos) {
     $variables['mostrarTop'] = juego::mostrarTop();
     $variables['usuario'] = isset($_SESSION["usuario"])?$_SESSION["usuario"]:'An&oacute;nimo';
-    $variables['mostrarJuego'] = juego::mostrarJuego();
+    $variables['mostrarJuego'] = juego::mostrarJuego($datos);
     $variables['mostrarMesas'] = juego::mostrarMesas();
     $variables['jugar'] = "link a jugar?";
     return HtmlHelper::template("body.php", $variables);

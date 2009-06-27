@@ -2,8 +2,8 @@
 
 class juego {
 
-  static function mostrarJuego() {
-    return HtmlHelper::template("tateti.php", null);
+  static function mostrarJuego($datos) {
+    return HtmlHelper::template("tateti.php", $datos);
   }
   static function mostrarMesas() {
     $mesasActivas = new ArrayList();
@@ -87,7 +87,8 @@ class juego {
         $jugador1=$_SESSION["usuario"];
         $unaMesa->setJugador1($jugador1);
         $unaMesa->setEstado("esperando");
-        $unaMesa->save();
+        $id=$unaMesa->save();
+        $unaMesa->setId($id);
         $_SESSION["mesa"]=$unaMesa;
     }
 

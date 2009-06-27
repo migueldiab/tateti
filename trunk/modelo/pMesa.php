@@ -108,7 +108,9 @@ class pMesa {
         if (!$result) {
           die (mysql_error());
         }
+        $id= mysql_insert_id();
         mysql_close();
+        return $id;
       }
       else {
         die("Null User on Save");

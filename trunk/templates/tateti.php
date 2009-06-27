@@ -3,7 +3,7 @@
 <div id="titulo">
     <h1 id="titulo"> </h1>
 </div>
-<var id="jugadores">{jugadores}</var>
+<input type="hidden" id="jugadores" title="{jugadores}" ></input>
   <table frame="0" width="60%" border="1" style="font-size:40px; text-align:center;" id="board">
       <tbody>
       <tr id="tr1">
