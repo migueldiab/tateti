@@ -56,7 +56,7 @@ class pMesa {
       $query="SELECT * FROM mesa WHERE estado = '$estado'";
       $result=mysql_query($query, $mySqlResource);
       mysql_close($mySqlResource);
-    if($result!=null){
+    if(mysql_num_rows($result)!=0){
       while ($row = mysql_fetch_array($result)) {
         $unaMesa = new Mesa();
         $unaMesa->setId($row["id"]);
@@ -87,16 +87,12 @@ class pMesa {
                 '".$unaMesa->getJugador2()->getId()."')";
         $result=mysql_query($query);
         }else if($unaMesa->getJugador2()!=null){
-            $query="REPLACE INTO mesa (id, creada, estado, id_jugador_1, id_jugador_2)
-                VALUES (
-                '".$unaMesa->getId()."',
-                '".$unaMesa->getCreada()."',
-                '".$unaMesa->getEstado()."',
-                '".$unaMesa->getJugador1()->getId()."',
-                '".$unaMesa->getJugador2()->getId()."')";
+            $query="UPDATE mesa SET estado='".$unaMesa->getEstado()."',
+                id_jugador_1='".$unaMesa->getJugador1()->getId()."',
+                id_jugador_2='".$unaMesa->getJugador2()->getId()."' WHERE id='".$unaMesa->getId()."'";
         $result=mysql_query($query);
         }else{
-                $query="REPLACE INTO mesa (creada, estado, id_jugador_1)
+                $query="INSERT INTO mesa (creada, estado, id_jugador_1)
                 VALUES (
                 '".$unaMesa->getCreada()."',
                 '".$unaMesa->getEstado()."',
