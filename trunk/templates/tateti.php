@@ -23,7 +23,7 @@
       </tr>
       </tbody>
   </table>
-  <input type="Radio" id="X" name="XO" value="X" disabled="true">X</input>
+ <!-- <input type="Radio" id="X" name="XO" value="X" disabled="true">X</input>
   <input type="Radio" id="O" name="XO" value="O" disabled="true">O</input>
-  <input type="button" value="Nuevo Juego" id="nuevoJuego"/>
+  <input type="button" value="Nuevo Juego" id="nuevoJuego"/> -->
 </center>

@@ -61,9 +61,7 @@ DROP TABLE IF EXISTS `jugada` ;
 CREATE  TABLE IF NOT EXISTS `jugada` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `hora` TIMESTAMP NULL ,
-  `fila` INT NULL ,
-  `columna` INT NULL ,
-  `seguridad` VARCHAR(45) NULL ,
+  `id_campo` INT NULL ,
   `es_cruz` BOOLEAN NULL ,
   `id_jugador` INT NULL ,
   `id_mesa` INT NULL ,

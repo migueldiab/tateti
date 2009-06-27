@@ -2,11 +2,16 @@
 $id = $_POST["id"];
 $jugadores=$_POST["jugadores"];
 $mesa=$_SESSION["mesa"];
-
+$yo=$_SESSION["usuario"];
 if($mesa->getJugador2()!=null){
-    echo "seleccionarXO";
+    if($mesa->getJugadas()==null){
+        return json_encode($yo);
+    }else if($mesa->getJugadas!=null){
+        return json_encode($mesa->ultimoJugador);
+    }
+
 }else{
-    echo "SinJugador";
+    return null;
 }
 
 

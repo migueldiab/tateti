@@ -5,6 +5,7 @@ var started=null
 var id_actual;
 var intervalo;
 var delayCall=10000;
+var cantJugadores;
 
 function eventos(){
  //   $("#nuevoJuego").click(borrar)
@@ -149,7 +150,7 @@ function checkStatusJuego(){
 }
 
 function juegoActivo(){
-    if(mesa)
+  
     $("#titulo").text("EN JUEGOOOOOOO")
 
 }
@@ -165,9 +166,9 @@ function consultarOponente(){
             type: "POST",
             dataType:"json",
             data: ({
-                jugadores : 1
+                jugadores : 2
             }),
-            success: seleccionarXO,
+            success: verJugada,
             error: mostrarError
 
         })
@@ -178,5 +179,13 @@ function seleccionarXO(mensaje){
     }else if(mensaje=="SinJugador"){
 
     }
+}
+
+function verJugada(id_Ultimo_Jugador){ //determina de quien es el turno y actua acorde
+    if(id_Ultimo_Jugador)
+}
+
+function mostrarError(){
+    alert("ERROR!");
 }
 }
