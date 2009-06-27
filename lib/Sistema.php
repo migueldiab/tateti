@@ -47,7 +47,7 @@ class Sistema {
           $cabezal = "Bienvenidos al apasionante mundo del TaTeT&iacute; <p>En este sitio, uds. podr&aacute;n jugar al juego mas viejo del mundo";
       $menuBajo = Sistema::bottomTabs();
       $tab = 'Acerca de';
-      echo HtmlHelper::bodyContent($menuTop, $menuMedio, $cabezal, $menuBajo, $tab);
+      echo HtmlHelper::bodyContent($menuTop, $menuMedio, $cabezal, $menuBajo, $tab, null);
       /* Pie */
       $links = Sistema::bottomLinks();
       $cright = "Marcos Tusso & Miguel Diab <br> Universidad ORT <br> Todos los derechos reservados (C) 2009";
@@ -76,21 +76,7 @@ class Sistema {
   }
 
     static function enJuego() {
-          if(isset($_SESSION["mesa"])){
-          $unaMesa=Mesa::obtenerPorId($_SESSION["mesa"]);
-          if($unaMesa->getEstado()=="activa"){
-              $variables["jugadores"]=2;
 
-          // echo "<script language=javascript>juegoActivo())</script>";
-          }else if($unaMesa->getEstado()=="esperando"){
-          // echo "<script language=javascript>juegoEnEspera())</script>";
-            $variables["jugadores"]=1;
-
-          }
-          HtmlHelper::template("tateti.php", $variables);
-
-
-      }
       /* Cabezal */
       $scripts = array('jquery', 'script', 'validaciones');
       $css = array('style');
@@ -109,7 +95,19 @@ class Sistema {
       $menuBajo = array("Acerca de" => "acerca",
               "Algo mas" => "algo");
       $tab = 'Acerca de';
-      echo HtmlHelper::bodyContent($menuTop, $menuMedio, $cabezal, $menuBajo, $tab);
+            if(isset($_SESSION["mesa"])){
+          $unaMesa=Mesa::obtenerPorId($_SESSION["mesa"]);
+          if($unaMesa->getEstado()=="activa"){
+              $variables['jugadores']='2';
+
+          // echo "<script language=javascript>juegoActivo())</script>";
+          }else if($unaMesa->getEstado()=="esperando"){
+          // echo "<script language=javascript>juegoEnEspera())</script>";
+            $variables['jugadores']='1';
+          }
+
+      }
+      echo HtmlHelper::bodyContent($menuTop, $menuMedio, $cabezal, $menuBajo, $tab, $variables);
       /* Pie */
       $links = array("acerca" => "Acerca de",
                 "produccion" => "Producci&oacute; n",
@@ -118,7 +116,7 @@ class Sistema {
                 "contacto" => "Contacto");
       $cright = "Marcos Tusso & Miguel Diab <br> Universidad ORT <br> Todos los derechos reservados (C) 2009";
       echo HtmlHelper::footer($links, $cright);
-    
+
   }
 
   static function registrar($valores) {

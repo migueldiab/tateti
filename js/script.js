@@ -139,11 +139,11 @@ function checkEmpate(){
 }
 
 function checkStatusJuego(){
-    if("#jugadores"==1){
+    $val=$("#jugadores").attr("title");
+    if($val=="1"){
         juegoEnEspera();
-    }else if("#jugadores"==2){
+    }else if($val=="2"){
         juegoActivo();
-
     }
 
 }
