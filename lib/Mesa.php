@@ -53,7 +53,7 @@ class Mesa {
   }
 
   public function getJugador2() {
-    return $this->id_jugador2;
+    return $this->jugador2;
   }
 
   public function setJugador2($jugador2) {
