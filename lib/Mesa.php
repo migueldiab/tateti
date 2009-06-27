@@ -8,6 +8,8 @@ class Mesa {
   private $ganador;
   private $jugador1;
   private $jugador2;
+  private $jugadas;
+
 
     function __construct() {
        $this->creada=date("Y-m-d H:i:s");
@@ -60,10 +62,10 @@ class Mesa {
     $this->jugador2 = $jugador2;
   }
 
-  function Mesa() {
-
+  static function getJugadas() {
+      return pJugada::obtenerPorIdMesa($this->id);
   }
-
+ 
   static function obtenerPorId($id) {
     $unaMesa = pMesa::obtenerPorId($id);
     return $unaMesa;
@@ -81,6 +83,7 @@ class Mesa {
     $listaMesas = pMesa::obtenerPorEstado("A");
     return $listaMesas;
   }
+
   public function __toString() {
     return (string)$this->id;
   }
@@ -92,6 +95,13 @@ class Mesa {
     return pMesa::obtenerVictoriasPorJugador($unJugador->getId());
 
   }
+
+public function ultimoJugador() {
+    $laJugada=pJugada::obtenerUltimaJugadaPorIdMesa($this->id);
+    return $laJugada->getJugador();
+    
+  }
+
 
 }
 ?>
