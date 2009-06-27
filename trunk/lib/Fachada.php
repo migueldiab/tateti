@@ -37,10 +37,14 @@ class Fachada {
    */
   static function procesar($pagina, $valores) {
     if ($valores==null) {
-     call_user_func("Fachada::".$pagina);
+     if (!@call_user_func("Fachada::".$pagina)) {
+       return Generico::pageNotFound();
+     }
     }
     else {
-     call_user_func("Fachada::".$pagina, $valores);
+     if (!@call_user_func("Fachada::".$pagina, $valores)) {
+       return Generico::pageNotFound();
+     }
     }
   }
 
@@ -65,9 +69,10 @@ class Fachada {
   static function help() {
     Generico::help();
   }
-
-   static function jugar() {
+  static function jugar() {
     juego::jugar();
-   }
+  }
+  
+  
 }
 ?>

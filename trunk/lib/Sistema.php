@@ -15,20 +15,15 @@ class Sistema {
     $css = array('style');
     echo HtmlHelper::head('TaTeT&iacute;', $scripts, $css);
     /* Cuerpo  */
-    $menuTop['Jugar'] = 'index.php?pagina=principal';
-    $menuTop["Ayuda"] = "index.php?pagina=help";
-    $menuTop["Registrar"] = "index.php?pagina=registrate";
+    $menuTop['index.php?pagina=principal'] = 'Jugar';
+    $menuTop["index.php?pagina=help"] = "Ayuda";
+    $menuTop["index.php?pagina=registrate"] = "Registrar";
 
-    $menuBajo = array("Acerca de" => "acerca",
-            "Algo mas" => "algo");
-    $tab = 'acerca';
+    $menuBajo = Sistema::bottomTabs();
+    $tab = 'Acerca de';
     echo HtmlHelper::loginSimple($menuTop, $menuBajo, $tab);
     /* Pie */
-    $links = array("acerca" => "Acerca de",
-              "produccion" => "Producci&oacute; n",
-              "objetivos" => "Objetivos",
-              "foro" => "Foro",
-              "contacto" => "Contacto");
+    $links = Sistema::bottomLinks();
     $cright = "Marcos Tusso & Miguel Diab <br> Universidad ORT <br> Todos los derechos reservados (C) 2009";
     echo HtmlHelper::footer($links, $cright);
 
@@ -40,28 +35,21 @@ class Sistema {
       echo HtmlHelper::head('TaTeT&iacute;', $scripts, $css);
       /* Cuerpo  */
       if (isset($_SESSION["usuario"])) {
-        $menuTop['Logout'] = 'index.php?pagina=logout';
+        $menuTop['index.php?pagina=logout'] = 'Logout';
       }
       else {
-        $menuTop['Login'] = 'index.php?pagina=login';
+        $menuTop['index.php?pagina=login'] = 'Login';
       }
-      $menuTop["Ayuda"] = "index.php?pagina=help";
-      $menuTop["Registrar"] = "index.php?pagina=registrate";
+      $menuTop["index.php?pagina=help"] = "Ayuda";
+      $menuTop["index.php?pagina=registrate"] = "Registrar";
 
-      $menuMedio = array("Jugar" => "jugar",
-              "Stats" => "stats",
-              "Crear Mesa" => "mesa");
+      $menuMedio = Sistema::middleMenu();
           $cabezal = "Bienvenidos al apasionante mundo del TaTeT&iacute; <p>En este sitio, uds. podr&aacute;n jugar al juego mas viejo del mundo";
-      $menuBajo = array("Acerca de" => "acerca",
-              "Algo mas" => "algo");
-      $tab = 'acerca';
+      $menuBajo = Sistema::bottomTabs();
+      $tab = 'Acerca de';
       echo HtmlHelper::bodyContent($menuTop, $menuMedio, $cabezal, $menuBajo, $tab);
       /* Pie */
-      $links = array("acerca" => "Acerca de",
-                "produccion" => "Producci&oacute; n",
-                "objetivos" => "Objetivos",
-                "foro" => "Foro",
-                "contacto" => "Contacto");
+      $links = Sistema::bottomLinks();
       $cright = "Marcos Tusso & Miguel Diab <br> Universidad ORT <br> Todos los derechos reservados (C) 2009";
       echo HtmlHelper::footer($links, $cright);
   }
@@ -74,20 +62,15 @@ class Sistema {
       $css = array('style');
       echo HtmlHelper::head('TaTeT&iacute;', $scripts, $css);
       /* Cuerpo  */
-      $menuTop['Login'] = 'index.php?pagina=login';
-      $menuTop["Ayuda"] = "index.php?pagina=help";
-      $menuTop['Jugar'] = 'index.php?pagina=principal';
+      $menuTop['index.php?pagina=login'] = 'Login';
+      $menuTop["index.php?pagina=help"] = "Ayuda";
+      $menuTop["index.php?pagina=principal"] = "Jugar";
 
-      $menuBajo = array("Acerca de" => "acerca",
-              "Algo mas" => "algo");
-      $tab = 'acerca';
+      $menuBajo = Sistema::bottomTabs();
+      $tab = 'Acerca de';
       echo HtmlHelper::registrate($menuTop, $menuBajo, $tab, $error);
       /* Pie */
-      $links = array("acerca" => "Acerca de",
-                "produccion" => "Producci&oacute; n",
-                "objetivos" => "Objetivos",
-                "foro" => "Foro",
-                "contacto" => "Contacto");
+      $links = Sistema::bottomLinks();
       $cright = "Marcos Tusso & Miguel Diab <br> Universidad ORT <br> Todos los derechos reservados (C) 2009";
       echo HtmlHelper::footer($links, $cright);
   }
@@ -114,20 +97,18 @@ class Sistema {
       echo HtmlHelper::head('TaTeT&iacute;', $scripts, $css);
       /* Cuerpo  */
       if (isset($_SESSION["usuario"])) {
-        $menuTop['Logout'] = 'index.php?pagina=logout';
+        $menuTop['index.php?pagina=logout'] = 'Logout';
       }
       else {
-        $menuTop['Login'] = 'index.php?pagina=login';
+        $menuTop['index.php?pagina=login'] = 'Login';
       }
-      $menuTop["Ayuda"] = "index.php?pagina=help";
-      $menuTop["Registrar"] = "index.php?pagina=registrate";
-      $menuMedio = array("Jugar" => "jugar",
-          "Stats" => "stats",
-          "Crear Mesa" => "mesa");
+      $menuTop["index.php?pagina=help"] = "Ayuda";
+      $menuTop["index.php?pagina=registrate"] = "Registrar";
+      $menuMedio = Sistema::middleMenu();
       $cabezal = "Bienvenidos al apasionante mundo del TaTeT&iacute; <p>En este sitio, uds. podr&aacute;n jugar al juego mas viejo del mundo";
       $menuBajo = array("Acerca de" => "acerca",
               "Algo mas" => "algo");
-      $tab = 'acerca';
+      $tab = 'Acerca de';
       echo HtmlHelper::bodyContent($menuTop, $menuMedio, $cabezal, $menuBajo, $tab);
       /* Pie */
       $links = array("acerca" => "Acerca de",
@@ -185,7 +166,24 @@ class Sistema {
       $_SESSION['error'] = "El usuario y la clave deben tener al menos 3 caracteres";
     }
     Sistema::principal();
-  }    
+  }
+
+  static function bottomLinks() {
+    return array("index.php?pagina=acerca" => "Acerca de",
+              "index.php?pagina=produccion" => "Producci&oacute;n",
+              "index.php?pagina=objetivos" => "Objetivos",
+              "index.php?pagina=foro" => "Foro",
+              "index.php?pagina=contacto" => "Contacto");
+  }
+  static function bottomTabs() {
+    return array("index.php?pagina=acerca" => "Acerca de" ,
+              "index.php?pagina=algo" => "Algo mas");
+  }
+  static function middleMenu() {
+    return array("index.php?pagina=jugar" => "Jugar",
+                  "index.php?pagina=stats"=> "Stats",
+                  "index.php?pagina=mesa"=> "Crear Mesa");
+  }
 }
 
 
