@@ -82,7 +82,7 @@ class Mesa {
     return $listaMesas;
   }
   public function __toString() {
-    return $this->id;
+    return (string)$this->id;
   }
 
   public function save() {

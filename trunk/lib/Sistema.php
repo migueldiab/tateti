@@ -51,7 +51,7 @@ class Sistema {
       $menuMedio = array("Jugar" => "jugar",
               "Stats" => "stats",
               "Crear Mesa" => "mesa");
-      $cabezal = "Bienvenidos al apasionante mundo del TaTeT&iacute; <p>En este sitio, uds. podr&aacute;n jugar al juego mas viejo del mundo";
+          $cabezal = "Bienvenidos al apasionante mundo del TaTeT&iacute; <p>En este sitio, uds. podr&aacute;n jugar al juego mas viejo del mundo";
       $menuBajo = array("Acerca de" => "acerca",
               "Algo mas" => "algo");
       $tab = 'acerca';
@@ -91,6 +91,55 @@ class Sistema {
       $cright = "Marcos Tusso & Miguel Diab <br> Universidad ORT <br> Todos los derechos reservados (C) 2009";
       echo HtmlHelper::footer($links, $cright);
   }
+
+    static function enJuego() {
+          if(isset($_SESSION["mesa"])){
+          $unaMesa=Mesa::obtenerPorId($_SESSION["mesa"]);
+          if($unaMesa->getEstado()=="activa"){
+              $variables["jugadores"]=2;
+
+          // echo "<script language=javascript>juegoActivo())</script>";
+          }else if($unaMesa->getEstado()=="esperando"){
+          // echo "<script language=javascript>juegoEnEspera())</script>";
+            $variables["jugadores"]=1;
+
+          }
+          HtmlHelper::template("tateti.php", $variables);
+
+
+      }
+      /* Cabezal */
+      $scripts = array('jquery', 'script', 'validaciones');
+      $css = array('style');
+      echo HtmlHelper::head('TaTeT&iacute;', $scripts, $css);
+      /* Cuerpo  */
+      if (isset($_SESSION["usuario"])) {
+        $menuTop['Logout'] = 'index.php?pagina=logout';
+      }
+      else {
+        $menuTop['Login'] = 'index.php?pagina=login';
+      }
+      $menuTop["Ayuda"] = "index.php?pagina=help";
+      $menuTop["Registrar"] = "index.php?pagina=registrate";
+      $menuMedio = array("Jugar" => "jugar",
+          "Stats" => "stats",
+          "Crear Mesa" => "mesa");
+      $cabezal = "Bienvenidos al apasionante mundo del TaTeT&iacute; <p>En este sitio, uds. podr&aacute;n jugar al juego mas viejo del mundo";
+      $menuBajo = array("Acerca de" => "acerca",
+              "Algo mas" => "algo");
+      $tab = 'acerca';
+      echo HtmlHelper::bodyContent($menuTop, $menuMedio, $cabezal, $menuBajo, $tab);
+      /* Pie */
+      $links = array("acerca" => "Acerca de",
+                "produccion" => "Producci&oacute; n",
+                "objetivos" => "Objetivos",
+                "foro" => "Foro",
+                "contacto" => "Contacto");
+      $cright = "Marcos Tusso & Miguel Diab <br> Universidad ORT <br> Todos los derechos reservados (C) 2009";
+      echo HtmlHelper::footer($links, $cright);
+    
+  }
+
   static function registrar($valores) {
     $usuario = $valores['usuario'];
     $email = $valores['email'];
@@ -138,5 +187,7 @@ class Sistema {
     Sistema::principal();
   }    
 }
+
+
 
 ?>

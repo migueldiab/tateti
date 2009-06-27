@@ -40,11 +40,11 @@ class juego {
     $mesa=juego::checkMesaCreada();
     if($mesa!=null){    //si la mesa ya esta creada y esperando segundo jugador...
       juego::joinMesaCreada($mesa);
-      Sistema::principal();
+      Sistema::enJuego();
     }
     else{
       juego::crearMesa();
-      Sistema::principal();
+      Sistema::enJuego();
     }
   }
 
@@ -85,6 +85,7 @@ class juego {
         $unaMesa->save();
         $_SESSION["mesa"]=$unaMesa;
     }
-  
+
+
 }
 ?>

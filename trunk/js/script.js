@@ -2,9 +2,13 @@ $(document).ready(eventos);
 var over=false //cambiar por check en db si hay un ganador
 var vacio="&nbsp;&nbsp;&nbsp;"
 var started=null
+var id_actual;
+var intervalo;
+var delayCall=10000;
 
 function eventos(){
  //   $("#nuevoJuego").click(borrar)
+    checkStatusJuego();
     td=$('td');
     td.click(validar);
 }
@@ -134,3 +138,45 @@ function checkEmpate(){
     if(esEmpate==true)alert("Empate")
 }
 
+function checkStatusJuego(){
+    if("#jugadores"==1){
+        juegoEnEspera();
+    }else if("#jugadores"==2){
+        juegoActivo();
+
+    }
+
+}
+
+function juegoActivo(){
+    if(mesa)
+    $("#titulo").text("EN JUEGOOOOOOO")
+
+}
+
+function juegoEnEspera(){
+    $("#titulo").text("Esperando Oponente");
+    intervalo = setInterval(consultarOponente, delayCall);
+
+}
+function consultarOponente(){
+       $.ajax({
+            url: "lib/checker.php",
+            type: "POST",
+            dataType:"json",
+            data: ({
+                jugadores : 1
+            }),
+            success: seleccionarXO,
+            error: mostrarError
+
+        })
+function seleccionarXO(mensaje){
+    if(mensaje=="seleccionarXO"){
+        $("#X").attr("disabled",false);
+        $("#O").attr("disabled",false);
+    }else if(mensaje=="SinJugador"){
+
+    }
+}
+}
