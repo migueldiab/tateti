@@ -10,10 +10,13 @@ class Mesa {
   private $jugador2;
   private $jugadas;
 
+  const MESA_ACTIVA = "A";
+  const MESA_EN_ESPERA = "E";
+  const MESA_GANADA = "G";
 
-    function __construct() {
-       $this->creada=date("Y-m-d H:i:s");
-    }
+  function __construct() {
+    $this->creada=date("Y-m-d H:i:s");
+  }
   public function getId() {
     return $this->id;
   }

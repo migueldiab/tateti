@@ -55,7 +55,7 @@ class juego {
 
  static function checkMesaActiva($idMesa){
      $unaMesa=Mesa::obtenerPorId($idMesa);
-     if($unaMesa->getEstado()=="activa"){
+     if($unaMesa->getEstado()==Mesa::MESA_ACTIVA){
           return true;
      }else{
           return false;
@@ -64,7 +64,7 @@ class juego {
  }
 
     static function checkMesaCreada(){
-        $unaMesa=Mesa::obtenerMesaPorEstado("esperando");
+        $unaMesa=Mesa::obtenerMesaPorEstado(Mesa::MESA_EN_ESPERA);
         if($unaMesa!=null){
             return $unaMesa;
         }
@@ -75,7 +75,7 @@ class juego {
         $jugador2=new Usuario();
         $jugador2=$_SESSION["usuario"];
         $unaMesa->setJugador2($jugador2);
-        $unaMesa->setEstado("activa");
+        $unaMesa->setEstado(Mesa::MESA_ACTIVA);
         $unaMesa->save();
         $_SESSION["mesa"]=$unaMesa;
 
@@ -86,7 +86,7 @@ class juego {
         $jugador1=new Usuario();
         $jugador1=$_SESSION["usuario"];
         $unaMesa->setJugador1($jugador1);
-        $unaMesa->setEstado("esperando");
+        $unaMesa->setEstado(Mesa::MESA_EN_ESPERA);
         $id=$unaMesa->save();
         $unaMesa->setId($id);
         $_SESSION["mesa"]=$unaMesa;
