@@ -161,31 +161,35 @@ function juegoEnEspera(){
 
 }
 function consultarOponente(){
-       $.ajax({
-            url: "lib/checker.php",
-            type: "POST",
-            dataType:"json",
-            data: ({
-                jugadores : 2
-            }),
-            success: verJugada,
-            error: mostrarError
+   $.ajax({
+        url: "lib/checker.php",
+        type: "POST",
+        dataType:"json",
+        data: ({
+            jugadores : 2
+        }),
+        success: verJugada,
+        error: mostrarError
 
-        })
-function seleccionarXO(mensaje){
+    })
+  }
+  function seleccionarXO(mensaje){
     if(mensaje=="seleccionarXO"){
         $("#X").attr("disabled",false);
         $("#O").attr("disabled",false);
     }else if(mensaje=="SinJugador"){
 
     }
-}
+  }
 
-function verJugada(id_Ultimo_Jugador){ //determina de quien es el turno y actua acorde
-    if(id_Ultimo_Jugador)
-}
+  function verJugada(id_Ultimo_Jugador)
+  {
+    //determina de quien es el turno y actua acorde
+    //if(id_Ultimo_Jugador);
+    return;
+  }
 
-function mostrarError(){
-    alert("ERROR!");
-}
-}
+  function mostrarError()
+  {
+      alert("ERROR!");
+  }

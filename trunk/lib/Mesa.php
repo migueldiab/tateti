@@ -83,7 +83,17 @@ class Mesa {
     return $unaMesa;
   }
   static function listarMesasActivas($cantidad) {
-    $listaMesas = pMesa::obtenerPorEstado("A");
+    $listaMesasE = pMesa::obtenerPorEstado(Mesa::MESA_EN_ESPERA);
+    $listaMesasA = pMesa::obtenerPorEstado(Mesa::MESA_ACTIVA);
+    $listaMesas = new ArrayList();
+    for ($i=0; $i < $cantidad; $i++) {
+      if ($listaMesasE->hasNext()) {
+        $listaMesas->add($listaMesasE->next());
+      }
+      elseif ($listaMesasA->hasNext()) {
+        $listaMesas->add($listaMesasA->next());
+      }
+    }
     return $listaMesas;
   }
 

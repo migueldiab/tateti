@@ -76,7 +76,6 @@ class Sistema {
   }
 
     static function enJuego() {
-
       /* Cabezal */
       $scripts = array('jquery', 'script', 'validaciones');
       $css = array('style');
@@ -92,31 +91,27 @@ class Sistema {
       $menuTop["index.php?pagina=registrate"] = "Registrar";
       $menuMedio = Sistema::middleMenu();
       $cabezal = "Bienvenidos al apasionante mundo del TaTeT&iacute; <p>En este sitio, uds. podr&aacute;n jugar al juego mas viejo del mundo";
-      $menuBajo = array("Acerca de" => "acerca",
-              "Algo mas" => "algo");
+      $menuBajo = Sistema::bottomTabs();
       $tab = 'Acerca de';
-            if(isset($_SESSION["mesa"])){
-          $unaMesa=Mesa::obtenerPorId($_SESSION["mesa"]);
-          if($unaMesa->getEstado()=="activa"){
-              $variables['jugadores']='2';
-
+      if(isset($_SESSION["mesa"]))
+      {
+        $unaMesa=Mesa::obtenerPorId($_SESSION["mesa"]);
+        if($unaMesa->getEstado()==Mesa::MESA_ACTIVA)
+        {
+          $variables['jugadores']='2';
           // echo "<script language=javascript>juegoActivo())</script>";
-          }else if($unaMesa->getEstado()=="esperando"){
+        }
+        else if($unaMesa->getEstado()==Mesa::MESA_EN_ESPERA)
+        {
           // echo "<script language=javascript>juegoEnEspera())</script>";
-            $variables['jugadores']='1';
-          }
-
+          $variables['jugadores']='1';
+        }
       }
       echo HtmlHelper::bodyContent($menuTop, $menuMedio, $cabezal, $menuBajo, $tab, $variables);
       /* Pie */
-      $links = array("acerca" => "Acerca de",
-                "produccion" => "Producci&oacute; n",
-                "objetivos" => "Objetivos",
-                "foro" => "Foro",
-                "contacto" => "Contacto");
-      $cright = "Marcos Tusso & Miguel Diab <br> Universidad ORT <br> Todos los derechos reservados (C) 2009";
+      $links = Sistema::bottomLinks();
+      $cright = "Marcos Tusso & Miguel Diab<br> Universidad ORT <br> Todos los derechos reservados (C) 2009";
       echo HtmlHelper::footer($links, $cright);
-
   }
 
   static function registrar($valores) {
