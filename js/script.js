@@ -6,7 +6,9 @@ var id_actual;
 var intervalo;
 var delayCall=10000;
 var cantJugadores;
-
+var miTipo;
+var tipoOponente;
+var miturno;
 function eventos(){
  //   $("#nuevoJuego").click(borrar)
     checkStatusJuego();
@@ -15,10 +17,25 @@ function eventos(){
 }
 function validar(){
     //validar si ya tiene algo en el campo
-    var XO=$('input[name=XO]:checked').val()
-    if(over==false&&checkPreviousClick()==true){$(this).text(XO)}
+   // var XO=$('input[name=XO]:checked').val()
+   if(over==true){
+       alert("juego ya terminado")
+   }else if(miturno!=true){
+    alert("no es mi turno o juego no iniciado");
+   }else if(started!=true){
+       alert("juego no iniciado aun, o aguardando oponente")
+   } else{
+       if(($this).text()==null){
+       $(this).text(mitipo);
+       enviarDatos();
+       }else{
+           alert("el campo ya esta marcado")
+       }
+
+    //if(over==false&&checkPreviousClick()==true){$(this).text(XO)}
     if(over==false)checkResult()
     checkEmpate()
+   }
 }
 
 function checkPreviousClick(){ //indica quien hizo el ultimo movimiento
@@ -150,8 +167,10 @@ function checkStatusJuego(){
 }
 
 function juegoActivo(){
-  
-    $("#titulo").text("EN JUEGOOOOOOO")
+  $("#titulo").text("esperando movimiento adversario")
+  started=true;
+  miturno=false;
+  intervalo = setInterval(checkTablaActualizada, delayCall);
 
 }
 
@@ -168,11 +187,49 @@ function consultarOponente(){
         data: ({
             jugadores : 2
         }),
-        success: verJugada,
+        success: iniciaJuego,
         error: mostrarError
 
     })
   }
+
+function iniciaJuego(datos){
+    if(datos.activo==true)
+      $("#titulo").text("hacer jugada");
+      started=true;
+      miturno=true;
+}
+
+
+  function checkTablaActualizada(){
+      $("#titulo").text("");
+       $.ajax({
+        url: "lib/ActualizaTabla.php",
+        type: "POST",
+        dataType:"json",
+        data: ({
+          id : id_actual
+        }),
+        success: actualizaTabla,
+        error: mostrarError
+    })
+  }
+  
+    function actualizaTabla(jugada){
+        if(jugada!=undefined){
+             $("#titulo").text("hacer jugada");
+            if (jugada.es_cruz[0]==0){
+                tipo="X"
+            }else{
+                tipo="O"
+            }
+            $("#jugada.idCampo[0]").text(tipo);
+            
+        }
+        
+    }
+
+
   function seleccionarXO(mensaje){
     if(mensaje=="seleccionarXO"){
         $("#X").attr("disabled",false);
@@ -180,13 +237,6 @@ function consultarOponente(){
     }else if(mensaje=="SinJugador"){
 
     }
-  }
-
-  function verJugada(id_Ultimo_Jugador)
-  {
-    //determina de quien es el turno y actua acorde
-    //if(id_Ultimo_Jugador);
-    return;
   }
 
   function mostrarError()
