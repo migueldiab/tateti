@@ -1,80 +1,73 @@
 <?php
 class pJugada {
 
-    static function obtenerPorIdJugada($idJugada) {
-      mySql::connect_db();
-      $query="SELECT * FROM jugada WHERE id = '$idJugada'";
-      $result=mysql_query($query);
-      mysql_close();
-      $data = mysql_fetch_array($result);
+    const TABLA = 'jugada';
 
+    const ID = 'id';
+    const HORA = 'hora';
+    const CAMPO = 'id_campo';
+    const CRUZ = 'es_cruz';
+    const JUGADOR = 'id_jugador';
+    const MESA = 'id_mesa';
+
+    static function cargarMySqlRowEnMesa($mySqlRow) {
       $unaJugada = new Jugada();
-      $unaJugada->setId($data["id"]);
-      $unaJugada->setHora($data["hora"]);
-      $unaJugada->setIdCampo($data["id_Campo"]);
-      $unaJugada->setEsCruz($data["esCruz"]);
-      $unaJugada->setJugador(Usuario::obtenerPorId($data["id_jugador"]));
-      $unaJugada->setMesa(Mesa::obtenerPorId($data["id_Mesa"]));
+      $unaJugada->setId($mySqlRow[pJugada::ID]);
+      $unaJugada->setHora($mySqlRow[pJugada::HORA]);
+      $unaJugada->setIdCampo($mySqlRow[pJugada::CAMPO]);
+      $unaJugada->setEsCruz($mySqlRow[pJugada::CRUZ]);
+      $unaJugada->setJugador(Usuario::obtenerPorId($mySqlRow[pJugada::JUGADOR]));
+      $unaJugada->setMesa(Mesa::obtenerPorId($mySqlRow[pJugada::MESA]));
+      return $unaJugada;
+    }
+
+    static function obtenerPorIdJugada($idJugada) {
+      $result=mySql::query("SELECT * FROM ".pJugada::TABLA." WHERE ".pJugada::ID." = '$idJugada'");
+      $data = mysql_fetch_array($result);
+      $unaJugada = cargarMySqlRowEnMesa($data);
       return $unaJugada;
     }
 
     static function obtenerPorIdMesa($idMesa) {
-      $mySqlResource = mySql::connect_db();
-      $query="SELECT * FROM jugada WHERE idMesa = '$idMesa'";
-       $result=mysql_query($query, $mySqlResource);
-      mysql_close($mySqlResource);
+      $result=mySql::query("SELECT * FROM ".pJugada::TABLA." WHERE ".pJugada::MESA." = '$idMesa'");
       $lista = new ArrayList();
-      if($result!=null){
+      if(mysql_num_rows($result)>0)
+      {
        while ($data = mysql_fetch_array($result)) {
-          $unaJugada = new Jugada();
-          $unaJugada->setId($data["id"]);
-          $unaJugada->setHora($data["hora"]);
-          $unaJugada->setIdCampo($data["id_Campo"]);
-          $unaJugada->setEsCruz($data["esCruz"]);
-          $unaJugada->setJugador(Usuario::obtenerPorId($data["id_jugador"]));
-          $unaJugada->setMesa(Mesa::obtenerPorId($data["id_Mesa"]));
+          $unaJugada = cargarMySqlRowEnMesa($data);
           $lista->add($unaJugada);
         }
-      return $lista;
-      }else{
+        return $lista;
+      }
+      else {
          return null;
       }
     }
 
     static function obtenerUltimaJugadaPorIdMesa($idMesa) {
-      mySql::connect_db();
-      $query="SELECT MAX(id) FROM jugada WHERE idMesa = '$idMesa'";
-      $result=mysql_query($query);
-      mysql_close();
+      $result=mySql::query("SELECT MAX(".pJugada::ID.") FROM ".pJugada::TABLA." WHERE ".pJugada::MESA." = '$idMesa'");
       $data = mysql_fetch_array($result);
-      $unaJugada = new Jugada();
-      $unaJugada->setId($data["id"]);
-      $unaJugada->setHora($data["hora"]);
-      $unaJugada->setIdCampo($data["id_Campo"]);
-      $unaJugada->setEsCruz($data["esCruz"]);
-      $unaJugada->setJugador(Usuario::obtenerPorId($data["id_jugador"]));
-      $unaJugada->setMesa(Mesa::obtenerPorId($data["id_Mesa"]));
+      $unaJugada = cargarMySqlRowEnMesa($data);
       return $unaJugada;
     }
 
     static function save($unaJugada) {
-      if ($unaJugada!=null) {
-        mySql::connect_db();
-        $query="INSERT INTO jugada (hora, id_Campo, es_Cruz, id_jugador, id_Mesa)
+      if ($unaJugada!=null)
+      {
+        $query="INSERT INTO ".pJugada::TABLA." (".pJugada::HORA.", ".pJugada::CAMPO.", ".pJugada::CRUZ.", ".pJugada::JUGADOR.", ".pJugada::MESA.")
                 VALUES (
                 '".$unaJugada->getHora()."',
                 '".$unaJugada->getIdCampo()."',
                 '".$unaJugada->getEsCruz()."',
                 '".$unaJugada->getJugador()->getId()."',
                 '".$unaJugada->getMesa()->getId()."')";
-        }
-        $result=mysql_query($query);
-        if (!$result) {
-          die (mysql_error());
-        }
-        $id= mysql_insert_id();
-        mysql_close();
+        $result=mySql::query($query);
+        $id = mysql_insert_id();
         return $id;
+      }
+      else {
+        return false;
+      }
     }
 }
 ?>

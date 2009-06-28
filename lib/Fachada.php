@@ -5,7 +5,7 @@
  */
 
 /**
- * Description of Fachadaclass
+ * Description of Fachada Class
  *
  * @author Administrator
  */
@@ -29,6 +29,7 @@ class Fachada {
 
   /**
    * Procesa una entrada de Index.php y la redirige acorde a la fachada.
+   * De no tener una redirección válida, muestra la página de error.
    *
    * @param string $pagina   Nombre de la función en fachada a ser llamada.
    * @param array  $valores  Array de parámetros con los que se llama a la función.
