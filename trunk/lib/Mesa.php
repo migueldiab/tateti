@@ -82,6 +82,12 @@ class Mesa {
     $unaMesa = pMesa::obtenerMesaPorEstado($estado);
     return $unaMesa;
   }
+  static function obtenerMesaActivaPorJugador($unJugador) {
+    assert($unJugador!=null);
+    $unaMesa = pMesa::obtenerMesaPorEstadoPorJugador(Mesa::MESA_ACTIVA, $unJugador);
+    return $unaMesa;
+  }
+
   static function listarMesasActivas($cantidad) {
     $listaMesasE = pMesa::obtenerPorEstado(Mesa::MESA_EN_ESPERA);
     $listaMesasA = pMesa::obtenerPorEstado(Mesa::MESA_ACTIVA);

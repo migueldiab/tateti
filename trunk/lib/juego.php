@@ -38,35 +38,41 @@ class juego {
 
   static function jugar(){
     if ($_SESSION['usuario']!=null) {
-      $mesa=juego::checkMesaCreada();
-      if($mesa!=null){    //si la mesa ya esta creada y esperando segundo jugador...
-        juego::joinMesaCreada($mesa);
-        Sistema::enJuego();
+      $mesaActiva = Mesa::obtenerMesaActivaPorJugador($_SESSION['usuario']);
+      if ($mesaActiva!=null) {
+        $_SESSION["mesa"]=$mesaActiva;
       }
-      else{
-        juego::crearMesa();
-        Sistema::enJuego();
+      else {
+        $mesa=juego::checkMesaCreada($_SESSION['usuario']);
+        if($mesa!=null){    //si la mesa ya esta creada y esperando segundo jugador...
+          juego::joinMesaCreada($mesa);
+        }
+        else{
+          juego::crearMesa();
+        }
       }
+      Sistema::enJuego();
     }
     else {
       Sistema::login();
     }
   }
-
- static function checkMesaActiva($idMesa){
+  static function checkMesaActiva($idMesa){
      $unaMesa=Mesa::obtenerPorId($idMesa);
-     if($unaMesa->getEstado()==Mesa::MESA_ACTIVA){
-          return true;
-     }else{
-          return false;
+     if($unaMesa->getEstado()==Mesa::MESA_ACTIVA)
+     {
+      return true;
      }
-        
+     else
+     {
+          return false;
+     }        
  }
 
     static function checkMesaCreada(){
         $unaMesa=Mesa::obtenerMesaPorEstado(Mesa::MESA_EN_ESPERA);
         if($unaMesa!=null){
-            return $unaMesa;
+          return $unaMesa;
         }
         return null;
     }

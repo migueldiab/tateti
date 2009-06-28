@@ -15,6 +15,15 @@ class mySql {
       }
       return $mySqlResource;
 	}
+  static function query($query) {
+    $mySqlResource = mySql::connect_db();
+    $result=mysql_query($query, $mySqlResource);
+    if (!$result) {
+      error_log("Error : ".mysql_errno()."-".mysql_error());
+    }
+    mysql_close($mySqlResource);
+    return $result;
+  }
 
   function SQLDate($DateEntry) {
 		$Date_Array[0]= 0;
