@@ -10,7 +10,7 @@ class pJugada {
     const JUGADOR = 'id_jugador';
     const MESA = 'id_mesa';
 
-    static function cargarMySqlRowEnMesa($mySqlRow) {
+    static function cargarMySqlRow($mySqlRow) {
       $unaJugada = new Jugada();
       $unaJugada->setId($mySqlRow[pJugada::ID]);
       $unaJugada->setHora($mySqlRow[pJugada::HORA]);
@@ -24,7 +24,7 @@ class pJugada {
     static function obtenerPorIdJugada($idJugada) {
       $result=mySql::query("SELECT * FROM ".pJugada::TABLA." WHERE ".pJugada::ID." = '$idJugada'");
       $data = mysql_fetch_array($result);
-      $unaJugada = cargarMySqlRowEnMesa($data);
+      $unaJugada = cargarMySqlRow($data);
       return $unaJugada;
     }
 
@@ -34,7 +34,7 @@ class pJugada {
       if(mysql_num_rows($result)>0)
       {
        while ($data = mysql_fetch_array($result)) {
-          $unaJugada = cargarMySqlRowEnMesa($data);
+          $unaJugada = cargarMySqlRow($data);
           $lista->add($unaJugada);
         }
         return $lista;
@@ -47,7 +47,7 @@ class pJugada {
     static function obtenerUltimaJugadaPorIdMesa($idMesa) {
       $result=mySql::query("SELECT MAX(".pJugada::ID.") FROM ".pJugada::TABLA." WHERE ".pJugada::MESA." = '$idMesa'");
       $data = mysql_fetch_array($result);
-      $unaJugada = cargarMySqlRowEnMesa($data);
+      $unaJugada = cargarMySqlRow($data);
       return $unaJugada;
     }
 

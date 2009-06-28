@@ -11,67 +11,65 @@
  */
 class pUsuario {
 
-    static function obtenerPorNombre($usuario) {
-      $mySqlResource = mySql::connect_db();
-      $query="SELECT * FROM usuario WHERE usuario = '$usuario'";
-      $result=mysql_query($query);
+  const TABLA = 'usuario';
 
+  const ID = 'id';
+  const NOMBRE = 'nombre';
+  const APELLIDO = 'apellido';
+  const EMAIL = 'email';
+  const USUARIO = 'usuario';
+  const CLAVE = 'clave';
+
+
+  static function cargarMySqlRow($mySqlRow) {
+    $unUsuario = new Usuario();
+    $unUsuario->setId($mySqlRow[pUsuario::ID]);
+    $unUsuario->setNombre($mySqlRow[pUsuario::NOMBRE]);
+    $unUsuario->setApellido($mySqlRow[pUsuario::APELLIDO]);
+    $unUsuario->setEmail($mySqlRow[pUsuario::EMAIL]);
+    $unUsuario->setUsuario($mySqlRow[pUsuario::USUARIO]);
+    $unUsuario->setClave($mySqlRow[pUsuario::CLAVE]);
+    return $unUsuario;
+  }
+
+  static function cargarMySqlRowJugador($mySqlRow) {
+    $unJugador = new Jugador();
+    $unJugador->setId($mySqlRow[pUsuario::ID]);
+    $unJugador->setNombre($mySqlRow[pUsuario::NOMBRE]);
+    $unJugador->setApellido($mySqlRow[pUsuario::APELLIDO]);
+    $unJugador->setEmail($mySqlRow[pUsuario::EMAIL]);
+    $unJugador->setUsuario($mySqlRow[pUsuario::USUARIO]);
+    $unJugador->setClave($mySqlRow[pUsuario::CLAVE]);
+    return $unJugador;
+  }
+
+    static function obtenerPorNombre($usuario) {
+      $result=mySql::query("SELECT * FROM ".pUsuario::TABLA." WHERE ".pUsuario::USUARIO." = '$usuario'");
       if (mysql_affected_rows()==1) {
-        mysql_close($mySqlResource);
         $data = mysql_fetch_array($result);
-        $unUsuario = new Usuario();
-        $unUsuario->setEmail($data["email"]);
-        $unUsuario->setUsuario($data["usuario"]);
-        $unUsuario->setClave($data["clave"]);
-        $unUsuario->setApellido($data["apellido"]);
-        $unUsuario->setId($data["id"]);
-        $unUsuario->setNombre($data["nombre"]);
+        $unUsuario = pUsuario::cargarMySqlRow($data);
         return $unUsuario;
       }
       else {
-        mysql_close($mySqlResource);
         return null;
       }
     }
     static function obtenerPorId($id) {
-      $mySqlResource = mySql::connect_db();
-      $query="SELECT * FROM usuario WHERE id = '$id'";
-      $result=mysql_query($query);
-      
-      if (mysql_affected_rows()==1) {
-        mysql_close($mySqlResource);
+      $result=mySql::query("SELECT * FROM ".pUsuario::TABLA." WHERE ".pUsuario::ID." = '$id'");      
+      if (mysql_num_rows($result)==1) {
         $data = mysql_fetch_array($result);
-        $unUsuario = new Usuario();
-        $unUsuario->setId($data["id"]);
-        $unUsuario->setEmail($data["email"]);
-        $unUsuario->setUsuario($data["usuario"]);
-        $unUsuario->setClave($data["clave"]);
-        $unUsuario->setApellido($data["apellido"]);
-        $unUsuario->setNombre($data["nombre"]);
+        $unUsuario = pUsuario::cargarMySqlRow($data);
         return $unUsuario;
       }
       else {
-        mysql_close($mySqlResource);
         return null;
       }
     }
     static function listarJugadores() {
-      $mySqlResource = mySql::connect_db();
-      $query="SELECT * FROM usuario";
-      $result=mysql_query($query, $mySqlResource);
-      mysql_close($mySqlResource);
-
+      $result=mySql::query("SELECT * FROM ".pUsuario::TABLA);
       $lista = new ArrayList();
-
       while ($row = mysql_fetch_array($result)) {
-
-        $unJugador = new Jugador();
-        $unJugador->setId($row["id"]);
-        $unJugador->setNombre($row["nombre"]);
-        $unJugador->setApellido($row["apellido"]);
-        $unJugador->setClave($row["clave"]);
-        $unJugador->setEmail($row["email"]);
-        $unJugador->setUsuario($row["usuario"]);
+        $unJugador = pUsuario::cargarMySqlRowJugador($row);
         $victorias = Mesa::obtenerVictoriasPorJugador($unJugador);
         $unJugador->setVictorias($victorias);
         $lista->add($unJugador);
@@ -80,19 +78,14 @@ class pUsuario {
     }
     static function save($unUsuario) {
       if ($unUsuario!=null) {
-        $mySqlResource = mySql::connect_db();
-        $query="REPLACE INTO usuario (nombre, apellido, email, usuario, clave)
+        $query="REPLACE INTO ".pUsuario::TABLA." (".pUsuario::NOMBRE.", ".pUsuario::APELLIDO.", ".pUsuario::EMAIL.", ".pUsuario::USUARIO.", ".pUsuario::CLAVE.")
                 VALUES (
                 '".$unUsuario->getNombre()."',
                 '".$unUsuario->getApellido()."',
                 '".$unUsuario->getEmail()."',
                 '".$unUsuario->getUsuario()."',
                 '".$unUsuario->getClave()."')";
-        $result=mysql_query($query);
-        mysql_close($mySqlResource);
-        if (!$result) {
-          die (mysql_error());
-        }
+        $result=mySql::query($query);
       }
       else {
         die("Null User on Save");

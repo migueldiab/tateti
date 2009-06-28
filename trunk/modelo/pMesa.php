@@ -20,7 +20,7 @@ class pMesa {
   const JUGADOR_1 = 'id_jugador_1';
   const JUGADOR_2 = 'id_jugador_2';
 
-  static function cargarMySqlRowEnMesa($mySqlRow) {
+  static function cargarMySqlRow($mySqlRow) {
     $unaMesa = new Mesa();
     $unaMesa->setId($mySqlRow[pMesa::ID]);
     $unaMesa->setCreada($mySqlRow[pMesa::CREADA]);
@@ -33,7 +33,7 @@ class pMesa {
   static function obtenerPorId($idMesa) {    
     $result=mySql::query("SELECT * FROM ".pMesa::TABLA." WHERE id = '$idMesa'");
     $data = mysql_fetch_array($result);
-    $unaMesa = pMesa::cargarMySqlRowEnMesa($data);
+    $unaMesa = pMesa::cargarMySqlRow($data);
     return $unaMesa;
   }
   static function obtenerPorEstado($estado) {
@@ -43,7 +43,7 @@ class pMesa {
     {
       while ($row = mysql_fetch_array($result))
       {
-        $unaMesa = pMesa::cargarMySqlRowEnMesa($row);
+        $unaMesa = pMesa::cargarMySqlRow($row);
         $lista->add($unaMesa);
       }
       return $lista;
@@ -62,7 +62,7 @@ class pMesa {
     if(mysql_num_rows($result)!=0)
     {
       $row = mysql_fetch_array($result);
-      $unaMesa = pMesa::cargarMySqlRowEnMesa($row);
+      $unaMesa = pMesa::cargarMySqlRow($row);
       return $unaMesa;
     }
     else
@@ -76,7 +76,7 @@ class pMesa {
     if(mysql_num_rows($result)!=0)
     {
       $row = mysql_fetch_array($result);
-      $unaMesa = pMesa::cargarMySqlRowEnMesa($data);
+      $unaMesa = pMesa::cargarMySqlRow($data);
       return $unaMesa;
     }
     else
