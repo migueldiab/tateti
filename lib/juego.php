@@ -7,7 +7,7 @@ class juego {
   }
   static function mostrarMesas() {
     $mesasActivas = new ArrayList();
-    $mesasActivas = Mesa::listarMesasActivas("5");
+    $mesasActivas = Mesa::listarMesasActivas("10");
     $unaMesa = new Mesa();
     $stringHtml = "";
     foreach ($mesasActivas->getList() as $unaMesa) {

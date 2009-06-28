@@ -28,13 +28,15 @@ class pMesa {
     return $unaMesa;
   }
   static function obtenerPorEstado($estado) {
-      $mySqlResource = mySql::connect_db();
-      $query="SELECT * FROM mesa WHERE estado = '$estado'";
-      $result=mysql_query($query, $mySqlResource);
-      mysql_close($mySqlResource);
-      $lista = new ArrayList();
-    if($result!=null){
-      while ($row = mysql_fetch_array($result)) {
+    $mySqlResource = mySql::connect_db();
+    $query="SELECT * FROM mesa WHERE estado = '$estado'";
+    $result=mysql_query($query, $mySqlResource);
+    mysql_close($mySqlResource);
+    $lista = new ArrayList();
+    if($result!=null)
+    {
+      while ($row = mysql_fetch_array($result))
+      {
         $unaMesa = new Mesa();
         $unaMesa->setId($row["id"]);
         $unaMesa->setCreada($row["creada"]);
