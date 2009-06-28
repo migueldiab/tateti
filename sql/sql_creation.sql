@@ -27,7 +27,7 @@ DROP TABLE IF EXISTS `mesa` ;
 CREATE  TABLE IF NOT EXISTS `mesa` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `creada` TIMESTAMP NULL ,
-  `estado` VARCHAR(11) NULL ,
+  `estado` VARCHAR(1) NULL ,
   `id_ganador` INT NULL ,
   `id_jugador_1` INT NULL ,
   `id_jugador_2` INT NULL ,
