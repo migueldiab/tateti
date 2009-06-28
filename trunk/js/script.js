@@ -26,7 +26,6 @@ function validar(){
        alert("juego no iniciado aun, o aguardando oponente")
    } else{
        if(($this).text()==null){
-       $(this).text(mitipo);
        enviarDatos();
        }else{
            alert("el campo ya esta marcado")
@@ -217,18 +216,40 @@ function iniciaJuego(datos){
   
     function actualizaTabla(jugada){
         if(jugada!=undefined){
+            var esCruz;
              $("#titulo").text("hacer jugada");
-            if (jugada.es_cruz[0]==0){
-                tipo="X"
+            if (jugada.es_cruz[0]==1){
+                esCruz=1;
             }else{
-                tipo="O"
+                esCruz=0;
             }
-            $("#jugada.idCampo[0]").text(tipo);
-            
+            $("#jugada.idCampo[0]").text(esCruz);
+            id_actual=jugada.id;
+            if(miTurno==true){
+                miTurno=false;
+            }else if(miTurno==false){
+                miTurno=true;
+            }
         }
         
     }
 
+function enviarDatos(){
+    $("#titulo").text("");
+       $.ajax({
+        url: "lib/ActualizaTabla.php",
+        type: "POST",
+        dataType:"json",
+        data: ({
+          idCampo : $(this).attr('id'),
+          tipo : miTipo
+        }),
+        success: actualizaTabla,
+        error: mostrarError
+    })
+
+
+}
 
   function seleccionarXO(mensaje){
     if(mensaje=="seleccionarXO"){
