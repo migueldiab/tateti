@@ -24,8 +24,8 @@ class pJugada {
     static function obtenerPorIdJugada($idJugada) {
       $result=mySql::query("SELECT * FROM ".pJugada::TABLA." WHERE ".pJugada::ID." = '$idJugada'");
       $data = mysql_fetch_array($result);
-      $unaJugada = cargarMySqlRow($data);
-      return $unaJugada;
+      //$unaJugada = cargarMySqlRowEnMesa($data);
+      return json_encode($data);
     }
 
     static function obtenerPorIdMesa($idMesa) {
