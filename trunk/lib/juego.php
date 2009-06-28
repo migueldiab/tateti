@@ -25,7 +25,7 @@ class juego {
    
   static function mostrarTop() {
     $topJugadores = new ArrayList();
-    $topJugadores = Jugador::listarTopJugadores("5");
+    $topJugadores = Jugador::listarTopJugadores("10");
     $unJugador = new Jugador();
     $stringHtml = "";
     foreach ($topJugadores->getList() as $unJugador) {

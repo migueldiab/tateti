@@ -21,7 +21,13 @@ class Jugador extends Usuario {
     $this->victorias = $victorias;
   }
   public function listarTopJugadores($cant) {
-    $listaJugadores = pUsuario::listarJugadores();
+    $listaJugadoresTemp = pUsuario::listarJugadores();
+    $listaJugadores = new ArrayList();
+    for ($i=0; $i < $cant; $i++) {
+      if ($listaJugadoresTemp->hasNext()) {
+        $listaJugadores->add($listaJugadoresTemp->next());
+      }
+    }
     return $listaJugadores;
   }
 }
