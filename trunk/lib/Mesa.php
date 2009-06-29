@@ -66,9 +66,13 @@ class Mesa {
   }
 
   static function getJugadas() {
-      return pJugada::obtenerPorIdMesa($this->id);
+      return $this->jugadas;
   }
- 
+
+  static function setJugadas($jugadas) {
+      $this->jugadas = $jugadas;
+  }
+
   static function obtenerPorId($id) {
     $unaMesa = pMesa::obtenerPorId($id);
     return $unaMesa;

@@ -34,7 +34,7 @@ class pJugada {
       if(mysql_num_rows($result)>0)
       {
        while ($data = mysql_fetch_array($result)) {
-          $unaJugada = cargarMySqlRow($data);
+          $unaJugada = pJugada::cargarMySqlRow($data);
           $lista->add($unaJugada);
         }
         return $lista;

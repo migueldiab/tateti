@@ -28,6 +28,7 @@ class pMesa {
     $unaMesa->setGanador(Usuario::obtenerPorId($mySqlRow[pMesa::GANADOR]));
     $unaMesa->setJugador1(Usuario::obtenerPorId($mySqlRow[pMesa::JUGADOR_1]));
     $unaMesa->setJugador2(Usuario::obtenerPorId($mySqlRow[pMesa::JUGADOR_2]));
+    $unaMesa->setJugadas(Jugada::obtenerPorIdMesa($mySqlRow[pMesa::ID]));
     return $unaMesa;
   }
   static function obtenerPorId($idMesa) {    
