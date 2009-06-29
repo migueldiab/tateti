@@ -77,7 +77,7 @@ class pMesa {
     if(mysql_num_rows($result)!=0)
     {
       $row = mysql_fetch_array($result);
-      $unaMesa = pMesa::cargarMySqlRow($data);
+      $unaMesa = pMesa::cargarMySqlRow($row);
       return $unaMesa;
     }
     else

@@ -145,7 +145,7 @@ class Sistema {
       $unUsuario->save();
       
     }  
-    $unUsuario = Usuario::autenticarUsuario($usuario, $clave);
+    $unUsuario = Usuario::autenticarUsuario($usuario,md5($clave));
     if ($unUsuario!=null) {
       $_SESSION["usuario"] = $unUsuario;
       Sistema::principal();
