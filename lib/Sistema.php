@@ -98,24 +98,27 @@ class Sistema {
         $unaMesa=Mesa::obtenerPorId($_SESSION["mesa"]);
         if($unaMesa->getEstado()==Mesa::MESA_ACTIVA)
         {
-          while ($unaMesa->getJugadas()->hasNext()) {
-            $unaJugada = new Jugada();
-            $unaJugada = $unaMesa->getJugadas()->next();
-            if ($unaJugada->getEsCruz()) {
-              $variables['campo_'.$unaJugada->getIdCampo()] = 'X';
-            }
-            else {
-              $variables['campo_'.$unaJugada->getIdCampo()] = 'O';
+          if ($unaMesa->getJugadas!=null) {
+            while ($unaMesa->getJugadas()->hasNext()) {
+              $unaJugada = new Jugada();
+              $unaJugada = $unaMesa->getJugadas()->next();
+              if ($unaJugada->getEsCruz()) {
+                $variables['campo_'.$unaJugada->getIdCampo()] = 'X';
+              }
+              else {
+                $variables['campo_'.$unaJugada->getIdCampo()] = 'O';
+              }
             }
           }
-          $variables['jugadores']='2';          
+          $variables['jugadores']='2';
+          echo "Jugando en mesa : ".$unaMesa->getId();
           // echo "<script language=javascript>juegoActivo())</script>";
         }
         else if($unaMesa->getEstado()==Mesa::MESA_EN_ESPERA)
         {
           // echo "<script language=javascript>juegoEnEspera())</script>";
           $variables['jugadores']='1';
-          
+          echo "Esperando fen mesa : ".$unaMesa->getId();
         }
       }
       echo HtmlHelper::bodyContent($menuTop, $menuMedio, $cabezal, $menuBajo, $tab, $variables);

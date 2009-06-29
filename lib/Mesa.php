@@ -65,34 +65,34 @@ class Mesa {
     $this->jugador2 = $jugador2;
   }
 
-  static function getJugadas() {
+  public function getJugadas() {
       return $this->jugadas;
   }
 
-  static function setJugadas($jugadas) {
+  public function setJugadas($jugadas) {
       $this->jugadas = $jugadas;
   }
 
-  static function obtenerPorId($id) {
+  public function obtenerPorId($id) {
     $unaMesa = pMesa::obtenerPorId($id);
     return $unaMesa;
   }
-  static function obtenerPorEstado($estado) {
+  public function obtenerPorEstado($estado) {
     $listaMesas = pMesa::obtenerPorEstado($estado);
     return $listaMesas;
   }
 
-   static function obtenerMesaPorEstado($estado) {
+  public function obtenerMesaPorEstado($estado) {
     $unaMesa = pMesa::obtenerMesaPorEstado($estado);
     return $unaMesa;
   }
-  static function obtenerMesaActivaPorJugador($unJugador) {
+  public function obtenerMesaActivaPorJugador($unJugador) {
     assert($unJugador!=null);
     $unaMesa = pMesa::obtenerMesaPorEstadoPorJugador(Mesa::MESA_ACTIVA, $unJugador);
     return $unaMesa;
   }
 
-  static function listarMesasActivas($cantidad) {
+  public function listarMesasActivas($cantidad) {
       $listaMesasE=new ArrayList();
     $listaMesasE = pMesa::obtenerPorEstado(Mesa::MESA_EN_ESPERA);
     $listaMesasA = pMesa::obtenerPorEstado(Mesa::MESA_ACTIVA);
