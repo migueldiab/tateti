@@ -45,7 +45,7 @@ class pUsuario {
 
     static function obtenerPorNombre($usuario) {
       $result=mySql::query("SELECT * FROM ".pUsuario::TABLA." WHERE ".pUsuario::USUARIO." = '$usuario'");
-      if (mysql_affected_rows()==1) {
+      if (mysql_num_rows($result)==1) {
         $data = mysql_fetch_array($result);
         $unUsuario = pUsuario::cargarMySqlRow($data);
         return $unUsuario;

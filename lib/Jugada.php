@@ -66,7 +66,7 @@ class Jugada {
   }
 
   static function obtenerPorIdMesa($id) {
-    $unaJugada = pMesa::obtenerPorIdMesa($id);
+    $unaJugada = pJugada::obtenerPorIdMesa($id);
     return $unaJugada;
   }
 
