@@ -98,7 +98,7 @@ class Sistema {
         $unaMesa=Mesa::obtenerPorId($_SESSION["mesa"]);
         if($unaMesa->getEstado()==Mesa::MESA_ACTIVA)
         {
-          if ($unaMesa->getJugadas!=null) {
+          if ($unaMesa->getJugadas()!=null) {
             while ($unaMesa->getJugadas()->hasNext()) {
               $unaJugada = new Jugada();
               $unaJugada = $unaMesa->getJugadas()->next();

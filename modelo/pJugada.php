@@ -17,7 +17,7 @@ class pJugada {
       $unaJugada->setIdCampo($mySqlRow[pJugada::CAMPO]);
       $unaJugada->setEsCruz($mySqlRow[pJugada::CRUZ]);
       $unaJugada->setJugador(Usuario::obtenerPorId($mySqlRow[pJugada::JUGADOR]));
-      $unaJugada->setMesa(Mesa::obtenerPorId($mySqlRow[pJugada::MESA]));
+      //$unaJugada->setMesa(Mesa::obtenerPorId($mySqlRow[pJugada::MESA]));
       return $unaJugada;
     }
 
