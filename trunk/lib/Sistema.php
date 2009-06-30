@@ -75,57 +75,58 @@ class Sistema {
       echo HtmlHelper::footer($links, $cright);
   }
 
-    static function enJuego() {
-      /* Cabezal */
-      $scripts = array('jquery', 'script', 'validaciones');
-      $css = array('style');
-      echo HtmlHelper::head('TaTeT&iacute;', $scripts, $css);
-      /* Cuerpo  */
-      if (isset($_SESSION["usuario"])) {
-        $menuTop['index.php?pagina=logout'] = 'Logout';
-      }
-      else {
-        $menuTop['index.php?pagina=login'] = 'Login';
-      }
-      $menuTop["index.php?pagina=help"] = "Ayuda";
-      $menuTop["index.php?pagina=registrate"] = "Registrar";
-      $menuMedio = Sistema::middleMenu();
-      $cabezal = "Bienvenidos al apasionante mundo del TaTeT&iacute; <p>En este sitio, uds. podr&aacute;n jugar al juego mas viejo del mundo";
-      $menuBajo = Sistema::bottomTabs();
-      $tab = 'Acerca de';
-      if(isset($_SESSION["mesa"]))
+  static function enJuego() {
+    /* Cabezal */
+    $scripts = array('jquery', 'script', 'validaciones');
+    $css = array('style');
+    echo HtmlHelper::head('TaTeT&iacute;', $scripts, $css);
+
+    /* Cuerpo  */
+    if (isset($_SESSION["usuario"])) {
+      $menuTop['index.php?pagina=logout'] = 'Logout';
+    }
+    else {
+      $menuTop['index.php?pagina=login'] = 'Login';
+    }
+    $menuTop["index.php?pagina=help"] = "Ayuda";
+    $menuTop["index.php?pagina=registrate"] = "Registrar";
+    $menuMedio = Sistema::middleMenu();
+    $cabezal = "Bienvenidos al apasionante mundo del TaTeT&iacute; <p>En este sitio, uds. podr&aacute;n jugar al juego mas viejo del mundo";
+    $menuBajo = Sistema::bottomTabs();
+    $tab = 'Acerca de';
+    if(isset($_SESSION["mesa"]))
+    {
+      $unaMesa=Mesa::obtenerPorId($_SESSION["mesa"]);
+      if($unaMesa->getEstado()==Mesa::MESA_ACTIVA)
       {
-        $unaMesa=Mesa::obtenerPorId($_SESSION["mesa"]);
-        if($unaMesa->getEstado()==Mesa::MESA_ACTIVA)
-        {
-          if ($unaMesa->getJugadas()!=null) {
-            while ($unaMesa->getJugadas()->hasNext()) {
-              $unaJugada = new Jugada();
-              $unaJugada = $unaMesa->getJugadas()->next();
-              if ($unaJugada->getEsCruz()) {
-                $variables['campo_'.$unaJugada->getIdCampo()] = 'X';
-              }
-              else {
-                $variables['campo_'.$unaJugada->getIdCampo()] = 'O';
-              }
+        if ($unaMesa->getJugadas()!=null) {
+          while ($unaMesa->getJugadas()->hasNext()) {
+            $unaJugada = new Jugada();
+            $unaJugada = $unaMesa->getJugadas()->next();
+            if ($unaJugada->getEsCruz()) {
+              $variables['campo_'.$unaJugada->getIdCampo()] = 'X';
+            }
+            else {
+              $variables['campo_'.$unaJugada->getIdCampo()] = 'O';
             }
           }
-          $variables['jugadores']='2';
-          echo "Jugando en mesa : ".$unaMesa->getId();
-          // echo "<script language=javascript>juegoActivo())</script>";
         }
-        else if($unaMesa->getEstado()==Mesa::MESA_EN_ESPERA)
-        {
-          // echo "<script language=javascript>juegoEnEspera())</script>";
-          $variables['jugadores']='1';
-          echo "Esperando fen mesa : ".$unaMesa->getId();
-        }
+        $variables['jugadores']='2';
+        echo "Jugando en mesa : ".$unaMesa->getId();
+        // echo "<script language=javascript>juegoActivo())</script>";
       }
-      echo HtmlHelper::bodyContent($menuTop, $menuMedio, $cabezal, $menuBajo, $tab, $variables);
-      /* Pie */
-      $links = Sistema::bottomLinks();
-      $cright = "Marcos Tusso & Miguel Diab<br> Universidad ORT <br> Todos los derechos reservados (C) 2009";
-      echo HtmlHelper::footer($links, $cright);
+      else if($unaMesa->getEstado()==Mesa::MESA_EN_ESPERA)
+      {
+        // echo "<script language=javascript>juegoEnEspera())</script>";
+        $variables['jugadores']='1';
+        echo "Esperando fen mesa : ".$unaMesa->getId();
+      }
+    }
+    echo HtmlHelper::bodyContent($menuTop, $menuMedio, $cabezal, $menuBajo, $tab, $variables);
+    /* Pie */
+    $links = Sistema::bottomLinks();
+    $cright = "Marcos Tusso & Miguel Diab<br> Universidad ORT <br> Todos los derechos reservados (C) 2009";
+    echo HtmlHelper::footer($links, $cright);
   }
 
   static function registrar($valores) {

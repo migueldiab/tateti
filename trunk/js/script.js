@@ -9,32 +9,46 @@ var cantJugadores;
 var miTipo;
 var tipoOponente;
 var miturno;
+
 function eventos(){
  //   $("#nuevoJuego").click(borrar)
     checkStatusJuego();
     td=$('td');
     td.click(validar);
 }
+
 function validar(){
     //validar si ya tiene algo en el campo
    // var XO=$('input[name=XO]:checked').val()
-   if(over==true){
-       alert("juego ya terminado")
-   }else if(miturno!=true){
-    alert("no es mi turno o juego no iniciado");
-   }else if(started!=true){
-       alert("juego no iniciado aun, o aguardando oponente")
-   } else{
-       if(($this).text()==null){
-       enviarDatos();
-       }else{
-           alert("el campo ya esta marcado")
-       }
-
+  if(over==true)
+  {
+    alert("juego ya terminado")
+  }
+//  else if(miturno!=true)
+//  {
+//    alert("no es mi turno o juego no iniciado");
+//  }
+  else if(started!=true)
+  {
+    alert("juego no iniciado aun, o aguardando oponente")
+  }
+  else
+  {
+    alert(($this).text());
+    if(($this).text()==null)
+    {
+      enviarDatos();
+    }
+    else
+    {
+      alert("el campo ya esta marcado")
+    }
     //if(over==false&&checkPreviousClick()==true){$(this).text(XO)}
-    if(over==false)checkResult()
-    checkEmpate()
-   }
+    if(over==false) {
+      checkResult()
+    }
+    checkEmpate();
+  }
 }
 
 function checkPreviousClick(){ //indica quien hizo el ultimo movimiento
@@ -165,12 +179,12 @@ function checkStatusJuego(){
 
 }
 
-function juegoActivo(){
+function juegoActivo()
+{
   $("#titulo").text("esperando movimiento adversario")
   started=true;
   miturno=false;
   intervalo = setInterval(checkTablaActualizada, delayCall);
-
 }
 
 function juegoEnEspera(){
@@ -262,5 +276,5 @@ function enviarDatos(){
 
   function mostrarError()
   {
-      alert("ERROR!");
+      //alert("ERROR!");
   }
