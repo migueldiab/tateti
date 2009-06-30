@@ -6,8 +6,7 @@ function __autoload($class_name) {
 $unaMesa=new Mesa();
 $id = $_POST["id"];
 $jugadores=$_POST["jugadores"];
-$iduMesa=$_SESSION["mesa"];
-$unaMesa=Mesa::obtenerPorId($iduMesa["id"]);//no anda
+$unaMesa=Mesa::obtenerPorId($_SESSION["mesa"]->getid());
 
 $yo=$_SESSION["usuario"];
 if($mesa->getJugador2()!=null){

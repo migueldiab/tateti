@@ -10,10 +10,9 @@ class Sistema {
     if (isset($_SESSION["usuario"])) {
         Sistema::principal();
     }
-    /* Cabezal */
-    $scripts = array('jquery', 'script', 'validaciones');
+    /* Cabezal */    
     $css = array('style');
-    echo HtmlHelper::head('TaTeT&iacute;', $scripts, $css);
+    echo HtmlHelper::head('TaTeT&iacute;', Sistema::javaScripts(), $css);
     /* Cuerpo  */
     $menuTop['index.php?pagina=principal'] = 'Jugar';
     $menuTop["index.php?pagina=help"] = "Ayuda";
@@ -30,9 +29,8 @@ class Sistema {
   }
   static function principal() {
       /* Cabezal */
-      $scripts = array('jquery', 'script', 'validaciones');
       $css = array('style');
-      echo HtmlHelper::head('TaTeT&iacute;', $scripts, $css);
+      echo HtmlHelper::head('TaTeT&iacute;', Sistema::javaScripts(), $css);
       /* Cuerpo  */
       if (isset($_SESSION["usuario"])) {
         $menuTop['index.php?pagina=logout'] = 'Logout';
@@ -58,9 +56,8 @@ class Sistema {
           Sistema::principal();
       }
       /* Cabezal */
-      $scripts = array('jquery', 'script', 'validaciones');
       $css = array('style');
-      echo HtmlHelper::head('TaTeT&iacute;', $scripts, $css);
+      echo HtmlHelper::head('TaTeT&iacute;', Sistema::javaScripts(), $css);
       /* Cuerpo  */
       $menuTop['index.php?pagina=login'] = 'Login';
       $menuTop["index.php?pagina=help"] = "Ayuda";
@@ -77,9 +74,8 @@ class Sistema {
 
   static function enJuego() {
     /* Cabezal */
-    $scripts = array('jquery', 'script', 'validaciones');
     $css = array('style');
-    echo HtmlHelper::head('TaTeT&iacute;', $scripts, $css);
+    echo HtmlHelper::head('TaTeT&iacute;', Sistema::javaScripts(), $css);
 
     /* Cuerpo  */
     if (isset($_SESSION["usuario"])) {
@@ -94,37 +90,43 @@ class Sistema {
     $cabezal = "Bienvenidos al apasionante mundo del TaTeT&iacute; <p>En este sitio, uds. podr&aacute;n jugar al juego mas viejo del mundo";
     $menuBajo = Sistema::bottomTabs();
     $tab = 'Acerca de';
-    if(isset($_SESSION["mesa"]))
+    $unaMesa = $_SESSION["mesa"];
+    if($unaMesa!=null)
     {
-      $unaMesa=Mesa::obtenerPorId($_SESSION["mesa"]);
+      $unaMesa=Mesa::obtenerPorId($_SESSION["mesa"]->getId());
       if($unaMesa->getEstado()==Mesa::MESA_ACTIVA)
       {
+        $X = 0;
+        $O = 0;
         if ($unaMesa->getJugadas()!=null) {
           while ($unaMesa->getJugadas()->hasNext()) {
             $unaJugada = new Jugada();
             $unaJugada = $unaMesa->getJugadas()->next();
             if ($unaJugada->getEsCruz()) {
               $variables['campo_'.$unaJugada->getIdCampo()] = 'X';
-
+              $X++;
             }
             else {
               $variables['campo_'.$unaJugada->getIdCampo()] = 'O';
+              $O++;
             }
+          }
+          if ($X>$O) {
+            echo "<script language=javascript> turnoDe('O'); </script>";
+          }
+          else {
+            echo "<script language=javascript> turnoDe('X'); </script>";
           }
         }
         else if($unaMesa->getEstado()==Mesa::MESA_EN_ESPERA)
         {
-          // echo "<script language=javascript>juegoEnEspera())</script>";
           $variables['jugadores']='1';
-          echo "Esperando fen mesa : ".$unaMesa->getId();
         }
         $variables['jugadores']='2';
-        echo "Jugando en mesa : ".$unaMesa->getId();
-        // echo "<script language=javascript>juegoActivo())</script>";
       }
       else if($unaMesa->getEstado()==Mesa::MESA_EN_ESPERA)
       {
-        // echo "<script language=javascript>juegoEnEspera())</script>";
+        echo "<script language=javascript> juegoEnEspera(); </script>";
         $variables['jugadores']='1';
         echo "Esperando fen mesa : ".$unaMesa->getId();
       }
@@ -198,6 +200,9 @@ class Sistema {
     return array("index.php?pagina=jugar" => "Jugar",
                   "index.php?pagina=stats"=> "Stats",
                   "index.php?pagina=mesa"=> "Crear Mesa");
+  }
+  static function javaScripts() {
+    return array('jquery', 'script', 'validaciones');
   }
 }
 

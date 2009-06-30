@@ -25,7 +25,7 @@ function validar()
   // var XO=$('input[name=XO]:checked').val()
   if(over==true)
   {
-    alert("juego ya terminado")
+    alert("juego ya terminado");
   }
 //  else if(miturno!=true)
 //  {
@@ -33,7 +33,7 @@ function validar()
 //  }
   else if(started!=true)
   {
-    alert("juego no iniciado aun, o aguardando oponente")
+    alert("juego no iniciado aun, o aguardando oponente");
   }
   else
   {
@@ -43,7 +43,7 @@ function validar()
     }
     else
     {
-      alert("el campo ya esta marcado")
+      alert("el campo ya esta marcado");
     }
     //if(over==false&&checkPreviousClick()==true){$(this).text(XO)}
 //    if(over==false) {
@@ -68,19 +68,27 @@ function checkPreviousClick(){ //indica quien hizo el ultimo movimiento
            X++
            }
         }
-        if(started=="O"&&$('input[name=XO]:checked').val()=="X"){
-            if(O==X+1){
+        if(started=="O"&&$('input[name=XO]:checked').val()=="X")
+        {
+          if(O==X+1){
+              return true;
+          }else{
+              return false;
+          }
+        }
+        else if(started=="O"&&$('input[name=XO]:checked').val()=="O")
+        {
+            if(X==O)
+            {
                 return true;
-            }else{
+            }
+            else
+            {
                 return false;
             }
-        }else if(started=="O"&&$('input[name=XO]:checked').val()=="O"){
-            if(X==O){
-                return true;
-            }else{
-                return false;
-            }
-        }else if(started=="X"&&$('input[name=XO]:checked').val()=="O"){
+        }
+        else if(started=="X"&&$('input[name=XO]:checked').val()=="O")
+        {
             if(X==O+1){
                 return true;
             }else{
