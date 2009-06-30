@@ -1,7 +1,14 @@
 <?php
+session_start();
+function __autoload($class_name) {
+    require_once $class_name . '.php';
+}
+$unaMesa=new Mesa();
 $id = $_POST["id"];
 $jugadores=$_POST["jugadores"];
-$mesa=$_SESSION["mesa"];
+$iduMesa=$_SESSION["mesa"];
+$unaMesa=Mesa::obtenerPorId($iduMesa["id"]);//no anda
+
 $yo=$_SESSION["usuario"];
 if($mesa->getJugador2()!=null){
     if($mesa->getJugadas()==null){
