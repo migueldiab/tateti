@@ -40,12 +40,14 @@ class Fachada {
    */
   static function procesar($pagina, $valores) {
     if ($valores==null) {
-     if (!@call_user_func("Fachada::".$pagina)) {
+     $pagina = @call_user_func("Fachada::".$pagina);
+     if ($pagina!=true) {
        return Generico::pageNotFound();
      }
     }
     else {
-     if (!@call_user_func("Fachada::".$pagina, $valores)) {
+      $pagina = @call_user_func("Fachada::".$pagina, $valores);
+      if ($pagina!=true) {
        return Generico::pageNotFound();
      }
     }
@@ -53,27 +55,35 @@ class Fachada {
 
   static function logout() {
     Sistema::logout();
+    return true;
   }
   static function login() {
     Sistema::login();
+    return true;
   }
   static function entrar($valores) {
     Sistema::entrar($valores);
+    return true;
   }
   static function principal() {
     Sistema::principal();
+    return true;
   }
   static function registrate() {
     Sistema::registrate();
+    return true;
   }
   static function registrar($valores) {
     Sistema::registrar($valores);
+    return true;
   }
   static function help() {
     Generico::help();
+    return true;
   }
   static function jugar() {
     juego::jugar();
+    return true;
   }
   
   
