@@ -186,12 +186,12 @@ function juegoActivo()
   $("#titulo").text("esperando movimiento adversario")
   started=true;
   miturno=false;
-  intervalo = setInterval(checkTablaActualizada, delayCall);
+  intervalo = setInterval("checkTablaActualizada()", delayCall);
 }
 
 function juegoEnEspera(){
     $("#titulo").text("Esperando Oponente");
-    intervalo = setInterval(consultarOponente, delayCall);
+    intervalo = setInterval("consultarOponente()", delayCall);
 
 }
 function consultarOponente(){
