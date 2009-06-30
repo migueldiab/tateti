@@ -51,18 +51,16 @@ class pJugada {
       return $unaJugada;
     }
 
-    static function save($unaJugada) {
+    static function save($unaJugada, $unaMesa) {
       if ($unaJugada!=null)
       {
-        $query="INSERT INTO ".pJugada::TABLA." (".pJugada::HORA.", ".pJugada::CAMPO.", ".pJugada::CRUZ.", ".pJugada::JUGADOR.", ".pJugada::MESA.")
+        $query="INSERT INTO ".pJugada::TABLA." (".pJugada::CAMPO.", ".pJugada::CRUZ.", ".pJugada::JUGADOR.", ".pJugada::MESA.")
                 VALUES (
-                '".$unaJugada->getHora()."',
                 '".$unaJugada->getIdCampo()."',
                 '".$unaJugada->getEsCruz()."',
                 '".$unaJugada->getJugador()->getId()."',
-                '".$unaJugada->getMesa()->getId()."')";
-        $result=mySql::query($query);
-        $id = mysql_insert_id();
+                '".$unaMesa->getId()."')";
+        $id=mySql::queryId($query);
         return $id;
       }
       else {

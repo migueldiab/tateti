@@ -117,7 +117,14 @@ class pMesa {
       else {
         return false;
       }
-      $result=mySql::queryId($query);
+      $idMesa=mySql::queryId($query);
+      if ($unaMesa->getId()==null) {
+        $unaMesa->setId($idMesa);
+      }
+//      while ($unaMesa->getJugadas()->hasNext()) {
+//        $unaJugada = $unaMesa->getJugadas()->next();
+//        $unaJugada->save($unaMesa);
+//      }
       return $result;
     }    
     return false;

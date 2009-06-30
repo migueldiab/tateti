@@ -22,7 +22,7 @@
   include_once  "./lib/Jugada.php";
   include_once  "./lib/Mesa.php";
   include_once  "./vendor/ArrayList.php";
-  
+
   include_once  "./modelo/pUsuario.php";
   include_once  "./modelo/pMesa.php";
   include_once  "./modelo/pJugada.php";
@@ -85,7 +85,11 @@ class Fachada {
     juego::jugar();
     return true;
   }
-  
-  
+  static function grabarJugada() {
+    juego::grabarJugada();
+    return true;
+  }
+
+
 }
 ?>
