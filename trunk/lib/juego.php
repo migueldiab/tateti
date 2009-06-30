@@ -99,7 +99,7 @@ class juego {
       $unaMesa->setJugador1($jugador1);
       $unaMesa->setEstado(Mesa::MESA_EN_ESPERA);
       $id=$unaMesa->save();
-      $unaMesa->setId($id);
+//      $unaMesa->setId($id);
       return $unaMesa;
   }
 
