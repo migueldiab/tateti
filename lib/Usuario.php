@@ -79,9 +79,9 @@ class Usuario {
       if ($unUsuario->getClave()==md5($clave)) {
         return $unUsuario;
       }
-      else {
-        die($unUsuario->getUsuario()." clave mal ".$unUsuario->getClave()."   vs.   ".md5($clave));
-      }
+//      else {
+//        die($unUsuario->getUsuario()." clave mal ".$unUsuario->getClave()."   vs.   ".md5($clave));
+//      }
     }
     return null;
   }
