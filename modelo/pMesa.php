@@ -117,9 +117,8 @@ class pMesa {
       else {
         return false;
       }
-      $result=mySql::query($query);
-      $id = mysql_insert_id();
-      return $id;
+      $result=mySql::queryId($query);
+      return $result;
     }    
     return false;
   }

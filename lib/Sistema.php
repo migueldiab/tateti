@@ -105,11 +105,18 @@ class Sistema {
             $unaJugada = $unaMesa->getJugadas()->next();
             if ($unaJugada->getEsCruz()) {
               $variables['campo_'.$unaJugada->getIdCampo()] = 'X';
+
             }
             else {
               $variables['campo_'.$unaJugada->getIdCampo()] = 'O';
             }
           }
+        }
+        else if($unaMesa->getEstado()==Mesa::MESA_EN_ESPERA)
+        {
+          // echo "<script language=javascript>juegoEnEspera())</script>";
+          $variables['jugadores']='1';
+          echo "Esperando fen mesa : ".$unaMesa->getId();
         }
         $variables['jugadores']='2';
         echo "Jugando en mesa : ".$unaMesa->getId();

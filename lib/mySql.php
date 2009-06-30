@@ -25,6 +25,17 @@ class mySql {
     return $result;
   }
 
+  static function queryId($query) {
+    $mySqlResource = mySql::connect_db();
+    $result=mysql_query($query, $mySqlResource);
+    if (!$result) {
+      error_log("Error : ".mysql_errno()."-".mysql_error());
+    }
+    $id=mysql_insert_id();
+    mysql_close($mySqlResource);
+    return $id;
+  }
+
   function SQLDate($DateEntry) {
 		$Date_Array[0]= 0;
 		$Date_Array[1]= 0;
