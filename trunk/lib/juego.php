@@ -38,17 +38,21 @@ class juego {
 
   static function jugar(){
     if ($_SESSION['usuario']!=null) {
-      $mesaActiva = Mesa::obtenerMesaActivaPorJugador($_SESSION['usuario']);
-      if ($mesaActiva!=null) {
-        $_SESSION["mesa"]=$mesaActiva;
+      $mesa = Mesa::obtenerMesaActivaPorJugador($_SESSION['usuario']);
+      if ($mesa!=null) {
+        $_SESSION["mesa"]=$mesa;
       }
       else {
         $mesa=juego::checkMesaCreada($_SESSION['usuario']);
-        if($mesa!=null){    //si la mesa ya esta creada y esperando segundo jugador...
-          juego::joinMesaCreada($mesa);
+        if($mesa!=null)
+        {    //si la mesa ya esta creada y esperando segundo jugador...
+          if ($mesa->getJugador1()!=$_SESSION['usuario'] &&  $mesa->getJugador2()!=$_SESSION['usuario']) {
+            juego::joinMesaCreada($mesa);
+          }
+          $_SESSION["mesa"]=$mesa;
         }
         else{
-          juego::crearMesa();
+          $_SESSION["mesa"] = juego::crearMesa();
         }
       }
       Sistema::enJuego();
@@ -78,24 +82,22 @@ class juego {
   }
 
   static function joinMesaCreada($unaMesa){
-      $jugador2=new Usuario();
-      $jugador2=$_SESSION["usuario"];
-      $unaMesa->setJugador2($jugador2);
-      $unaMesa->setEstado(Mesa::MESA_ACTIVA);
-      $unaMesa->save();
-      $_SESSION["mesa"]=$unaMesa;
-
+    $unJugador=new Usuario();
+    $unJugador=$_SESSION["usuario"];
+    $unaMesa->setJugador2($unJugador);
+    $unaMesa->setEstado(Mesa::MESA_ACTIVA);
+    $unaMesa->save();
+    $_SESSION["mesa"]=$unaMesa;
   }
 
   static function crearMesa(){
       $unaMesa=new Mesa();
-      $jugador1=new Usuario();
       $jugador1=$_SESSION["usuario"];
       $unaMesa->setJugador1($jugador1);
       $unaMesa->setEstado(Mesa::MESA_EN_ESPERA);
       $id=$unaMesa->save();
       $unaMesa->setId($id);
-      $_SESSION["mesa"]=$unaMesa;
+      return $unaMesa;
   }
 
   static function grabarJugada() {

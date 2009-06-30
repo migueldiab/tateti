@@ -74,9 +74,9 @@ class Usuario {
   }
   static function autenticarUsuario($usuario, $clave) {
     $unUsuario = Usuario::obtenerPorNombre($usuario);
-    
+
     if ($unUsuario!=null) {
-      if ($unUsuario->getClave()==md5($clave)) {        
+      if ($unUsuario->getClave()==md5($clave)) {
         return $unUsuario;
       }
       else {
