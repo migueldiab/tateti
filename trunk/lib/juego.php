@@ -67,38 +67,48 @@ class juego {
      {
           return false;
      }        
- }
+  }
 
-    static function checkMesaCreada(){
-        $unaMesa=Mesa::obtenerMesaPorEstado(Mesa::MESA_EN_ESPERA);
-        if($unaMesa!=null){
-          return $unaMesa;
-        }
-        return null;
+  static function checkMesaCreada(){
+      $unaMesa=Mesa::obtenerMesaPorEstado(Mesa::MESA_EN_ESPERA);
+      if($unaMesa!=null){
+        return $unaMesa;
+      }
+      return null;
+  }
+
+  static function joinMesaCreada($unaMesa){
+      $jugador2=new Usuario();
+      $jugador2=$_SESSION["usuario"];
+      $unaMesa->setJugador2($jugador2);
+      $unaMesa->setEstado(Mesa::MESA_ACTIVA);
+      $unaMesa->save();
+      $_SESSION["mesa"]=$unaMesa;
+
+  }
+
+  static function crearMesa(){
+      $unaMesa=new Mesa();
+      $jugador1=new Usuario();
+      $jugador1=$_SESSION["usuario"];
+      $unaMesa->setJugador1($jugador1);
+      $unaMesa->setEstado(Mesa::MESA_EN_ESPERA);
+      $id=$unaMesa->save();
+      $unaMesa->setId($id);
+      $_SESSION["mesa"]=$unaMesa;
+  }
+
+  static function grabarJugada() {
+    $jugador=$_SESSION["usuario"];
+    $mesa=$_SESSION["mesa"];
+    $campo=$_POST["idCampo"];
+    $esCruz=$_POST["esCruz"];
+    if ($jugador==null || $mesa==null) {
+      die("error de mesa o usuario");
     }
+    $mesa->nuevaJugada($mesa, $jugador, $campo, $esCruz);
 
-    static function joinMesaCreada($unaMesa){
-        $jugador2=new Usuario();
-        $jugador2=$_SESSION["usuario"];
-        $unaMesa->setJugador2($jugador2);
-        $unaMesa->setEstado(Mesa::MESA_ACTIVA);
-        $unaMesa->save();
-        $_SESSION["mesa"]=$unaMesa;
-
-    }
-
-    static function crearMesa(){
-        $unaMesa=new Mesa();
-        $jugador1=new Usuario();
-        $jugador1=$_SESSION["usuario"];
-        $unaMesa->setJugador1($jugador1);
-        $unaMesa->setEstado(Mesa::MESA_EN_ESPERA);
-        $id=$unaMesa->save();
-        $unaMesa->setId($id);
-        $_SESSION["mesa"]=$unaMesa;
-    }
-
-
+  }
 
 }
 ?>

@@ -123,12 +123,25 @@ class Mesa {
 
   }
 
-public function ultimoJugador() {
+  public function ultimoJugador() {
     $laJugada=pJugada::obtenerUltimaJugadaPorIdMesa($this->id);
     return $laJugada->getJugador();
     
   }
-
+  public function nuevaJugada($mesa, $jugador, $campo, $esCruz) {
+    $unaJugada = new Jugada();
+    $unaJugada->setJugador($jugador);
+    $unaJugada->setEsCruz($esCruz);
+    $unaJugada->setIdCampo($campo); 
+    $unaJugada->setJugador($jugador);
+    if ($unaJugada->save($mesa)) {
+      $this->jugadas->add($unaJugada);    
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 
 }
 ?>

@@ -17,9 +17,12 @@ function eventos(){
     td.click(validar);
 }
 
-function validar(){
-    //validar si ya tiene algo en el campo
-   // var XO=$('input[name=XO]:checked').val()
+function validar()
+{
+  //alert ("validando");
+
+  //validar si ya tiene algo en el campo
+  // var XO=$('input[name=XO]:checked').val()
   if(over==true)
   {
     alert("juego ya terminado")
@@ -34,20 +37,19 @@ function validar(){
   }
   else
   {
-    alert(($this).text());
-    if(($this).text()==null)
+    if($(this).text()=="")
     {
-      enviarDatos();
+      enviarDatos($(this));
     }
     else
     {
       alert("el campo ya esta marcado")
     }
     //if(over==false&&checkPreviousClick()==true){$(this).text(XO)}
-    if(over==false) {
-      checkResult()
-    }
-    checkEmpate();
+//    if(over==false) {
+//      checkResult()
+//    }
+//    checkEmpate();
   }
 }
 
@@ -105,15 +107,15 @@ function borrar(){
     }
    }
 function checkResult(){
-    //checkeo horizontales
-    var rows=document.getElementById('board').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+  //checkeo horizontales
+  var rows=document.getElementById('board').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
   for(n=0;n<rows.length;n++){       //checkeo horizontal
     var tr = document.getElementsByTagName("tr")[n];
     var valor1=tr.firstChild.nextSibling.innerHTML
     var valor2=tr.firstChild.nextSibling.nextSibling.nextSibling.innerHTML
     var valor3=tr.lastChild.previousSibling.innerHTML
      checkGanador(valor1,valor2,valor3)
-   }
+  }
 
  //checkeo diagonal sup izq der abajo
  var j=0
@@ -202,65 +204,65 @@ function consultarOponente(){
         }),
         success: iniciaJuego,
         error: mostrarError
-
     })
   }
 
 function iniciaJuego(datos){
     if(datos.activo==true)
       $("#titulo").text("hacer jugada");
-      started=true;
-      miturno=true;
+    started=true;
+    miturno=true;
 }
 
 
-  function checkTablaActualizada(){
-      $("#titulo").text("");
-       $.ajax({
-        url: "lib/ActualizaTabla.php",
-        type: "POST",
-        dataType:"json",
-        data: ({
-          id : id_actual
-        }),
-        success: actualizaTabla,
-        error: mostrarError
-    })
-  }
-  
-    function actualizaTabla(jugada){
-        if(jugada!=undefined){
-            var esCruz;
-             $("#titulo").text("hacer jugada");
-            if (jugada.es_cruz[0]==1){
-                esCruz=1;
-            }else{
-                esCruz=0;
-            }
-            $("#jugada.idCampo[0]").text(esCruz);
-            id_actual=jugada.id;
-            if(miTurno==true){
-                miTurno=false;
-            }else if(miTurno==false){
-                miTurno=true;
-            }
-        }
-        
-    }
+function checkTablaActualizada(){
+  $("#titulo").text("");
+  $.ajax({
+    url: "lib/ActualizaTabla.php",
+    type: "POST",
+    dataType:"json",
+    data: ({
+      id : id_actual
+    }),
+    success: actualizaTabla,
+    error: mostrarError
+  })
+}
 
-function enviarDatos(){
-    $("#titulo").text("");
-       $.ajax({
-        url: "lib/ActualizaTabla.php",
-        type: "POST",
-        dataType:"json",
-        data: ({
-          idCampo : $(this).attr('id'),
-          tipo : miTipo
-        }),
-        success: actualizaTabla,
-        error: mostrarError
-    })
+function actualizaTabla(jugada){
+  if(jugada!=undefined){
+      var esCruz;
+       $("#titulo").text("hacer jugada");
+      if (jugada.es_cruz[0]==1){
+          esCruz=1;
+      }else{
+          esCruz=0;
+      }
+      $("#jugada.idCampo[0]").text(esCruz);
+      id_actual=jugada.id;
+      if(miTurno==true){
+          miTurno=false;
+      }else if(miTurno==false){
+          miTurno=true;
+      }
+  }
+}
+
+function enviarDatos(unObjeto)
+{
+  $("#titulo").text("Enviando Jugada");
+  $.ajax({
+    url: "index.php",
+    type: "POST",
+    dataType:"json",
+    data: ({
+      pagina : "grabarJugada",
+      idCampo : unObjeto.attr('id'),
+      esCruz : 1
+    }),
+    success: actualizaTabla,
+    error: mostrarError
+  })
 
 
 }

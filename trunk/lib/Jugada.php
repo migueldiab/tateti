@@ -7,11 +7,11 @@ class Jugada {
   private $campo;
   private $esCruz;
   private $jugador;
-  private $mesa;
 
-    function __construct() {
-       $this->hora=date("Y-m-d H:i:s");
-    }
+  function __construct() {
+     $this->hora=date("Y-m-d H:i:s");
+  }
+  
   public function getId() {
     return $this->id;
   }
@@ -52,14 +52,6 @@ class Jugada {
     $this->jugador = $jugador;
   }
 
-  public function getMesa() {
-    return $this->mesa;
-  }
-
-  public function setMesa($mesa) {
-    $this->mesa = $mesa;
-  }
-
   static function obtenerPorIdJugada($id) {
     $unaJugada = pMesa::obtenerPorIdJugada($id);
     return $unaJugada;
@@ -74,8 +66,8 @@ class Jugada {
     return (string)$this->id;
   }
 
-  public function save() {
-    return pJugada::save($this);
+  public function save($unaMesa) {
+    return pJugada::save($this, $unaMesa);
   }
 
 }
