@@ -8,7 +8,7 @@ var delayCall=10000;
 var cantJugadores;
 var miTipo;
 var tipoOponente;
-var miturno;
+var miturno = false;
 
 function eventos(){
  //   $("#nuevoJuego").click(borrar)
@@ -17,6 +17,9 @@ function eventos(){
     td.click(validar);
 }
 
+function esMiTurno() {
+  this.miTurno = true;
+}
 function validar()
 {
   //alert ("validando");
@@ -27,10 +30,10 @@ function validar()
   {
     alert("juego ya terminado");
   }
-//  else if(miturno!=true)
-//  {
-//    alert("no es mi turno o juego no iniciado");
-//  }
+  else if(miturno!=true)
+  {
+    alert("no es mi turno o juego no iniciado");
+  }
   else if(started!=true)
   {
     alert("juego no iniciado aun, o aguardando oponente");

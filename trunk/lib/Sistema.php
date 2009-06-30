@@ -93,9 +93,17 @@ class Sistema {
     $unaMesa = $_SESSION["mesa"];
     if($unaMesa!=null)
     {
+      $soyX = false;
+      $soyO = false;
       $unaMesa=Mesa::obtenerPorId($_SESSION["mesa"]->getId());
       if($unaMesa->getEstado()==Mesa::MESA_ACTIVA)
       {
+        if ($unaMesa->getJugador1()==$_SESSION['usuario']) {
+          $soyX = true;
+        }
+        elseif ($unaMesa->getJugador2()==$_SESSION['usuario']) {
+          $soyO = true;
+        }
         $X = 0;
         $O = 0;
         if ($unaMesa->getJugadas()!=null) {
@@ -110,19 +118,23 @@ class Sistema {
               $variables['campo_'.$unaJugada->getIdCampo()] = 'O';
               $O++;
             }
-          }
-          if ($X>$O) {
-            echo "<script language=javascript> turnoDe('O'); </script>";
-          }
-          else {
-            echo "<script language=javascript> turnoDe('X'); </script>";
-          }
+          }          
         }
         else if($unaMesa->getEstado()==Mesa::MESA_EN_ESPERA)
         {
           $variables['jugadores']='1';
         }
         $variables['jugadores']='2';
+        if ($X>$O) {
+          if ($soyO) {
+            $finish =  "<script language=javascript> esMiTurno(); </script>";
+          }
+        }
+        else {
+          if ($soyX) {
+            $finish = "<script language=javascript> esMiTurno(); </script>";
+          }
+        }
       }
       else if($unaMesa->getEstado()==Mesa::MESA_EN_ESPERA)
       {
@@ -136,6 +148,7 @@ class Sistema {
     $links = Sistema::bottomLinks();
     $cright = "Marcos Tusso & Miguel Diab<br> Universidad ORT <br> Todos los derechos reservados (C) 2009";
     echo HtmlHelper::footer($links, $cright);
+    echo $finish;
   }
 
   static function registrar($valores) {
