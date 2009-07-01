@@ -136,9 +136,13 @@ class Mesa {
     $unaJugada->setEsCruz($esCruz);
     $unaJugada->setIdCampo($campo); 
     $unaJugada->setJugador($jugador);
-    return $unaJugada->save($mesa);
-//    $jugadas->add($unaJugada); da error
-    
+    if ($unaJugada->save($mesa)) {
+      $this->jugadas->add($unaJugada);    
+      return true;
+    }
+    else {
+      return false;
+    }
   }
   public function hayGanador() {
 
