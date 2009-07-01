@@ -228,16 +228,12 @@ function iniciaJuego(datos){
 
 function checkTablaActualizada(){
   $("#titulo").text("");
-  $.ajax({
-    url: "lib/ActualizaTabla.php",
-    type: "POST",
-    dataType:"json",
-    data: ({
+  //areaJuego
+  $("#areaJuego").load("index.php", {
+      pagina : "actualizarTabla",
       id : id_actual
-    }),
-    success: actualizaTabla,
-    error: mostrarError
-  })
+    });
+
 }
 
 function actualizaTabla(jugada){

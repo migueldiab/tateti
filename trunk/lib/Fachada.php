@@ -22,11 +22,11 @@
   include_once  "Jugada.php";
   include_once  "Mesa.php";
 
-  include_once($_SERVER["DOCUMENT_ROOT"] . "/tateti/vendor/ArrayList.php")  ;
+  include_once("./vendor/ArrayList.php");
 
-  include_once($_SERVER["DOCUMENT_ROOT"] . "/tateti/modelo/pUsuario.php");
-  include_once($_SERVER["DOCUMENT_ROOT"] . "/tateti/modelo/pMesa.php");
-  include_once($_SERVER["DOCUMENT_ROOT"] . "/tateti/modelo/pJugada.php");
+  include_once("./modelo/pUsuario.php");
+  include_once("./modelo/pMesa.php");
+  include_once("./modelo/pJugada.php");
 
 class Fachada {
 
@@ -88,6 +88,10 @@ class Fachada {
   }
   static function grabarJugada() {
     juego::grabarJugada();
+    return true;
+  }
+  static function actualizarTabla() {
+    juego::actualizarTabla();
     return true;
   }
 
