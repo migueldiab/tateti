@@ -1,5 +1,5 @@
 <?php
-  include_once  "./lib/Fachada.php";
+  include_once  "lib/Fachada.php";
 
   session_start();
 
