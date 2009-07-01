@@ -6,7 +6,7 @@ function __autoload($class_name) {
 }
   $mesa=$_SESSION["mesa"];
   $id = $_POST["id"];
-  $idCampo = $_POST["idCampo"];
+
   $tipo = $_POST["tipo"];
   if($mesa!=null){
      // $ultimaJugadaJugador=jugada::obtenerUltimaPorJugador($_SESSION["usuario"]->getId());
@@ -21,18 +21,7 @@ function __autoload($class_name) {
             echo json_encode(array('idJugada' => -1));
         }
 
-    }else if($idCampo!=null){
-        $laMesa=$_SESSION["mesa"];
-        $unaJugada=new Jugada();
-        if($tipo=="X"){
-            $unaJugada->setEsCruz(1);
-        }else{
-            $unaJugada->setEsCruz(0);
-        }
-        $unaJugada->setIdCampo($idCampo);
-        $unaJugada->setJugador($_SESSION["usuario"]->getId());
-        $unaJugada->setMesa($laMesa->getIdMesa());
-        $unaJugada->save();
-    }
+
+  }
 
 ?>

@@ -25,7 +25,7 @@ class pJugada {
       $result=mySql::query("SELECT * FROM ".pJugada::TABLA." WHERE ".pJugada::ID." = '$idJugada'");
      if(mysql_num_rows($result)>0){
     $data = mysql_fetch_array($result);
-      $unaJugada = cargarMySqlRowEnMesa($data);
+      $unaJugada = pJugada::cargarMySqlRow($data);
       return $unaJugada;
       //return json_encode($data);
     }else{

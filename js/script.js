@@ -238,13 +238,25 @@ function checkTablaActualizada(){
   }else{
      $("#titulo").text("");
   }
-  //areaJuego
-  $("#areaJuego").load("index.php", {
-      pagina : "actualizarTabla",
-      id : id_actual
-    });
+  $.ajax({
+        url: "lib/ActualizaTabla.php",
+        type: "POST",
+        dataType:"json",
+        data: ({
+            tipo : miTipo
 
-}
+        }),
+        success: actualizaTabla,
+        error: mostrarError
+    })
+  }
+  //areaJuego
+ // $("#areaJuego").load("index.php", {
+  //    pagina : "actualizarTabla",
+  //    id : id_actual
+ //   });
+
+//}
 
 function actualizaTabla(jugada){
   if(jugada!=undefined){
