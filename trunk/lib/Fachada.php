@@ -86,12 +86,21 @@ class Fachada {
     juego::jugar();
     return true;
   }
-  static function grabarJugada($campo,$esCruz) {
-    $unaJugada=juego::grabarJugada($campo,$esCruz);
-    return $unaJugada;
+  static function grabarJugada() {
+    juego::grabarJugada();
+    return true;
   }
   static function actualizarTabla() {
     juego::actualizarTabla();
+    return true;
+  }
+  static function checkOponente() {
+    juego::checkquearOponente();
+    return true;
+  }
+
+  static function esMiTurno() {
+    juego::esMiTurno();
     return true;
   }
 
