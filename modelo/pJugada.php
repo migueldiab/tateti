@@ -23,25 +23,35 @@ class pJugada {
 
     static function obtenerPorIdJugada($idJugada) {
       $result=mySql::query("SELECT * FROM ".pJugada::TABLA." WHERE ".pJugada::ID." = '$idJugada'");
-      $data = mysql_fetch_array($result);
-      //$unaJugada = cargarMySqlRowEnMesa($data);
-      return json_encode($data);
+     if(mysql_num_rows($result)>0){
+    $data = mysql_fetch_array($result);
+      $unaJugada = cargarMySqlRowEnMesa($data);
+      return $unaJugada;
+      //return json_encode($data);
+    }else{
+    return null;
+    
+    }
+
     }
 
     static function obtenerPorIdMesa($idMesa) {
-      $result=mySql::query("SELECT * FROM ".pJugada::TABLA." WHERE ".pJugada::MESA." = '$idMesa'");
-      $lista = new ArrayList();
-      if(mysql_num_rows($result)>0)
-      {
-       while ($data = mysql_fetch_array($result)) {
-          $unaJugada = pJugada::cargarMySqlRow($data);
-          $lista->add($unaJugada);
+ try {
+            $result=mySql::query("SELECT * FROM ".pJugada::TABLA." WHERE ".pJugada::MESA." = '$idMesa'");
+            $lista = new ArrayList();
+            if(mysql_num_rows($result)>0) {
+                while ($data = mysql_fetch_array($result)) {
+                    $unaJugada = pJugada::cargarMySqlRow($data);
+                    $lista->add($unaJugada);
+                }
+                return $lista;
+            }
+            else {
+                return null;
+            }
+        } catch (Exception $e) {
+            return null;
         }
-        return $lista;
-      }
-      else {
-         return null;
-      }
     }
 
     static function obtenerUltimaJugadaPorIdMesa($idMesa) {
@@ -51,17 +61,28 @@ class pJugada {
       return $unaJugada;
     }
 
+     static function obtenerUltimaPorJugador($idJugador) {
+      $result=mySql::query("SELECT MAX(".pJugada::ID.") FROM ".pJugada::TABLA." WHERE ".pJugada::JUGADOR." = '$idJugador'");
+      $data = mysql_fetch_array($result);
+      $unaJugada = cargarMySqlRow($data);
+      return $unaJugada;
+    }
+
     static function save($unaJugada, $unaMesa) {
       if ($unaJugada!=null)
       {
-        $query="INSERT INTO ".pJugada::TABLA." (".pJugada::CAMPO.", ".pJugada::CRUZ.", ".pJugada::JUGADOR.", ".pJugada::MESA.")
+        $query="INSERT INTO ".pJugada::TABLA." (".pJugada::HORA.", ".pJugada::CAMPO.", ".pJugada::CRUZ.", ".pJugada::JUGADOR.", ".pJugada::MESA.")
                 VALUES (
+                '".$unaJugada->getHora()."',
                 '".$unaJugada->getIdCampo()."',
                 '".$unaJugada->getEsCruz()."',
                 '".$unaJugada->getJugador()->getId()."',
                 '".$unaMesa->getId()."')";
-        $id=mySql::queryId($query);
-        return $id;
+        $idJugada=mySql::queryId($query);
+        if ($unaJugada->getId()==null) {
+        $unaJugada->setId($idJugada);
+      }
+        return $unaJugada;
       }
       else {
         return false;

@@ -136,13 +136,9 @@ class Mesa {
     $unaJugada->setEsCruz($esCruz);
     $unaJugada->setIdCampo($campo); 
     $unaJugada->setJugador($jugador);
-    if ($unaJugada->save($mesa)) {
-      $this->jugadas->add($unaJugada);    
-      return true;
-    }
-    else {
-      return false;
-    }
+    return $unaJugada->save($mesa);
+//    $jugadas->add($unaJugada); da error
+    
   }
 
 }

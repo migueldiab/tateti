@@ -53,9 +53,14 @@ class Jugada {
   }
 
   static function obtenerPorIdJugada($id) {
-    $unaJugada = pMesa::obtenerPorIdJugada($id);
+    $unaJugada = pJugada::obtenerPorIdJugada($id);
     return $unaJugada;
   }
+
+    static function obtenerUltimaPorJugador($idJugador) {
+    $unaJugada = pJugada::obtenerUltimaPorJugador($idJugador);
+    return $unaJugada;
+   }
 
   static function obtenerPorIdMesa($id) {
     $unaJugada = pJugada::obtenerPorIdMesa($id);

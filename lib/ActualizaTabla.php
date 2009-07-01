@@ -1,14 +1,24 @@
 <?php
+session_start();
+require_once  "../index.php";
+function __autoload($class_name) {
+    require_once $class_name . '.php';
+}
   $mesa=$_SESSION["mesa"];
   $id = $_POST["id"];
   $idCampo = $_POST["idCampo"];
   $tipo = $_POST["tipo"];
   if($mesa!=null){
-        $jugada=pJugada::obtenerPorIdJugada($id()+1);
+     // $ultimaJugadaJugador=jugada::obtenerUltimaPorJugador($_SESSION["usuario"]->getId());
+  //    if($ultimaJugadaJugador!=null){
+
+  //   $next=$id+1;
+      $jugada=jugada::obtenerPorIdJugada($_SESSION["UltimoIdJugada"]);
+   //   }
         if($jugada!=null){
-            return $jugada;
+            echo json_encode($jugada);
         }else{
-            return 0;
+            echo json_encode(array('idJugada' => -1));
         }
 
     }else if($idCampo!=null){

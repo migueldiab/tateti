@@ -86,9 +86,9 @@ class Fachada {
     juego::jugar();
     return true;
   }
-  static function grabarJugada() {
-    juego::grabarJugada();
-    return true;
+  static function grabarJugada($campo,$esCruz) {
+    $unaJugada=juego::grabarJugada($campo,$esCruz);
+    return $unaJugada;
   }
   static function actualizarTabla() {
     juego::actualizarTabla();
