@@ -8,8 +8,8 @@ var delayCall=10000;
 var cantJugadores;
 var miTipo;
 var tipoOponente;
-var miturno = false;
-
+var miTurno = false;
+var noInterval = 0;
 function eventos(){
  //   $("#nuevoJuego").click(borrar)
     checkStatusJuego();
@@ -30,7 +30,7 @@ function validar()
   {
     alert("juego ya terminado");
   }
-  else if(miturno!=true)
+  else if(miTurno!=true)
   {
     alert("no es mi turno o juego no iniciado");
   }
@@ -40,7 +40,7 @@ function validar()
   }
   else
   {
-    if($(this).text()=="")
+    if($(this).text()=="")//innerhtml???
     {
       enviarDatos($(this));
     }
@@ -196,11 +196,13 @@ function juegoActivo()
 {
   $("#titulo").text("esperando movimiento adversario")
   started=true;
-  miturno=false;
+  miTurno=false;
+  miTipo=0;
   intervalo = setInterval("checkTablaActualizada()", delayCall);
 }
 
 function juegoEnEspera(){
+    miTipo=1;
     $("#titulo").text("Esperando Oponente");
     intervalo = setInterval("consultarOponente()", delayCall);
 
@@ -211,7 +213,7 @@ function consultarOponente(){
         type: "POST",
         dataType:"json",
         data: ({
-            jugadores : 2
+            tipo : "checkOponente"
         }),
         success: iniciaJuego,
         error: mostrarError
@@ -219,15 +221,23 @@ function consultarOponente(){
   }
 
 function iniciaJuego(datos){
-    if(datos.activo==true)
+    if(datos!=undefined){
+    if(datos.activo=='true'){
       $("#titulo").text("hacer jugada");
     started=true;
-    miturno=true;
+    miTurno=true;
+    clearInterval(intervalo);
+    }
+}
 }
 
 
 function checkTablaActualizada(){
-  $("#titulo").text("");
+  if(miTurno==false){
+     $("#titulo").text("esperando movimiento adversario");
+  }else{
+     $("#titulo").text("");
+  }
   //areaJuego
   $("#areaJuego").load("index.php", {
       pagina : "actualizarTabla",
@@ -238,40 +248,44 @@ function checkTablaActualizada(){
 
 function actualizaTabla(jugada){
   if(jugada!=undefined){
+      if(jugada.idJugada!=-1){
       var esCruz;
-       $("#titulo").text("hacer jugada");
-      if (jugada.es_cruz[0]==1){
-          esCruz=1;
+      if (jugada.es_cruz=='1'){
+          esCruz="X";
       }else{
-          esCruz=0;
+          esCruz="O";
       }
-      $("#jugada.idCampo[0]").text(esCruz);
-      id_actual=jugada.id;
+      var idCampo=jugada.idCampo;
+      $('#'+idCampo).text(esCruz);
+      id_actual=jugada.idJugada;
       if(miTurno==true){
           miTurno=false;
+          $("#titulo").text("esperar movimiento oponente");
+          intervalo = setInterval("checkTablaActualizada()", delayCall);
       }else if(miTurno==false){
           miTurno=true;
+          $("#titulo").text("hacer jugada");
+           clearInterval(intervalo);
       }
   }
+}
 }
 
 function enviarDatos(unObjeto)
 {
   $("#titulo").text("Enviando Jugada");
   $.ajax({
-    url: "index.php",
+    url: "lib/checker.php",
     type: "POST",
     dataType:"json",
     data: ({
-      pagina : "grabarJugada",
+      tipo : "grabarJugada",
       idCampo : unObjeto.attr('id'),
-      esCruz : 1
+      esCruz : miTipo
     }),
     success: actualizaTabla,
     error: mostrarError
   })
-
-
 }
 
   function seleccionarXO(mensaje){
@@ -285,5 +299,5 @@ function enviarDatos(unObjeto)
 
   function mostrarError()
   {
-      //alert("ERROR!");
+      alert("ERROR!");
   }

@@ -103,15 +103,13 @@ class juego {
       return $unaMesa;
   }
 
-  static function grabarJugada() {
+  static function grabarJugada($campo,$esCruz) {
     $jugador=$_SESSION["usuario"];
     $mesa=$_SESSION["mesa"];
-    $campo=$_POST["idCampo"];
-    $esCruz=$_POST["esCruz"];
     if ($jugador==null || $mesa==null) {
       die("error de mesa o usuario");
     }
-    $mesa->nuevaJugada($mesa, $jugador, $campo, $esCruz);
+    return $mesa->nuevaJugada($mesa, $jugador, $campo, $esCruz);
 
   }
   static function actualizarTabla() {
