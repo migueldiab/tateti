@@ -8,19 +8,32 @@ var delayCall=10000;
 var cantJugadores;
 var miTipo;
 var tipoOponente;
-var miTurno = false;
-var noInterval = 0;
+var miturno = false;
+
 function eventos(){
  //   $("#nuevoJuego").click(borrar)
     checkStatusJuego();
-    td=$('td');
-    td.click(validar);
+//    td=$('td');
+//    td.click(validar);
 }
 
-function esMiTurno() {
-  this.miTurno = true;
+function esMiTurno(datos) {
+  $("#titulo").text("Es Mi Turno : "+datos.esMiTurno);
+  if (datos.esMiTurno==true) {
+    miturno=true;
+  }
+  else {
+    miturno=false;
+  }
+  if (datos.soyCruz==true) {
+    miTipo='X';
+  }
+  else {
+    miTipo='O';
+  }
+
 }
-function validar()
+function validar(unObjeto)
 {
   //alert ("validando");
 
@@ -30,7 +43,7 @@ function validar()
   {
     alert("juego ya terminado");
   }
-  else if(miTurno!=true)
+  else if(miturno==false)
   {
     alert("no es mi turno o juego no iniciado");
   }
@@ -40,19 +53,15 @@ function validar()
   }
   else
   {
-    if($(this).text()=="")//innerhtml???
+    if(unObjeto.text()=="")
     {
-      enviarDatos($(this));
+      
+      enviarDatos(unObjeto);
     }
     else
     {
       alert("el campo ya esta marcado");
     }
-    //if(over==false&&checkPreviousClick()==true){$(this).text(XO)}
-//    if(over==false) {
-//      checkResult()
-//    }
-//    checkEmpate();
   }
 }
 
@@ -125,11 +134,12 @@ function checkResult(){
     var valor1=tr.firstChild.nextSibling.innerHTML
     var valor2=tr.firstChild.nextSibling.nextSibling.nextSibling.innerHTML
     var valor3=tr.lastChild.previousSibling.innerHTML
-     checkGanador(valor1,valor2,valor3)
+    checkGanador(valor1,valor2,valor3)
   }
 
  //checkeo diagonal sup izq der abajo
  var j=0
+ alert(trV[j].firstChild.nextSibling.innerHTML);
  var trV = document.getElementsByTagName("tr");
  var valorV1=trV[j].firstChild.nextSibling.innerHTML
  var valorV2=trV[j+1].firstChild.nextSibling.nextSibling.nextSibling.innerHTML
@@ -165,9 +175,11 @@ function checkResult(){
 }
 
 function checkGanador(v1,v2,v3){
-    over=false
-    if(v1==v2&&v2==v3&&v1!=vacio)over=true;
-    if(over==true)alert(v1 + " es el ganador");
+    over=false;
+    if (v1==v2 && v2==v3 && v1!=vacio)
+      over=true;
+    if (over==true)
+        alert(v1 + " es el ganador");
     
 }
 function checkEmpate(){
@@ -184,11 +196,16 @@ function checkEmpate(){
 
 function checkStatusJuego(){
     $val=$("#jugadores").attr("title");
-    if($val=="1"){
-        juegoEnEspera();
-    }else if($val=="2"){
-        juegoActivo();
-    }
+    juegoActivo();
+//    if($val=="1")
+//    {
+//        juegoEnEspera();
+//    }
+//    else if($val=="2")
+//    {
+//
+//
+//    }
 
 }
 
@@ -196,24 +213,22 @@ function juegoActivo()
 {
   $("#titulo").text("esperando movimiento adversario")
   started=true;
-  miTurno=false;
-  miTipo=0;
   intervalo = setInterval("checkTablaActualizada()", delayCall);
 }
 
 function juegoEnEspera(){
-    miTipo=1;
     $("#titulo").text("Esperando Oponente");
     intervalo = setInterval("consultarOponente()", delayCall);
 
 }
 function consultarOponente(){
    $.ajax({
-        url: "lib/checker.php",
+        url: "index.php",
         type: "POST",
         dataType:"json",
         data: ({
-            tipo : "checkOponente"
+            pagina : 'checkOponente',
+            jugadores : 2
         }),
         success: iniciaJuego,
         error: mostrarError
@@ -221,84 +236,90 @@ function consultarOponente(){
   }
 
 function iniciaJuego(datos){
-    if(datos!=undefined){
-    if(datos.activo=='true'){
+    if(datos.activo==true)
       $("#titulo").text("hacer jugada");
     started=true;
-    miTurno=true;
-    clearInterval(intervalo);
-    }
-}
 }
 
 
 function checkTablaActualizada(){
-  if(miTurno==false){
-     $("#titulo").text("esperando movimiento adversario");
-  }else{
-     $("#titulo").text("");
-  }
+  $("#titulo").text("Chequea");
+  //areaJuego
   $.ajax({
-        url: "lib/ActualizaTabla.php",
+        url: "index.php",
         type: "POST",
-        dataType:"json",
+        dataType:"html",
         data: ({
-            tipo : miTipo
-
+            pagina : 'actualizarTabla',
+            id : id_actual
         }),
         success: actualizaTabla,
         error: mostrarError
     })
-  }
-  //areaJuego
- // $("#areaJuego").load("index.php", {
-  //    pagina : "actualizarTabla",
-  //    id : id_actual
- //   });
+  
 
-//}
+}
 
 function actualizaTabla(jugada){
+  //alert(jugada);
+
   if(jugada!=undefined){
-      if(jugada.idJugada!=-1){
-      var esCruz;
-      if (jugada.es_cruz=='1'){
-          esCruz="X";
-      }else{
-          esCruz="O";
-      }
-      var idCampo=jugada.idCampo;
-      $('#'+idCampo).text(esCruz);
-      id_actual=jugada.idJugada;
-      if(miTurno==true){
-          miTurno=false;
-          $("#titulo").text("esperar movimiento oponente");
-          intervalo = setInterval("checkTablaActualizada()", delayCall);
-      }else if(miTurno==false){
-          miTurno=true;
-          $("#titulo").text("hacer jugada");
-           clearInterval(intervalo);
-      }
+    $('#areaJuego').html(jugada);
+    //checkResult();
+    //checkEmpate();
+
+    var esCruz;
+    $("#titulo").text("hacer jugada");
+    $.ajax({
+        url: "index.php",
+        type: "POST",
+        dataType:"json",
+        data: ({
+            pagina : 'esMiTurno'
+        }),
+        success: esMiTurno,
+        error: mostrarError
+    })
   }
-}
 }
 
 function enviarDatos(unObjeto)
 {
   $("#titulo").text("Enviando Jugada");
   $.ajax({
-    url: "lib/checker.php",
+    url: "index.php",
     type: "POST",
     dataType:"json",
     data: ({
-      tipo : "grabarJugada",
+      pagina  : "grabarJugada",
       idCampo : unObjeto.attr('id'),
-      esCruz : miTipo
+      miTipo  : miTipo
     }),
-    success: actualizaTabla,
+    success: chequeoEstado,
     error: mostrarError
   })
 }
+  function chequeoEstado(datos) {
+    if (datos.ganador=='empate') {
+      alert("Empate!");
+    }
+    else if (datos.ganador=='j1') {
+      if (datos.soyGanador==true) {
+        alert("Felicitaciones!!! Has Ganado!");
+      }
+      if (datos.soyPerdedor==true) {
+        alert("Lamentablemente has perdido esta vez!");
+      }
+    }
+    else if (datos.ganador=='j2') {
+      if (datos.soyGanador==true) {
+        alert("Felicitaciones!!! Has Ganado!");
+      }
+      if (datos.soyPerdedor==true) {
+        alert("Lamentablemente has perdido esta vez!");
+      }
+    }
+  }
 
   function seleccionarXO(mensaje){
     if(mensaje=="seleccionarXO"){
@@ -311,5 +332,5 @@ function enviarDatos(unObjeto)
 
   function mostrarError()
   {
-      alert("ERROR!");
+      //alert("ERROR!");
   }

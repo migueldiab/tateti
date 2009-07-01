@@ -127,12 +127,18 @@ class Sistema {
         $variables['jugadores']='2';
         if ($X>$O) {
           if ($soyO) {
-            $finish =  "<script language=javascript> esMiTurno(); </script>";
+            $variables['esMiTurno']='1';
+          }
+          else {
+           $variables['esMiTurno']='0';
           }
         }
         else {
           if ($soyX) {
-            $finish = "<script language=javascript> esMiTurno(); </script>";
+            $variables['esMiTurno']='';
+          }
+          else {
+           $variables['esMiTurno']='0';
           }
         }
       }
@@ -140,7 +146,6 @@ class Sistema {
       {
  // MARCOS SACO ESTO       echo "<script language=javascript> juegoEnEspera(); </script>";
         $variables['jugadores']='1';
-        echo "Esperando fen mesa : ".$unaMesa->getId();
       }
     }
     echo HtmlHelper::bodyContent($menuTop, $menuMedio, $cabezal, $menuBajo, $tab, $variables);

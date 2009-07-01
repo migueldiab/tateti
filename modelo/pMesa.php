@@ -91,14 +91,11 @@ class pMesa {
     if ($unaMesa!=null) {
       if($unaMesa->getGanador()!=null && $unaMesa->getJugador1()!=null && $unaMesa->getJugador2()!=null)
       {
-        $query="REPLACE INTO ".pMesa::TABLA." (".pMesa::ID.", ".pMesa::CREADA.", ".pMesa::ESTADO.", ".pMesa::GANADOR.", ".pMesa::JUGADOR_1.", ".pMesa::JUGADOR_2.")
-                VALUES (
-                '".$unaMesa->getId()."',
-                '".$unaMesa->getCreada()."',
-                '".$unaMesa->getEstado()."',
-                '".$unaMesa->getGanador()->getId()."',
-                '".$unaMesa->getJugador1()->getId()."',
-                '".$unaMesa->getJugador2()->getId()."')";
+        $query="UPDATE ".pMesa::TABLA." SET "
+                .pMesa::ESTADO." = '".$unaMesa->getEstado()."',"
+                .pMesa::GANADOR." = '".$unaMesa->getGanador()->getId()."',"
+                .pMesa::JUGADOR_1." = '".$unaMesa->getJugador1()->getId()."',"
+                .pMesa::JUGADOR_2." = '".$unaMesa->getJugador2()->getId()."' WHERE ".pMesa::ID." = '".$unaMesa->getId()."'";
       }
       else if($unaMesa->getJugador1()!=null && $unaMesa->getJugador2()!=null)
       {

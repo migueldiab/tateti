@@ -7,19 +7,19 @@
   <table frame="0" width="60%" height="120px" border="1" style="font-size:40px; text-align:center;" id="board">
       <tbody>
       <tr id="tr1">
-        <td onclick="validar();" id="1" width="33%" height="40px">{campo_1}</td>
-          <td onclick="validar();" id="2" width="33%">{campo_2}</td>
-          <td onclick="validar();" id="3" width="33%">{campo_3}</td>
+        <td onclick="validar($(this));" id="1" width="33%" height="40px">{campo_1}</td>
+          <td onclick="validar($(this));" id="2" width="33%">{campo_2}</td>
+          <td onclick="validar($(this));" id="3" width="33%">{campo_3}</td>
       </tr>
       <tr id="tr2">
-          <td onclick="validar();" id="4" width="33%" height="40px">{campo_4}</td>
-          <td onclick="validar();" id="5" width="33%">{campo_5}</td>
-          <td onclick="validar();" id="6" width="33%">{campo_6}</td>
+          <td onclick="validar($(this));" id="4" width="33%" height="40px">{campo_4}</td>
+          <td onclick="validar($(this));" id="5" width="33%">{campo_5}</td>
+          <td onclick="validar($(this));" id="6" width="33%">{campo_6}</td>
       </tr>
       <tr id="tr3">
-          <td onclick="validar();" id="7" width="33%" height="40px">{campo_7}</td>
-          <td onclick="validar();" id="8" width="33%">{campo_8}</td>
-          <td onclick="validar();" id="9" width="33%">{campo_9}</td>
+          <td onclick="validar($(this));" id="7" width="33%" height="40px">{campo_7}</td>
+          <td onclick="validar($(this));" id="8" width="33%">{campo_8}</td>
+          <td onclick="validar($(this));" id="9" width="33%">{campo_9}</td>
       </tr>
       </tbody>
   </table>
