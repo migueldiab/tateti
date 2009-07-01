@@ -21,7 +21,7 @@
       <div class="tick_head">
         Bienvenido <span class="tick_head1">{usuario}</span> a TaTeTi Online
       </div>
-      <div class="inner_banner">
+      <div class="inner_banner" id="areaJuego">
   {mostrarJuego}
       </div>
     </div>

@@ -114,6 +114,63 @@ class juego {
     $mesa->nuevaJugada($mesa, $jugador, $campo, $esCruz);
 
   }
+  static function actualizarTabla() {
+    $unaMesa = $_SESSION["mesa"];
+    if($unaMesa!=null)
+    {
+      $soyX = false;
+      $soyO = false;
+      $unaMesa=Mesa::obtenerPorId($_SESSION["mesa"]->getId());
+      if($unaMesa->getEstado()==Mesa::MESA_ACTIVA)
+      {
+        if ($unaMesa->getJugador1()==$_SESSION['usuario']) {
+          $soyX = true;
+        }
+        elseif ($unaMesa->getJugador2()==$_SESSION['usuario']) {
+          $soyO = true;
+        }
+        $X = 0;
+        $O = 0;
+        if ($unaMesa->getJugadas()!=null) {
+          while ($unaMesa->getJugadas()->hasNext()) {
+            $unaJugada = new Jugada();
+            $unaJugada = $unaMesa->getJugadas()->next();
+            if ($unaJugada->getEsCruz()) {
+              $variables['campo_'.$unaJugada->getIdCampo()] = 'X';
+              $X++;
+            }
+            else {
+              $variables['campo_'.$unaJugada->getIdCampo()] = 'O';
+              $O++;
+            }
+          }
+        }
+        else if($unaMesa->getEstado()==Mesa::MESA_EN_ESPERA)
+        {
+          $variables['jugadores']='1';
+        }
+        $variables['jugadores']='2';
+        if ($X>$O) {
+          if ($soyO) {
+            $finish =  "<script language=javascript> esMiTurno(); </script>";
+          }
+        }
+        else {
+          if ($soyX) {
+            $finish = "<script language=javascript> esMiTurno(); </script>";
+          }
+        }
+      }
+      else if($unaMesa->getEstado()==Mesa::MESA_EN_ESPERA)
+      {
+ // MARCOS SACO ESTO       echo "<script language=javascript> juegoEnEspera(); </script>";
+        $variables['jugadores']='1';
+        echo "Esperando fen mesa : ".$unaMesa->getId();
+      }
+    }
+    echo Juego::mostrarJuego($variables);
+  }
+
 
 }
 ?>
