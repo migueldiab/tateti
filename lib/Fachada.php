@@ -12,21 +12,21 @@
   /*
    * Librerias Usadas 
    */
-  include_once  "./lib/Sistema.php";
-  include_once  "./lib/HtmlHelper.php";
-  include_once  "./lib/Generico.php";
-  include_once  "./lib/mySql.php";
-  include_once  "./lib/juego.php";
-  include_once  "./lib/Usuario.php";
-  include_once  "./lib/Jugador.php";
-  include_once  "./lib/Jugada.php";
-  include_once  "./lib/Mesa.php";
+  include_once  "Sistema.php";
+  include_once  "HtmlHelper.php";
+  include_once  "Generico.php";
+  include_once  "mySql.php";
+  include_once  "juego.php";
+  include_once  "Usuario.php";
+  include_once  "Jugador.php";
+  include_once  "Jugada.php";
+  include_once  "Mesa.php";
 
-  include_once  "./vendor/ArrayList.php";
+  include_once($_SERVER["DOCUMENT_ROOT"] . "/tateti/vendor/ArrayList.php")  ;
 
-  include_once  "./modelo/pUsuario.php";
-  include_once  "./modelo/pMesa.php";
-  include_once  "./modelo/pJugada.php";
+  include_once($_SERVER["DOCUMENT_ROOT"] . "/tateti/modelo/pUsuario.php");
+  include_once($_SERVER["DOCUMENT_ROOT"] . "/tateti/modelo/pMesa.php");
+  include_once($_SERVER["DOCUMENT_ROOT"] . "/tateti/modelo/pJugada.php");
 
 class Fachada {
 

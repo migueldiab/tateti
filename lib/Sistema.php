@@ -138,7 +138,7 @@ class Sistema {
       }
       else if($unaMesa->getEstado()==Mesa::MESA_EN_ESPERA)
       {
-        echo "<script language=javascript> juegoEnEspera(); </script>";
+ // MARCOS SACO ESTO       echo "<script language=javascript> juegoEnEspera(); </script>";
         $variables['jugadores']='1';
         echo "Esperando fen mesa : ".$unaMesa->getId();
       }
